@@ -19,11 +19,11 @@ namespace View
         public int XPos {
             get => _xPos;
             set {
-                if(value <= 0 )
+                if (value <= 0)
                     _xPos = 0;
-                else if (value >= _maxWidth-SpirteWidth)
+                else if (value >= _maxWidth - SpirteWidth)
                     _xPos = _maxWidth - SpirteWidth;
-                else 
+                else
                     _xPos = value;
             }
         }
@@ -35,7 +35,7 @@ namespace View
 
             SpirteHeight = 2;
             SpirteWidth = 2;
-            
+
         }
         public void Draw() {
             Console.SetCursorPosition(XPos, (Console.WindowHeight - 2));

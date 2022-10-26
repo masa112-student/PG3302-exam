@@ -15,11 +15,10 @@ namespace View
         public int SpirteHeight { get; set; }
         public int SpirteWidth { get; set; }
 
-        public int YPos
-        {
+        public int XPos { get => _startX;  }
+        public int YPos {
             get => _yPos;
-            set
-            {
+            set {
                 if (value <= 0)
                     _yPos = 0;
                 else if (value >= _maxHeight - SpirteWidth)
@@ -29,8 +28,7 @@ namespace View
             }
         }
 
-        public Bullet(int maxHeight, int startX)
-        {
+        public Bullet(int maxHeight, int startX) {
 
             enemyTimer = new System.Timers.Timer();
             enemyTimer.Elapsed += BulletTimer_Elapsed;
@@ -48,18 +46,16 @@ namespace View
 
         }
 
-        private void BulletTimer_Elapsed(object? sender, System.Timers.ElapsedEventArgs e)
-        {
+        private void BulletTimer_Elapsed(object? sender, System.Timers.ElapsedEventArgs e) {
             YPos -= 1;
         }
 
-        public void Draw()
-        {
+        public void Draw() {
             Console.SetCursorPosition(_startX, YPos);
             Console.Write("o");
             Trace.WriteLine(YPos);
         }
     }
 }
-        
+
 
