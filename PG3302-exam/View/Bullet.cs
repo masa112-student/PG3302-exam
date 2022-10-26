@@ -32,7 +32,7 @@ namespace View
 
             enemyTimer = new System.Timers.Timer();
             enemyTimer.Elapsed += BulletTimer_Elapsed;
-            enemyTimer.Interval = 500;
+            enemyTimer.Interval = 100;
             enemyTimer.Start();
 
             _maxHeight = maxHeight;
@@ -53,7 +53,6 @@ namespace View
         public void Draw() {
             Console.SetCursorPosition(_startX, YPos);
             Console.Write("o");
-            Trace.WriteLine(YPos);
         }
     }
 }
