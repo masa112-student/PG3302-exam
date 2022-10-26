@@ -9,19 +9,32 @@ namespace View
             Console.SetWindowSize(50, 20);
             Console.SetBufferSize(50, 20);
 
-            Player player = new(Console.BufferWidth);
+			Enemy enemy = new(Console.BufferWidth);
+
+
+			Player player = new(Console.BufferWidth);
             while (true) {
-                Console.Clear();
+               Console.Clear();
 
                 player.Draw();
+                enemy.Draw();
+                Thread.Sleep(100);
 
-                var keypress = Console.ReadKey(true);
 
-                if (keypress.Key == ConsoleKey.A) {
-                    player.XPos -= 1;
-                } else if (keypress.Key == ConsoleKey.D) {
-                    player.XPos += 1;                
-                }
+                if (Console.KeyAvailable) {
+					var keypress = Console.ReadKey(true);
+
+					if (keypress.Key == ConsoleKey.A)
+					{
+						player.XPos -= 1;
+					}
+					else if (keypress.Key == ConsoleKey.D)
+					{
+						player.XPos += 1;
+					}
+				}
+
+                
             }
         }
     }
