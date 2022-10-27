@@ -13,6 +13,9 @@ namespace Serialization
         string fileName = "highScores.json";
 
         public List<Score> LoadHighScores() {
+            if(!File.Exists(fileName))
+                return new List<Score>();
+
             string jsonScores = File.ReadAllText(fileName, Encoding.UTF8);
             if (jsonScores == null || jsonScores.Equals(""))
                 return new List<Score>();
