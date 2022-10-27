@@ -27,7 +27,7 @@ namespace Serialization
                     Console.WriteLine("Enter score:");
                     
                     string? score = Console.ReadLine();
-                    int points = int.Parse(score ?? "0");
+                    int points = int.Parse(string.IsNullOrEmpty(score) ? "0" : score);
 
                     Score newScore = new Score(name, points);
 
