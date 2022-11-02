@@ -33,7 +33,7 @@ namespace View
 
             enemyTimer = new System.Timers.Timer();
             enemyTimer.Elapsed += EnemyTimer_Elapsed;
-            enemyTimer.Interval = 500;
+            enemyTimer.Interval = 200;
             enemyTimer.Start();
 
             _maxWidth = maxWidth;

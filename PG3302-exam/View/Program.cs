@@ -1,5 +1,7 @@
 ﻿using System.Diagnostics;
+using System.Runtime.CompilerServices;
 using Domain;
+using View;
 
 namespace View
 {
@@ -14,6 +16,9 @@ namespace View
 
             Player player = new(Console.BufferWidth);
 
+            EnemySpawner enemis = new EnemySpawner();
+               
+
             Bullet? bullet = null;
 
             Powerup? powerup = null;
@@ -23,18 +28,26 @@ namespace View
             while (true)
             {
 
+    
                 Console.Clear();
 
-                player.Draw();
-                if (enemy != null)
+    
+
+
+	            player.Draw();
+
+                if (enemy != null )
                 {
-                    enemy.Draw();
-                }
+                    enemis.UpdateCount();
+                        
+                    enemis.SpawnEnemies();        
+	            }
 
                 if (bullet != null)
                 {
                     bullet.Draw();
-                }
+		
+	            }
 
                 if (powerup != null)
                 {
@@ -50,8 +63,8 @@ namespace View
 
 
                 if (Console.KeyAvailable)
-                {
-                    var keypress = Console.ReadKey(true);
+                    {
+                        var keypress = Console.ReadKey(true);
 
                     if (keypress.Key == ConsoleKey.A)
                     {
@@ -59,35 +72,35 @@ namespace View
                     }
                     if (keypress.Key == ConsoleKey.Spacebar)
                     {
-                        bullet = new Bullet(Console.WindowHeight, player.XPos, 500);
+                        bullet = new Bullet(Console.WindowHeight, player.XPos, 100);
                     }
 
                     if (didPowerUp == true && keypress.Key == ConsoleKey.Spacebar)
                     {
-                        bullet = new Bullet(Console.WindowHeight, player.XPos, 200);
+                        bullet = new Bullet(Console.WindowHeight, player.XPos, 50);
                     }
                     else if (keypress.Key == ConsoleKey.D)
                     {
                         player.XPos += 1;
                     }
-                }
+                }       
 
                 if (powerup != null && didPowerUp == false)
-                {
+                    {
                     if (powerup.XPos == player.XPos)
-                    {
-                        didPowerUp = true;
-                        powerup = null;
+                        {
+                            didPowerUp = true;
+                            powerup = null;
+                        }
                     }
-                }
 
-                if (bullet != null && enemy != null)
-                {
-                    if (bullet.XPos == enemy.XPos && bullet.YPos == 2)
-                    {
-                        enemy = null;
+                    if (bullet != null && enemy != null)
+                        {
+                            if (bullet.XPos == enemy.XPos && bullet.YPos == 2)
+                        {
+                            enemy = null;
+                        }
                     }
-                }
             }
         }
     }
