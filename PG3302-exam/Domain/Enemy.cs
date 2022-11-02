@@ -2,16 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
+using System.IO;
 
 namespace View
 {
-    internal class Player
+    public class Enemy
     {
         private readonly int _maxWidth;
 
         private int _xPos;
+
+        private System.Timers.Timer enemyTimer;
 
         public int SpirteHeight { get; set; }
         public int SpirteWidth { get; set; }
@@ -28,7 +29,13 @@ namespace View
             }
         }
 
-        public Player(int maxWidth) {
+        public Enemy(int maxWidth) {
+
+            enemyTimer = new System.Timers.Timer();
+            enemyTimer.Elapsed += EnemyTimer_Elapsed;
+            enemyTimer.Interval = 500;
+            enemyTimer.Start();
+
             _maxWidth = maxWidth;
 
             XPos = _maxWidth / 2;
@@ -37,14 +44,19 @@ namespace View
             SpirteWidth = 2;
 
         }
-        public void Draw() {
-            Console.SetCursorPosition(XPos, (Console.WindowHeight - 2));
-            Console.Write("P");
-            Console.Write("P");
-            Console.SetCursorPosition(XPos, (Console.WindowHeight - 1));
 
-            Console.Write("P");
-            Console.Write("P");
+        private void EnemyTimer_Elapsed(object? sender, System.Timers.ElapsedEventArgs e) {
+            XPos += 1;
+        }
+
+        public void Draw() {
+            Console.SetCursorPosition(XPos, 2);
+            Console.Write("X");
+            //Console.Write("X");
+            Console.SetCursorPosition(XPos, 1);
+
+            Console.Write("X");
+            //Console.Write("X");
         }
     }
 }
