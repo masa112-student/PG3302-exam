@@ -15,7 +15,7 @@ namespace View
             return new Sprite();
         }
         public Bullet Attack() {
-            return new Bullet(0, 0);
+            return new Bullet(0, 0, 0);
         }
     }
 }
