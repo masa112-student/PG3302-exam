@@ -13,6 +13,7 @@ namespace Serialization
 
         public HighScores(List<Score> scores) {
             _scores = scores;
+            _scores.Sort((a, b) => b.Points - a.Points);    
         }
         public void UpdateScore(Score newScore) {
             if (_scores.Contains(newScore)) {
@@ -24,6 +25,8 @@ namespace Serialization
             else {
                 _scores.Add(newScore);
             }
+
+            _scores.Sort((a, b) => b.Points - a.Points);    
         }
 
         public bool DeleteScore(string name) {
