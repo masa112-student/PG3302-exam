@@ -13,7 +13,7 @@ namespace View
             Player player = new(Console.BufferWidth);
 
             Bullet? bullet = null;
-
+            
             while (true) {
                 Console.Clear();
 
@@ -50,14 +50,6 @@ namespace View
                     }
 
                 }
-
-
-
-
-
-
-
-
             }
         }
     }
