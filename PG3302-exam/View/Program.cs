@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Runtime.InteropServices;
 using Domain;
 
 namespace View
@@ -7,6 +8,49 @@ namespace View
     {
         static void Main(string[] args)
         {
+            NewRenderLoop();
+        }
+
+        static void NewRenderLoop() {
+            IRenderer r = new SimpleConsoleRenderer();
+
+            IUserInput i;
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows)) {
+                i = new WindowsConsoleUserInput();
+            }
+            else {
+                i = new SimpleConsoleUserInput();
+            }
+
+            Point center = new Point(Console.WindowWidth / 2, Console.WindowHeight / 2);
+            Sprite test = new("  ^  \n ^^^ ", center);
+            Stopwatch sw = Stopwatch.StartNew();
+
+            double FPS = 15;
+            double frameTime = (1.0 / FPS) * 1000;
+            Point moveDir = new Point(0, 0);
+
+            while (!i.IsKeyDown(ConsoleKey.Q)) {
+
+                moveDir.X = 0;
+
+                if (i.IsKeyDown(ConsoleKey.A))
+                    moveDir.X = -1;
+                if (i.IsKeyDown(ConsoleKey.D))
+                    moveDir.X = 1;
+                //if (i.IsKeyDown(ConsoleKey.Spacebar))
+                //    Trace.WriteLine("Bang!");
+
+                if (sw.ElapsedMilliseconds > frameTime) {
+                    test.Pos += moveDir;
+
+                    r.DrawSprite(test);
+                    sw.Restart();
+                }
+            }
+        }
+
+        static void OldRenderLoop() {
             Console.CursorVisible = false;
 
             Enemy? enemy = new(Console.BufferWidth);
@@ -20,71 +64,56 @@ namespace View
 
             bool didPowerUp = false;
 
-            while (true)
-            {
-
+            while (true) {
                 Console.Clear();
 
                 player.Draw();
-                if (enemy != null)
-                {
+                if (enemy != null) {
                     enemy.Draw();
                 }
 
-                if (bullet != null)
-                {
+                if (bullet != null) {
                     bullet.Draw();
                 }
 
-                if (powerup != null)
-                {
+                if (powerup != null) {
                     powerup.Draw();
                 }
 
-                if (enemy == null && didPowerUp == false)
-                {
+                if (enemy == null && didPowerUp == false) {
                     powerup = new Powerup(Console.WindowHeight, 100);
                 }
 
                 Thread.Sleep(100);
 
 
-                if (Console.KeyAvailable)
-                {
+                if (Console.KeyAvailable) {
                     var keypress = Console.ReadKey(true);
 
-                    if (keypress.Key == ConsoleKey.A)
-                    {
+                    if (keypress.Key == ConsoleKey.A) {
                         player.XPos -= 1;
                     }
-                    if (keypress.Key == ConsoleKey.Spacebar)
-                    {
+                    if (keypress.Key == ConsoleKey.Spacebar) {
                         bullet = new Bullet(Console.WindowHeight, player.XPos, 500);
                     }
 
-                    if (didPowerUp == true && keypress.Key == ConsoleKey.Spacebar)
-                    {
+                    if (didPowerUp == true && keypress.Key == ConsoleKey.Spacebar) {
                         bullet = new Bullet(Console.WindowHeight, player.XPos, 200);
                     }
-                    else if (keypress.Key == ConsoleKey.D)
-                    {
+                    else if (keypress.Key == ConsoleKey.D) {
                         player.XPos += 1;
                     }
                 }
 
-                if (powerup != null && didPowerUp == false)
-                {
-                    if (powerup.XPos == player.XPos)
-                    {
+                if (powerup != null && didPowerUp == false) {
+                    if (powerup.XPos == player.XPos) {
                         didPowerUp = true;
                         powerup = null;
                     }
                 }
 
-                if (bullet != null && enemy != null)
-                {
-                    if (bullet.XPos == enemy.XPos && bullet.YPos == 2)
-                    {
+                if (bullet != null && enemy != null) {
+                    if (bullet.XPos == enemy.XPos && bullet.YPos == 2) {
                         enemy = null;
                     }
                 }
