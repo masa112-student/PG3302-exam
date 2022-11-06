@@ -12,7 +12,7 @@ namespace View
         private ConsoleKey? _keyDown = null;
 
         private Stopwatch sw;
-        private double pollRateMs = 35;
+        private double pollRateMs = 35; // Keboard pollrate in the console averages about 33-36ms
 
         public SimpleConsoleUserInput() {
             sw = Stopwatch.StartNew();
@@ -30,7 +30,9 @@ namespace View
 
             return key == _keyDown;
         }
-
-
+        
+        public char ReadInput() {
+            return Console.ReadKey(true).KeyChar;
+        }
     }
 }

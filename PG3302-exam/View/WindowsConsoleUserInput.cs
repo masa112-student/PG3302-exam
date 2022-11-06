@@ -24,6 +24,8 @@ namespace View
             return (result & MOST_SIGNIFICANT_BIT) == MOST_SIGNIFICANT_BIT;
         }
 
-        public void PollInput() {}
+        public char ReadInput() {
+            return Console.ReadKey(true).KeyChar;
+        }
     }
 }
