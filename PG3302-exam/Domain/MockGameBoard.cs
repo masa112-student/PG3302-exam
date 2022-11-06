@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,6 +22,14 @@ namespace Domain
 
         public void Update() {
             
+        }
+
+        public void MovePlayer(IGameBoard.MoveDir dir) {
+            Trace.WriteLine($"Moving player to the {dir}");
+        }
+
+        public void PlayerAttack() {
+            throw new NotImplementedException();
         }
     }
 }
