@@ -33,7 +33,7 @@ namespace View
 
             _renderer.ClearScreen();
             _renderer.DrawString(0, 0, $"Welcome {_userName}!");
-            Thread.Sleep(1000);
+            //Thread.Sleep(1000);
 
             MenuView();
         }
@@ -77,14 +77,17 @@ namespace View
                 moveDir.X = 0;
 
                 if (_userInput.IsKeyDown(ConsoleKey.A))
-                    moveDir.X = -1;
+                    _gameBoard.MovePlayer(IGameBoard.MoveDir.LEFT);
                 if (_userInput.IsKeyDown(ConsoleKey.D))
-                    moveDir.X = 1;
+                    _gameBoard.MovePlayer(IGameBoard.MoveDir.RIGHT);
+                if (_userInput.IsKeyDown(ConsoleKey.Spacebar))
+                    _gameBoard.PlayerAttack();
 
                 if (sw.ElapsedMilliseconds > frameTime) {
+                    _gameBoard.Update();
                     test.Pos += moveDir;
-
-                    _renderer.DrawSprite(test);
+                    var sprites = _gameBoard.GetSprites();
+                    sprites.ForEach(sprite => _renderer.DrawSprite(sprite));
                     sw.Restart();
                 }
             }
