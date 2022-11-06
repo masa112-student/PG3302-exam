@@ -1,14 +1,22 @@
 ﻿using System.Diagnostics;
 using System.Runtime.InteropServices;
 using Domain;
+using Serialization;
+using DataTypes;
 
 namespace View
 {
     internal class Program
     {
-        static void Main(string[] args)
-        {
-            NewRenderLoop();
+        static void Main(string[] args) {
+            GameManager manager = new GameManager(
+                new SimpleConsoleRenderer(),
+                new WindowsConsoleUserInput(),
+                new MockGameBoard(),
+                new JsonPersistance()
+                );
+
+            manager.StartupView();
         }
 
         static void NewRenderLoop() {
