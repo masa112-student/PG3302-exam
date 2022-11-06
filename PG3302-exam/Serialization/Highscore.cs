@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataTypes
+namespace Serialization
 {
     public class HighScores {
         private List<Score> _scores;

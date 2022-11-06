@@ -2,7 +2,6 @@
 using System.Runtime.InteropServices;
 using Domain;
 using Serialization;
-using DataTypes;
 
 namespace View
 {

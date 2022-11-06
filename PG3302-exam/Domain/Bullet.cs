@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
-namespace View
+namespace Domain
 {
     public class Bullet
     {
