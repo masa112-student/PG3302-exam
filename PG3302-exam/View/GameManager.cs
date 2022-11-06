@@ -22,24 +22,15 @@ namespace View
         }
 
         public void StartupView() {
-
-            char c;
-            StringBuilder s = new StringBuilder();
+            UserInputFormatter formatter = new();
             do {
                 _renderer.ClearScreen();
                 _renderer.DrawString(0, 0, "Enter your name:");
-                _renderer.DrawString(0, 1, s.ToString());
-                c = _userInput.ReadInput();
-                if (c == (char)ConsoleKey.Backspace && s.Length > 0)
-                    s.Remove(s.Length-1, 1);
-                else
-                    s.Append(c);
-            } while (c != '\r');
-            s.Replace("\r", string.Empty);
-            s.Replace("\n'", string.Empty);
-            s.Replace("\b", string.Empty);
+                _renderer.DrawString(0, 1, formatter.GetInputString());
+                formatter.AddInput(_userInput.ReadInput());
 
-            _userName = s.ToString();
+            } while (formatter.LastReadChar != '\r');
+            _userName = formatter.GetInputString();
 
             _renderer.ClearScreen();
             _renderer.DrawString(0, 0, $"Welcome {_userName}!");
@@ -90,8 +81,6 @@ namespace View
                     moveDir.X = -1;
                 if (_userInput.IsKeyDown(ConsoleKey.D))
                     moveDir.X = 1;
-                //if (i.IsKeyDown(ConsoleKey.Spacebar))
-                //    Trace.WriteLine("Bang!");
 
                 if (sw.ElapsedMilliseconds > frameTime) {
                     test.Pos += moveDir;
@@ -132,5 +121,28 @@ namespace View
             _renderer.ClearScreen();
         }
 
+    }
+}
+
+
+class UserInputFormatter {
+    private StringBuilder _input = new StringBuilder();
+    
+    public char LastReadChar { get; private set; }
+
+    public void AddInput(char c) {
+        LastReadChar = c;
+        if (c == (char)ConsoleKey.Backspace && _input.Length > 0)
+            _input.Remove(_input.Length - 1, 1);
+        else
+            _input.Append(c);
+    }
+
+    public string GetInputString() {
+        _input.Replace("\r", string.Empty);
+        _input.Replace("\n'", string.Empty);
+        _input.Replace("\b", string.Empty);
+        
+        return _input.ToString();   
     }
 }
