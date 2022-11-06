@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 using Serialization;
-using System.Security.Cryptography.X509Certificates;
 using DataTypes;
 using Domain;
 using System.Diagnostics;
-using System.Runtime.InteropServices;
 
 namespace View
 {
@@ -41,9 +35,9 @@ namespace View
                 else
                     s.Append(c);
             } while (c != '\r');
-            s.Replace('\r', '\0');
-            s.Replace('\n', '\0');
-            s.Replace('\b', '\0');
+            s.Replace("\r", string.Empty);
+            s.Replace("\n'", string.Empty);
+            s.Replace("\b", string.Empty);
 
             _userName = s.ToString();
 
@@ -111,6 +105,10 @@ namespace View
         }
 
         public void GameOverView() {
+            var scores = _serializer.LoadHighScores();
+            scores.UpdateScore(new Score(_userName, _gameBoard.Score));
+            _serializer.SaveHighScores(scores);
+
             _renderer.ClearScreen();
             _renderer.DrawString(0, 0, $"Game over. Score {_gameBoard.Score}");
             _renderer.DrawString(0, 2, "Press enter to return to the menu");
@@ -128,9 +126,9 @@ namespace View
                 _renderer.DrawString(0, y++, $"{score.Name,-10}: {score.Points}");
             }
 
-            _renderer.DrawString(0, ++y, "Press backspace to return");
+            _renderer.DrawString(0, ++y, "Press enter to return to the menu");
 
-            while (!_userInput.IsKeyDown(ConsoleKey.Backspace));
+            while (!_userInput.IsKeyDown(ConsoleKey.Enter));
             _renderer.ClearScreen();
         }
 
