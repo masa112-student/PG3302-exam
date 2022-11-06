@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Domain;
+using DataTypes;
 
 namespace View
 {
     public interface IRenderer
     {
-        void DrawChar(int x, int y, char c);
+        void ClearScreen();
+        void DrawString(int x, int y, string s);
         void DrawSprite(Sprite sprite);
     }
 }

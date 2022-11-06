@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Domain;
+using DataTypes;
 
 namespace View
 {
@@ -16,11 +16,15 @@ namespace View
             Console.CursorVisible = true;
         }
 
-        public void DrawChar(int x, int y, char c) {
+        public void DrawString(int x, int y, string s) {
             if(x < Console.BufferWidth && y < Console.BufferHeight) {
                Console.SetCursorPosition(x, y);
-               Console.Write(c);
+               Console.Write(s);
             }
+        }
+
+        public void ClearScreen() {
+            Console.Clear();
         }
 
         public void DrawSprite(Sprite sprite) {
