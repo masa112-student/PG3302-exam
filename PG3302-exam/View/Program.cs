@@ -11,7 +11,7 @@ namespace View
             GameManager manager = new GameManager(
                 new SimpleConsoleRenderer(),
                 new WindowsConsoleUserInput(),
-                new MockGameBoard(),
+                new GameBoard(Console.WindowWidth, Console.WindowHeight),
                 new JsonPersistance()
                 );
 
