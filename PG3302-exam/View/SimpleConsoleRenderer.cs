@@ -28,9 +28,28 @@ namespace View
         }
 
         public void DrawSprite(Sprite sprite) {
+            if (sprite.Pos == null)
+                return;
+
+            int yPos;
             string[] lines = sprite.Data.Split("\n");
-            int yPos = sprite.Pos.Y;
-            foreach(string line in lines) {
+
+            if (sprite.PrevPos != null) {
+                int xPos;
+                yPos = sprite.PrevPos.Y;   
+                foreach (string line in lines) {
+                    xPos = sprite.PrevPos.X;
+                    foreach (char p in line) {
+                        Console.SetCursorPosition(xPos, yPos);
+                        Console.Write(" ");
+                        xPos++;
+                    }
+                    yPos++;
+                }
+            }
+
+            yPos = sprite.Pos.Y;
+            foreach (string line in lines) {
                 if (sprite.Pos.X >= Console.BufferWidth || yPos >= Console.BufferHeight) 
                     break;
 
