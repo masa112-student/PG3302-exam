@@ -19,45 +19,6 @@ namespace View
             manager.StartupView();
         }
 
-        static void NewRenderLoop() {
-            IRenderer r = new SimpleConsoleRenderer();
-
-            IUserInput i;
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows)) {
-                i = new WindowsConsoleUserInput();
-            }
-            else {
-                i = new SimpleConsoleUserInput();
-            }
-
-            Point center = new Point(Console.WindowWidth / 2, Console.WindowHeight / 2);
-            Sprite test = new("  ^  \n ^^^ ", center);
-            Stopwatch sw = Stopwatch.StartNew();
-
-            double FPS = 15;
-            double frameTime = (1.0 / FPS) * 1000;
-            Point moveDir = new Point(0, 0);
-
-            while (!i.IsKeyDown(ConsoleKey.Q)) {
-
-                moveDir.X = 0;
-
-                if (i.IsKeyDown(ConsoleKey.A))
-                    moveDir.X = -1;
-                if (i.IsKeyDown(ConsoleKey.D))
-                    moveDir.X = 1;
-                //if (i.IsKeyDown(ConsoleKey.Spacebar))
-                //    Trace.WriteLine("Bang!");
-
-                if (sw.ElapsedMilliseconds > frameTime) {
-                    test.Pos += moveDir;
-
-                    r.DrawSprite(test);
-                    sw.Restart();
-                }
-            }
-        }
-
         static void OldRenderLoop() {
             Console.CursorVisible = false;
 

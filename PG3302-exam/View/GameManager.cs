@@ -8,6 +8,7 @@ using System.Security.Cryptography.X509Certificates;
 using DataTypes;
 using Domain;
 using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace View
 {
@@ -44,9 +45,13 @@ namespace View
             s.Replace('\n', '\0');
             s.Replace('\b', '\0');
 
+            _userName = s.ToString();
+
             _renderer.ClearScreen();
-            _renderer.DrawString(0, 0, $"Hello {s.ToString()}!");
-            _userInput.ReadInput();
+            _renderer.DrawString(0, 0, $"Welcome {_userName}!");
+            Thread.Sleep(1000);
+
+            MenuView();
         }
 
         public void MenuView() {
@@ -74,14 +79,34 @@ namespace View
 
         public void GameView() {
             _renderer.ClearScreen();
-            _renderer.DrawString(0, 0, "We gaming?");
 
-            while(_gameBoard.IsGameActive) {
-                _gameBoard.Update();
-                if (_userInput.IsKeyDown(ConsoleKey.P))
-                    _gameBoard.IsGameActive = false;
+            Point center = new Point(Console.WindowWidth / 2, Console.WindowHeight / 2);
+            Sprite test = new("  ^  \n ^^^ ", center);
+            Stopwatch sw = Stopwatch.StartNew();
+
+            double FPS = 15;
+            double frameTime = (1.0 / FPS) * 1000;
+            Point moveDir = new Point(0, 0);
+
+            while (!_userInput.IsKeyDown(ConsoleKey.Q)) {
+
+                moveDir.X = 0;
+
+                if (_userInput.IsKeyDown(ConsoleKey.A))
+                    moveDir.X = -1;
+                if (_userInput.IsKeyDown(ConsoleKey.D))
+                    moveDir.X = 1;
+                //if (i.IsKeyDown(ConsoleKey.Spacebar))
+                //    Trace.WriteLine("Bang!");
+
+                if (sw.ElapsedMilliseconds > frameTime) {
+                    test.Pos += moveDir;
+
+                    _renderer.DrawSprite(test);
+                    sw.Restart();
+                }
             }
-
+            
             GameOverView();
         }
 
