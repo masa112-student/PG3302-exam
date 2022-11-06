@@ -4,58 +4,67 @@ namespace Domain
 {
     public class Bullet
     {
-        private readonly int _maxHeight;
+        private Sprite activeSprite;
+
+        public Point Pos { get => pos; set {
+                if (value.Y <= 0)
+                    value.Y = 0;
+                pos = value;
+            } }
+        public Sprite ActiveSprite {
+            get {
+                activeSprite.Pos = Pos;
+                return activeSprite;
+            }
+            set {
+                if (value != null)
+                    activeSprite = value;
+            }
+        }
 
         private int _yPos;
 
         private int _startX;
 
         private System.Timers.Timer enemyTimer;
+        private Point pos;
 
         public int SpirteHeight { get; set; }
         public int SpirteWidth { get; set; }
 
         public int XPos { get => _startX; }
-        public int YPos
-        {
+        public int YPos {
             get => _yPos;
-            set
-            {
-                if (value <= 0)
+            set {
+                if (value < 1)
                     _yPos = 0;
-                else if (value >= _maxHeight - SpirteWidth)
-                    _yPos = _maxHeight - SpirteWidth;
                 else
                     _yPos = value;
+
             }
         }
 
-        public Bullet(int maxHeight, int startX, int Speed)
-        {
-
+        public Bullet(int startY, int startX, int speed) {
             enemyTimer = new System.Timers.Timer();
             enemyTimer.Elapsed += BulletTimer_Elapsed;
-            enemyTimer.Interval = Speed;
+            enemyTimer.Interval = 1000.0/speed;
             enemyTimer.Start();
 
-            _maxHeight = maxHeight;
-
+            //_maxHeight = maxHeight;
+            Pos = new Point(startX, startY);
             _startX = startX;
 
-            YPos = (Console.WindowHeight - 3);
+            YPos = startY;
 
-            SpirteHeight = 1;
-            SpirteWidth = 1;
-
+            ActiveSprite = new Sprite(" o ");
         }
 
-        private void BulletTimer_Elapsed(object? sender, System.Timers.ElapsedEventArgs e)
-        {
+        private void BulletTimer_Elapsed(object? sender, System.Timers.ElapsedEventArgs e) {
+            Pos += new Point(0, -1);
             YPos -= 1;
         }
 
-        public void Draw()
-        {
+        public void Draw() {
             Console.SetCursorPosition(_startX, YPos);
             Console.Write("o");
             Trace.WriteLine(YPos);
