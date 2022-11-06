@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static System.Formats.Asn1.AsnWriter;
 
-namespace Serialization
+namespace DataTypes
 {
-    internal class HighScores {
+    public class HighScores {
         private List<Score> _scores;
         public List<Score> Scores { get { return _scores; } }
 
@@ -35,7 +34,8 @@ namespace Serialization
             return _scores.Remove(scoreToDelete);   
         }
     }
-    internal class Score
+
+    public class Score
     {
         public string Name { get; set; }
         public int Points { get; set; }
