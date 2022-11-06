@@ -1,13 +1,14 @@
 ﻿using System.Net.Sockets;
+using DataTypes;
 
 namespace Serialization
 {
     internal class Program
     {
         static void Main(string[] args) {
-            Serializer serializer = new Serializer();
+            JsonPersistance serializer = new JsonPersistance();
 
-            HighScores highScores = new(serializer.LoadHighScores());
+            HighScores highScores = serializer.LoadHighScores();
 
             bool quit = false;
             while(!quit) {
@@ -32,7 +33,7 @@ namespace Serialization
                     Score newScore = new Score(name, points);
 
                     highScores.UpdateScore(newScore);
-                    serializer.SaveScore(highScores.Scores);
+                    serializer.SaveHighScores(highScores);
                 }
                 if (keyPress.Key == ConsoleKey.D2) {
                     Console.WriteLine("Enter your name:");
@@ -40,7 +41,7 @@ namespace Serialization
                     string? name = Console.ReadLine();
 
                     highScores.DeleteScore(name);
-                    serializer.SaveScore(highScores.Scores);
+                    serializer.SaveHighScores(highScores);
                 }
                 if (keyPress.Key == ConsoleKey.D3) {
 

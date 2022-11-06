@@ -4,29 +4,30 @@ using System.Linq;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using DataTypes;
 
 namespace Serialization
 {
 
-    internal class Serializer
+    public class JsonPersistance : IPersistance
     {
         string fileName = "highScores.json";
 
-        public List<Score> LoadHighScores() {
+        public HighScores LoadHighScores() {
             if(!File.Exists(fileName))
-                return new List<Score>();
+                return new(new List<Score>());
 
             string jsonScores = File.ReadAllText(fileName, Encoding.UTF8);
             if (jsonScores == null || jsonScores.Equals(""))
-                return new List<Score>();
+                return new(new List<Score>());
 
             List<Score>? data = JsonSerializer.Deserialize<List<Score>>(jsonScores);
-
-            return data ?? new List<Score>();
+            HighScores scores = new HighScores(data ?? new List<Score>());
+            return scores;
         }
 
-        public void SaveScore(List<Score> scores) {
-            string jsonScores = JsonSerializer.Serialize(scores);
+        public void SaveHighScores(HighScores highScores) {
+            string jsonScores = JsonSerializer.Serialize(highScores.Scores);
 
             File.WriteAllText(fileName, jsonScores);
         }
