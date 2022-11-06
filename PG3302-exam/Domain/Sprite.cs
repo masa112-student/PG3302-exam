@@ -8,13 +8,18 @@ namespace Domain
 {
     public class Sprite
     {
-        public string Data { get; private set; }
-        public Point Pos { get; set; }
+        private Point? pos;
 
-        public Sprite(string data, Point pos) {
+        public string Data { get; private set; }
+        public Point? Pos { get => pos; set {
+                PrevPos = Pos;
+                pos = value;
+            } }
+        public Point? PrevPos { get; set; }
+        public Sprite(string data, Point? pos) {
             Data = data;
             Pos = pos;
         }
-        public Sprite(string data = ""):this(data, new Point(0,0)) { }
+        public Sprite(string data = "") : this(data, null) { }
     }
 }
