@@ -61,8 +61,8 @@ namespace View
         }
 
         private bool IsPointInBounds(Point p) {
-            return p.X > 0 &&
-                p.Y > 0 &&
+            return p.X >= 0 &&
+                p.Y >= 0 &&
                 p.X < Console.BufferWidth &&
                 p.Y < Console.BufferHeight;
         }
