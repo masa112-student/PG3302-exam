@@ -31,32 +31,40 @@ namespace View
             if (sprite.Pos == null)
                 return;
 
-            int yPos;
             string[] lines = sprite.Data.Split("\n");
 
+            Point spritePos;
             if (sprite.PrevPos != null) {
-                int xPos;
-                yPos = sprite.PrevPos.Y;   
+                spritePos = new Point(sprite.PrevPos);
                 foreach (string line in lines) {
-                    xPos = sprite.PrevPos.X;
-                    foreach (char p in line) {
-                        Console.SetCursorPosition(xPos, yPos);
+                    spritePos.X = sprite.PrevPos.X;
+                    foreach (char _ in line) {
+                        if (!IsPointInBounds(spritePos))
+                            break;
+                        Console.SetCursorPosition(spritePos.X, spritePos.Y);
                         Console.Write(" ");
-                        xPos++;
+                        spritePos.X++;
                     }
-                    yPos++;
+                    spritePos.Y++;
                 }
             }
 
-            yPos = sprite.Pos.Y;
+            spritePos = new Point(sprite.Pos);
             foreach (string line in lines) {
-                if (sprite.Pos.X >= Console.BufferWidth || yPos >= Console.BufferHeight) 
+                if (!IsPointInBounds(spritePos))
                     break;
 
-                Console.SetCursorPosition(sprite.Pos.X, yPos);
+                Console.SetCursorPosition(spritePos.X, spritePos.Y);
                 Console.Write(line);
-                yPos++;
+                spritePos.Y++;
             }
+        }
+
+        private bool IsPointInBounds(Point p) {
+            return p.X > 0 &&
+                p.Y > 0 &&
+                p.X < Console.BufferWidth &&
+                p.Y < Console.BufferHeight;
         }
     }
 }
