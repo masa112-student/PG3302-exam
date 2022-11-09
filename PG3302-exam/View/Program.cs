@@ -14,8 +14,8 @@ namespace View
                 new JsonPersistance()
                 );
 
-            //manager.StartupView();
-            OldRenderLoop();
+            manager.StartupView();
+            //OldRenderLoop();
         }
 
         static void OldRenderLoop() {
@@ -43,12 +43,12 @@ namespace View
 
 	            player.Draw();
 
-                if (enemy != null )
+                /*if (enemy != null )
                 {
-                    enemis.UpdateCount();
-                        
+                    //enemis.UpdateCount();                       
+                   
                     enemis.SpawnEnemies();        
-	            }
+	            }*/
 
                 if (bullet != null) {
                     bullet.Draw();

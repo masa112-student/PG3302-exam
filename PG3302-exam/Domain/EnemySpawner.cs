@@ -11,30 +11,36 @@ namespace Domain
 {
 	public class EnemySpawner
 	{
+
+		private List<BaseEnemy> _enemies = new();
+
+		//private Point _moveDir;
+		private static Random random = new Random();
 		
-		public List<Enemy> enemies = new();
-	
 
-		public void UpdateCount()
+		Point enemyStartPos = new Point(0, 4);
+		Sprite enemySprite = new Sprite("xxx\n x ");
+
+
+
+		public void EnemySpawnChecker()		
 		{
-			if (enemies.Count == 0)
-			{
-				for (int i = 0; i < 10; i++)
-					enemies.Add(new Enemy(Console.BufferWidth - enemies.Count * 4)
-					{
-					});
-			}
+			_enemies = new();
+			int randomInt = random.Next(1, 15);
+			
+			for (int i = 0; i < randomInt; i++)
+				{					
+					BaseEnemy enemy = new BaseEnemy();
+					enemy.Pos = enemyStartPos + new Point(i * 4, 0);
+					enemy.ActiveSprite = new Sprite(enemySprite);
+					_enemies.Add(enemy);
+				}			
 		}
-
-		public void SpawnEnemies()
-		{		
-				foreach (Enemy enemy in enemies)
-				{
-				enemy.Draw();
-				}
-			}
+		public List<BaseEnemy> Enemies
+		{
+			get { return _enemies; }
+		}
+		
 	}
-	
-	
 }
 
