@@ -19,6 +19,7 @@ namespace Domain
 
         public BaseEnemy()
         {
+            ActiveSprite = new Sprite();
             Move();
         }
 
@@ -37,13 +38,10 @@ namespace Domain
 
         public bool IsDead { get => isDead; internal set { isDead = value;  Array.Fill(ActiveSprite.ColorData, Sprite.Color.Red); } }
 
-        public BaseEnemy() {
-            ActiveSprite = new Sprite();
-        }
-        public void Move() { }
-
         public Bullet Attack() {
             return new Bullet(0, 0, 0);
+        }
+
         public void Draw()
         {
             Console.SetCursorPosition(XPos, YPos);
