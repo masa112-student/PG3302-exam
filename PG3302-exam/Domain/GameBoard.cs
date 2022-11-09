@@ -29,7 +29,7 @@ namespace Domain
         private Player _player;        
 		
 		private List<Bullet> _bullets;
-        private EnemySpawner _enemySpawner = new EnemySpawner();
+        private EnemySpawner _enemySpawner;
 		private List<BaseEnemy> _enemies = new();
 
 		private Point _moveDir;
@@ -39,15 +39,16 @@ namespace Domain
 
         public GameBoard(int boardWidth, int boardHeight) {
             _boardDimensions = new(boardWidth, boardHeight);
-
         }
+
         public void Start() {
 			_enemies = new ();
 			_bullets = new();
             _moveDir = new();
-            _fire = false;			
+            _fire = false;
+            _enemySpawner = new EnemySpawner(_boardDimensions);
 
-			IsGameActive = true;
+            IsGameActive = true;
             Score = 0;
 
             _player = new Player();
@@ -89,6 +90,9 @@ namespace Domain
 				_enemySpawner.EnemySpawnChecker();
 				_enemies = _enemySpawner.Enemies;
 			}
+
+            _enemies.ForEach(enemy => enemy.Update());
+
 
             _enemies.RemoveAll(enemy => enemy.IsDead);	
 
