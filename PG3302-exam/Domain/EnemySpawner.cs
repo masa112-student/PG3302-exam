@@ -22,11 +22,11 @@ namespace Domain
 
 		public void EnemySpawnChecker() {
 			_enemies = new();
-			int randomInt = random.Next(1, 1);
+			int randomInt = random.Next(1, 4);
 
 			for (int i = 0; i < randomInt; i++) {
 				BaseEnemy enemy = new BaseEnemy(_boardDimensions);
-				enemy.Pos = enemyStartPos + new Point(i * 4, 0);
+				enemy.Pos = enemyStartPos + new Point(i * (enemySprite.Size.Width + 1), 0);
 				enemy.ActiveSprite = new Sprite(enemySprite);
 				_enemies.Add(enemy);
 			}
