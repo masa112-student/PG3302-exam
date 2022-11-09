@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Domain.Enemies
 {
@@ -12,64 +13,56 @@ namespace Domain.Enemies
         private int _yPos;
 
         private System.Timers.Timer enemyTimer;
+        private int _moveSpeed;
 
         public int SpriteHeight { get; set; }
         public int SpriteWidth { get; set; }
 
-        public int XPos
-        {
+
+        public int XPos {
             get => _xPos;
-            set
-            {
-                if (value <= 0)
+            set {
+                if (value < 0)
                     _xPos = 0;
-                else if (value >= _maxWidth - SpriteWidth)
-                    _xPos = _maxWidth - SpriteWidth;
+                else if (value >= _boardDimensions.Width)
+                    _xPos = _boardDimensions.Width;
                 else
                     _xPos = value;
             }
         }
 
-        public int YPos
-        {
+        public int YPos {
             get => _yPos;
-            set
-            {
-                if (value <= 0)
+            set {
+                if (value < 0)
                     _yPos = 0;
                 else if (value >= _maxHeight - SpriteHeight)
                     _yPos = _maxHeight - SpriteHeight;
                 else _yPos = value;
             }
         }
+        private BoardDimensions _boardDimensions;
+        public EnemyMovement(int speed) : this(speed, new BoardDimensions()) {}
 
-        public EnemyMovement(int speed)
-        {
+        public EnemyMovement(int speed, BoardDimensions boardDimensions) {
             enemyTimer = new System.Timers.Timer();
-            enemyTimer.Elapsed += EnemyTimer_Elapsed;
+            //enemyTimer.Elapsed += EnemyTimer_Elapsed;
             enemyTimer.Interval = speed;
             enemyTimer.Start();
 
-            _maxWidth = Console.BufferWidth;
-
-            _maxHeight = Console.BufferHeight;
-
             XPos = 0;
-
             YPos = 0;
+            _moveSpeed = speed;
 
-            SpriteHeight = 1;
-            SpriteHeight = 1;
+            _boardDimensions = boardDimensions;
         }
 
-        private void EnemyTimer_Elapsed(object? sender, System.Timers.ElapsedEventArgs e)
-        {
-            if (XPos == Console.WindowWidth - 2)
-            {
+        public void Update() {
+            if (XPos == _boardDimensions.Width- 2) {
                 XPos = 0;
                 YPos += 1;
             }
-            else { XPos += 1; }
+            else { XPos += 1 * _moveSpeed; }
         }
     }
 }
