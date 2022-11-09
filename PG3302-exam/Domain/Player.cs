@@ -37,7 +37,8 @@ namespace View
 
         public Bullet Attack() {
             _attackTimer.Restart();
-            return new Bullet(Pos.Y - 1, Pos.X + (ActiveSprite.Size.Width/2), 1);
+            Point startPos = new Point(Pos.X + (ActiveSprite.Size.Width / 2), Pos.Y - 1);
+            return new Bullet(startPos, 1);
         }
     }
 }
