@@ -41,7 +41,7 @@ namespace Domain
 			IsGameActive = true;
             Score = 0;
 
-            _player = new Player(_boardWidth);
+            _player = new Player();
             _player.ActiveSprite = new Sprite(" ^ \n^^^");
             _player.Pos = new Point(_boardWidth / 2, _boardHeight - 2);			
 
