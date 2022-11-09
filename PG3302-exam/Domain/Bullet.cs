@@ -3,7 +3,14 @@
     public class Bullet : IHittable
     {
         private Sprite activeSprite = new Sprite("o");
+        private Point _pos;
+        private int _moveSpeed;
 
+        public Bullet(Point startPos, int speed) {
+            _moveSpeed = speed;
+
+            Pos = new Point(startPos);
+        }
         public Point Pos {
             get => _pos;
             set {
@@ -19,16 +26,6 @@
                 if (value != null)
                     activeSprite = value;
             }
-        }
-
-        private Point _pos;
-
-        private int _moveSpeed;
-
-        public Bullet(Point startPos, int speed) {
-            _moveSpeed = speed;
-
-            Pos = new Point(startPos);
         }
 
         public void Update() {

@@ -17,9 +17,6 @@ namespace Domain
 
     public class GameBoard : IGameBoard
     {
-        public int Score { get; set; }
-        public bool IsGameActive { get; set; }
-
         private Player _player;
 
         private List<Bullet> _bullets;
@@ -34,6 +31,9 @@ namespace Domain
         public GameBoard(int boardWidth, int boardHeight) {
             _boardDimensions = new(boardWidth, boardHeight);
         }
+
+        public int Score { get; set; }
+        public bool IsGameActive { get; set; }
 
         public void Start() {
             _enemies = new();

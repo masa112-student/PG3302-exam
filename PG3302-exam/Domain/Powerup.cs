@@ -6,11 +6,6 @@
 
         private int _xPos;
 
-        public int SpirteHeight { get; set; }
-        public int SpirteWidth { get; set; }
-
-        public int XPos { get => _xPos; }
-
         public Powerup(int maxHeight, int xPos) {
             _maxHeight = maxHeight;
 
@@ -20,6 +15,9 @@
             SpirteWidth = 2;
 
         }
+        public int SpirteHeight { get; set; }
+        public int SpirteWidth { get; set; }
+        public int XPos { get => _xPos; }
 
         public void Draw() {
             Console.SetCursorPosition(XPos, (Console.WindowHeight - 2));

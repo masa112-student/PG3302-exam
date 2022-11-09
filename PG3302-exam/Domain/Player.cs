@@ -5,6 +5,14 @@ namespace View
 {
     public class Player
     {
+        private Sprite _activeSprite;
+        private Point _pos;
+        private Stopwatch _attackTimer = new Stopwatch();
+        private readonly int _attackDelayMs = 500;
+
+        public Player() {
+            _attackTimer.Start();
+        }
         public Point Pos {
             get => _pos;
             set {
@@ -23,17 +31,7 @@ namespace View
                     _activeSprite = value;
             }
         }
-
         public bool CanAttack { get => _attackTimer.ElapsedMilliseconds > _attackDelayMs; }
-
-        private Sprite _activeSprite;
-        private Point _pos;
-        private Stopwatch _attackTimer = new Stopwatch();
-        private readonly int _attackDelayMs = 500;
-
-        public Player() {
-            _attackTimer.Start();
-        }
 
         public Bullet Attack() {
             _attackTimer.Restart();

@@ -11,11 +11,20 @@ namespace Domain
             Red
         }
 
-        public bool Visible { get; set; }
-
-
         private Point? _pos;
         private string _data;
+
+        public Sprite(string data, Point? pos) {
+            Data = data;
+            Pos = pos;
+
+            ColorData = new Color[data.Replace("\n", String.Empty).Length];
+            Array.Fill(ColorData, Color.White);
+
+            Visible = true;
+        }
+        public Sprite(Sprite previous) : this(previous.Data, previous.Pos) { }
+        public Sprite(string data = "") : this(data, null) { }
 
         public string Data {
             get => _data;
@@ -30,6 +39,7 @@ namespace Domain
                 );
             }
         }
+
         public Point? Pos {
             get => _pos;
             set {
@@ -38,25 +48,10 @@ namespace Domain
             }
         }
 
-
+        public bool Visible { get; set; }
         public Color[] ColorData { get; set; }
-
         public Dimension Size { get; private set; }
-
         public Point? PrevPos { get; private set; }
-        public Sprite(string data, Point? pos) {
-            Data = data;
-            Pos = pos;
-
-            ColorData = new Color[data.Replace("\n", String.Empty).Length];
-            Array.Fill(ColorData, Color.White);
-
-            Visible = true;
-        }
-
-        public Sprite(Sprite previous) : this(previous.Data, previous.Pos) { }
-
-        public Sprite(string data = "") : this(data, null) { }
 
         public static Sprite CreateBlankFromSprite(Sprite s) {
             string[] lines = s.Data.Split('\n');

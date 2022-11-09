@@ -11,11 +11,26 @@
 
         private System.Timers.Timer enemyTimer;
         private int _moveSpeed;
+        
+        private BoardDimensions _boardDimensions;
 
+        public EnemyMovement(int speed) : this(speed, new BoardDimensions()) { }
+
+        public EnemyMovement(int speed, BoardDimensions boardDimensions) {
+            enemyTimer = new System.Timers.Timer();
+            //enemyTimer.Elapsed += EnemyTimer_Elapsed;
+            enemyTimer.Interval = speed;
+            enemyTimer.Start();
+
+            XPos = 0;
+            YPos = 0;
+            _moveSpeed = speed;
+
+            _boardDimensions = boardDimensions;
+        }
+        
         public int SpriteHeight { get; set; }
         public int SpriteWidth { get; set; }
-
-
         public int XPos {
             get => _xPos;
             set {
@@ -37,21 +52,6 @@
                     _yPos = _maxHeight - SpriteHeight;
                 else _yPos = value;
             }
-        }
-        private BoardDimensions _boardDimensions;
-        public EnemyMovement(int speed) : this(speed, new BoardDimensions()) { }
-
-        public EnemyMovement(int speed, BoardDimensions boardDimensions) {
-            enemyTimer = new System.Timers.Timer();
-            //enemyTimer.Elapsed += EnemyTimer_Elapsed;
-            enemyTimer.Interval = speed;
-            enemyTimer.Start();
-
-            XPos = 0;
-            YPos = 0;
-            _moveSpeed = speed;
-
-            _boardDimensions = boardDimensions;
         }
 
         public void Update() {

@@ -3,12 +3,13 @@
     public class HighScores
     {
         private List<Score> _scores;
-        public List<Score> Scores { get { return _scores; } }
 
         public HighScores(List<Score> scores) {
             _scores = scores;
             _scores.Sort((a, b) => b.Points - a.Points);
         }
+        public List<Score> Scores { get { return _scores; } }
+
         public void UpdateScore(Score newScore) {
             if (_scores.Contains(newScore)) {
                 var a = _scores.Find(s => s.Equals(newScore));
