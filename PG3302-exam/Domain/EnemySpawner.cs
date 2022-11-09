@@ -4,23 +4,20 @@ namespace Domain
 {
 	public class EnemySpawner
 	{
-
-		public EnemySpawner(BoardDimensions boardDimensions) {
-			_boardDimensions = boardDimensions;
-		}
-
 		private BoardDimensions _boardDimensions;
 
 		private List<BaseEnemy> _enemies = new();
 
 		private static Random random = new Random();
 
+		private Point enemyStartPos = new Point(0, 4);
+        private Sprite enemySprite = new Sprite("1------2------3\n      \\4/      ");
+        
+		public EnemySpawner(BoardDimensions boardDimensions) {
+            _boardDimensions = boardDimensions;
+        }
 
-		Point enemyStartPos = new Point(0, 4);
-		Sprite enemySprite = new Sprite("1------2------3\n      \\4/      ");
-
-
-		public void EnemySpawnChecker() {
+        public void EnemySpawnChecker() {
 			_enemies = new();
 			int randomInt = random.Next(1, 4);
 
