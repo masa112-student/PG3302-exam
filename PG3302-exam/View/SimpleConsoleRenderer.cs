@@ -51,16 +51,18 @@ namespace View
                 }
             }
 
-            spritePos = new Point(sprite.Pos);
-            int i = 0;
-            foreach (string line in lines) {
-                if (!IsPointInBounds(spritePos))
-                    break;
-                SetColor(sprite.ColorData[i]);
-                Console.SetCursorPosition(spritePos.X, spritePos.Y);
-                Console.Write(line);
-                spritePos.Y++;
-                i++;
+            if(sprite.Visible) {
+                spritePos = new Point(sprite.Pos);
+                int i = 0;
+                foreach (string line in lines) {
+                    if (!IsPointInBounds(spritePos))
+                        break;
+                    SetColor(sprite.ColorData[i]);
+                    Console.SetCursorPosition(spritePos.X, spritePos.Y);
+                    Console.Write(line);
+                    spritePos.Y++;
+                    i++;
+                }
             }
 
             Console.ForegroundColor = currentColor;

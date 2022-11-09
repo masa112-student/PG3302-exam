@@ -14,6 +14,8 @@ namespace Domain
             Red
         }
 
+        public bool Visible { get; set; }
+
 
         private Point? _pos;
         private string _data;
@@ -51,6 +53,8 @@ namespace Domain
 
             ColorData = new Color[data.Replace("\n", String.Empty).Length];
             Array.Fill(ColorData, Color.White);
+
+            Visible = true;
         }
 
         public Sprite(Sprite previous) : this(previous.Data, previous.Pos) { }
@@ -65,10 +69,11 @@ namespace Domain
             StringBuilder stringBuilder = new StringBuilder();
 
             for (int i = 0; i < height; i++) {
-                for(int j = 0; j< width; j++) {
+                if(i > 0)
+                    stringBuilder.Append("\n");
+                for (int j = 0; j< width; j++) {
                     stringBuilder.Append(" ");
                 }
-                stringBuilder.Append("\n");
             }
 
 
