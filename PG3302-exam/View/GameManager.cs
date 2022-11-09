@@ -11,7 +11,7 @@ namespace View
         private IPersistance _serializer;
         private IUserInput _userInput;
         private IGameBoard _gameBoard;
-        private string _userName = "Not set";
+        private string _userName = "<<Not set>>";
 
         public GameManager(IRenderer renderer, IUserInput userInput, IGameBoard gameBoard, IPersistance serializer) {
             _renderer = renderer;
@@ -32,10 +32,16 @@ namespace View
             _userName = formatter.GetInputString();
 
             _renderer.ClearScreen();
-            _renderer.DrawString(0, 0, $"Welcome {_userName}!");
-            Thread.Sleep(1000);
+
+            GreetPlayer();
 
             MenuView();
+        }
+
+        [Conditional("RELEASE")]
+        private void GreetPlayer() {
+            _renderer.DrawString(0, 0, $"Welcome {_userName}!");
+            Thread.Sleep(1000);
         }
 
         public void MenuView() {
