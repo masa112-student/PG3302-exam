@@ -2,18 +2,18 @@
 using System.Diagnostics;
 namespace Domain
 {
-    public class Bullet
+    public class Bullet : IHittable
     {
         private Sprite activeSprite;
 
-        public Point Pos { get => pos; set {
-                if (value.Y <= 0)
-                    value.Y = 0;
-                pos = value;
+        public Point Pos { 
+            get => _pos; 
+            set {
+                _pos = value;
+                activeSprite.Pos = _pos;
             } }
         public Sprite ActiveSprite {
             get {
-                activeSprite.Pos = Pos;
                 return activeSprite;
             }
             set {
@@ -26,8 +26,8 @@ namespace Domain
 
         private int _startX;
 
-        private System.Timers.Timer enemyTimer;
-        private Point pos;
+        private System.Timers.Timer _enemyTimer;
+        private Point _pos;
 
         public int SpirteHeight { get; set; }
         public int SpirteWidth { get; set; }
@@ -44,19 +44,23 @@ namespace Domain
             }
         }
 
+        private int _moveSpeed;
+
         public Bullet(int startY, int startX, int speed) {
-            enemyTimer = new System.Timers.Timer();
-            enemyTimer.Elapsed += BulletTimer_Elapsed;
-            enemyTimer.Interval = 1000.0/speed;
-            enemyTimer.Start();
+            _enemyTimer = new System.Timers.Timer();
+            _enemyTimer.Elapsed += BulletTimer_Elapsed;
+            _enemyTimer.Interval = 1000.0/speed;
+            //enemyTimer.Start();
+
+
+            _moveSpeed = speed;
 
             //_maxHeight = maxHeight;
+            ActiveSprite = new Sprite("o");
             Pos = new Point(startX, startY);
             _startX = startX;
 
             YPos = startY;
-
-            ActiveSprite = new Sprite(" o ");
         }
 
         private void BulletTimer_Elapsed(object? sender, System.Timers.ElapsedEventArgs e) {
@@ -64,10 +68,33 @@ namespace Domain
             YPos -= 1;
         }
 
+
+        public void Update() {
+            Pos += new Point(0, -1*_moveSpeed);
+        }
+
         public void Draw() {
             Console.SetCursorPosition(_startX, YPos);
             Console.Write("o");
-            Trace.WriteLine(YPos);
+        }
+
+        public Point GetPos() {
+            return Pos;
+        }
+
+        public bool Hit(IHittable hittable) {
+            Point otherP = hittable.GetPos();
+            Dimension otherSize = hittable.GetDimension();
+            Dimension size = GetDimension();
+
+            return Pos.X < (otherP.X + otherSize.Width) &&
+                Pos.Y < (otherP.Y + otherSize.Height) &&
+                (Pos.X + size.Width) > otherP.X &&
+                (Pos.Y + size.Height) > otherP.Y;
+        }
+
+        public Dimension GetDimension() {
+            return ActiveSprite.Size;
         }
     }
 }

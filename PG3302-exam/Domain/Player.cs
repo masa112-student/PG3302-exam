@@ -1,21 +1,16 @@
 ﻿using Domain;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
 
 namespace View
 {
     public class Player
     {
         public Point Pos {
-            get => pos; set {
+            get => _pos; set {
                 if (value.Y < 0)
                     value.Y = 0;
-                pos = value;
+                _pos = value;
+                _activeSprite.Pos = _pos;
             }
         }
         public int SpirteHeight { get; set; }
@@ -23,12 +18,11 @@ namespace View
 
         public Sprite ActiveSprite {
             get {
-                activeSprite.Pos = Pos;
-                return activeSprite;
+                return _activeSprite;
             }
             set {
                 if (value != null)
-                    activeSprite = value;
+                    _activeSprite = value;
             }
         }
 
@@ -38,8 +32,8 @@ namespace View
 
         private int _xPos;
 
-        private Sprite activeSprite;
-        private Point pos;
+        private Sprite _activeSprite;
+        private Point _pos;
         private Stopwatch _attackTimer = new Stopwatch();
         private readonly int _attackDelayMs = 500;
 
@@ -69,7 +63,7 @@ namespace View
 
         public Bullet Attack() {
             _attackTimer.Restart();
-            return new Bullet(Pos.Y - 1, Pos.X + 1, 100);
+            return new Bullet(Pos.Y - 1, Pos.X + (ActiveSprite.Size.Width/2), 1);
         }
 
         public void Draw() {

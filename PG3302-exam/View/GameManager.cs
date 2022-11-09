@@ -33,7 +33,7 @@ namespace View
 
             _renderer.ClearScreen();
             _renderer.DrawString(0, 0, $"Welcome {_userName}!");
-            //Thread.Sleep(1000);
+            Thread.Sleep(1000);
 
             MenuView();
         }
@@ -63,32 +63,38 @@ namespace View
 
         public void GameView() {
             _renderer.ClearScreen();
+            _gameBoard.Start();
 
             Point center = new Point(Console.WindowWidth / 2, Console.WindowHeight / 2);
-            Sprite test = new("  ^  \n ^^^ ", center);
-            Stopwatch sw = Stopwatch.StartNew();
+            Stopwatch framerateTimer = Stopwatch.StartNew();
 
             double FPS = 15;
             double frameTime = (1.0 / FPS) * 1000;
             Point moveDir = new Point(0, 0);
-
+            //int CLEAR = 10;
             while (!_userInput.IsKeyDown(ConsoleKey.Q)) {
 
                 moveDir.X = 0;
 
                 if (_userInput.IsKeyDown(ConsoleKey.A))
-                    _gameBoard.MovePlayer(IGameBoard.MoveDir.LEFT);
+                    _gameBoard.MovePlayer(IGameBoard.MoveDir.Left);
                 if (_userInput.IsKeyDown(ConsoleKey.D))
-                    _gameBoard.MovePlayer(IGameBoard.MoveDir.RIGHT);
+                    _gameBoard.MovePlayer(IGameBoard.MoveDir.Right);
                 if (_userInput.IsKeyDown(ConsoleKey.Spacebar))
                     _gameBoard.PlayerAttack();
 
-                if (sw.ElapsedMilliseconds > frameTime) {
+                if (framerateTimer.ElapsedMilliseconds > frameTime) {
                     _gameBoard.Update();
-                    test.Pos += moveDir;
+
                     var sprites = _gameBoard.GetSprites();
                     sprites.ForEach(sprite => _renderer.DrawSprite(sprite));
-                    sw.Restart();
+                    framerateTimer.Restart();
+
+                    //if(CLEAR <= 0) {
+                    //    _renderer.ClearScreen();
+                    //    CLEAR = 10;
+                    //}
+                    //CLEAR--;
                 }
             }
             
