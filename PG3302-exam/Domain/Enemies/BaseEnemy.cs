@@ -11,64 +11,75 @@ namespace Domain.Enemies
         private Sprite _activeSprite;
         private bool _isDead;
 
-        EnemyMovement? _enemyMovement;
+        private BoardDimensions _boardDimensions;
+        private Point _pos;
+        private int _movementDir = 1;
 
-        public Point Pos { get; set; }
-        public Sprite ActiveSprite
+        public BaseEnemy() : this(new BoardDimensions()) { }
+        public BaseEnemy(BoardDimensions boardDimensions)
         {
-            get
-            {
-                return _activeSprite;
+            _boardDimensions = boardDimensions;
+            ActiveSprite = new Sprite();
+        }
+
+        public Point Pos {
+            get => _pos;
+            set {
+                _pos = value;
+                _activeSprite.Pos = value;
             }
-            set
-            {
-                if (value != null)
-                {
+        }
+        public Sprite ActiveSprite {
+            get => _activeSprite;
+            set {
+                if (value != null) {
                     _activeSprite = value;
                     _activeSprite.Pos = Pos;
                 }
             }
         }
-
-        public bool IsDead
-        {
+        public bool IsDead {
             get => _isDead;
-            internal set
-            {
+            set {
                 _isDead = value;
-
-                if (_isDead)
-                {
-                    ActiveSprite = Sprite.CreateBlankFromSprite(ActiveSprite);
-                }
+                ActiveSprite.Visible = !_isDead;
             }
         }
 
-        public BaseEnemy()
-        {
-            ActiveSprite = new Sprite();
-            Move();
-        }
-        public int Speed() => 200;
+        public int Speed() => 1;
 
-        public Bullet Attack()
-        {
-            return new Bullet(0, 0, 0);
+        public Bullet Attack() {
+            return new Bullet(new Point(), 0);
         }
 
-        public EnemyMovement Move()
-        {
-            _enemyMovement = new EnemyMovement(Speed());
-            return _enemyMovement;
+        public void Move() { }
+        public void Update() {
+            if (IsDead)
+                return;
+
+            Dimension dimension = GetDimension();
+
+            if (_movementDir > 0 && Pos.X == _boardDimensions.Width - dimension.Width) {
+                Pos += new Point(0, 1);
+                _movementDir *= -1;
+            }
+            else if(_movementDir < 0 && Pos.X <= 0) {
+                Pos += new Point(0, 1);
+                _movementDir *= -1;
+            }
+            else {
+                Pos += new Point(_movementDir * Speed(), 0);
+            }
         }
 
-        public Point GetPos()
-        {
+        public Point GetPos() {
             return Pos;
         }
 
-        public bool Hit(IHittable hittable)
-        {
+        public bool Hit(IHittable hittable) {
+            if (IsDead)
+                return false;
+
             Point otherP = hittable.GetPos();
             Dimension otherSize = hittable.GetDimension();
             Dimension size = GetDimension();
@@ -79,8 +90,7 @@ namespace Domain.Enemies
                 Pos.Y + size.Height > otherP.Y;
         }
 
-        public Dimension GetDimension()
-        {
+        public Dimension GetDimension() {
             return ActiveSprite.Size;
         }
 

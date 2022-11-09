@@ -9,18 +9,21 @@ namespace Domain.EnemyDecorators
 {
     public class BaseEnemyDecorator : IEnemy
     {
+        public Point Pos { get => _enemy.Pos; set => _enemy.Pos = value; }
+        public Sprite ActiveSprite { get => _enemy.ActiveSprite; set => _enemy.ActiveSprite = value; }
+
         protected readonly IEnemy _enemy;
 
-        public BaseEnemyDecorator(IEnemy moreSpeedEnemy)
-        {
+        public BaseEnemyDecorator(IEnemy moreSpeedEnemy) {
             _enemy = moreSpeedEnemy;
         }
+        
+        public int Speed() => _enemy.Speed();
 
-        public Point Pos { get => _enemy.Pos; set => _enemy.Pos = value; }
-        public Sprite ActiveSprite { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public void Move() => _enemy.Move();
 
-        public int Speed() => _enemy.Speed() - 50;
-
-        public EnemyMovement Move() => _enemy.Move();
+        public void Update() {
+            _enemy.Update();
+        }
     }
 }

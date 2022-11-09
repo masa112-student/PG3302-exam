@@ -9,7 +9,9 @@ namespace Domain.Enemies
 
         int Speed();
 
-        EnemyMovement Move();
+        void Move();
+
+        void Update();
     }
 }
 
