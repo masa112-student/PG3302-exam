@@ -6,46 +6,45 @@ using System.Threading.Tasks;
 
 namespace Domain
 {
-    public class BaseEnemy : IHittable, IEnemy
+    public class BaseEnemy : IEnemy, IHittable 
     {
-        private Sprite activeSprite;
-        private bool isDead;
+        private Sprite _activeSprite;
+        private bool _isDead;
+
         EnemyMovement? _enemyMovement;
-
-        public int XPos { get => _enemyMovement.XPos; }
-        public int YPos { get => _enemyMovement.YPos; }
-
-        public int Speed() => 200;
-
-        public BaseEnemy()
-        {
-            ActiveSprite = new Sprite();
-            Move();
-        }
 
         public Point Pos { get; set; }
         public Sprite ActiveSprite {
             get {
-                return activeSprite;
+                return _activeSprite;
             }
             set {
                 if (value != null) {
-                    activeSprite = value;
-                    activeSprite.Pos = Pos;
+                    _activeSprite = value;
+                    _activeSprite.Pos = Pos;
                 }
             }
         }
 
-        public bool IsDead { get => isDead; internal set { isDead = value;  Array.Fill(ActiveSprite.ColorData, Sprite.Color.Red); } }
+        public bool IsDead {
+            get => _isDead;
+            internal set {
+                _isDead = value;
+                
+                if(_isDead) {
+                    ActiveSprite = Sprite.CreateBlankFromSprite(ActiveSprite);
+                }
+            } 
+        }
+
+        public BaseEnemy() {
+            ActiveSprite = new Sprite();
+            Move();
+        }
+        public int Speed() => 200;
 
         public Bullet Attack() {
             return new Bullet(0, 0, 0);
-        }
-
-        public void Draw()
-        {
-            Console.SetCursorPosition(XPos, YPos);
-            Console.Write("X");
         }
 
         public EnemyMovement Move()
@@ -72,6 +71,7 @@ namespace Domain
         public Dimension GetDimension() {
             return ActiveSprite.Size;
         }
+
     }
 }
 

@@ -3,14 +3,12 @@ namespace Domain
 {
     public interface IEnemy
     {
-        int XPos { get; }
-        int YPos { get; }
-
+        Point Pos { get; set; }
+        Sprite ActiveSprite { get; set; }
+        
         int Speed();
 
         EnemyMovement Move();
-
-        void Draw();
     }
 }
 
