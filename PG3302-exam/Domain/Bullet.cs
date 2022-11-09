@@ -50,7 +50,7 @@ namespace Domain
             _enemyTimer = new System.Timers.Timer();
             _enemyTimer.Elapsed += BulletTimer_Elapsed;
             _enemyTimer.Interval = 1000.0/speed;
-            //enemyTimer.Start();
+            _enemyTimer.Start();
 
 
             _moveSpeed = speed;
@@ -64,7 +64,7 @@ namespace Domain
         }
 
         private void BulletTimer_Elapsed(object? sender, System.Timers.ElapsedEventArgs e) {
-            Pos += new Point(0, -1);
+            //Pos += new Point(0, -1);
             YPos -= 1;
         }
 
