@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics;
-using System.Runtime.InteropServices;
 using Domain;
 using Serialization;
 
@@ -26,6 +25,9 @@ namespace View
 
             Player player = new(Console.BufferWidth);
 
+            EnemySpawner enemis = new EnemySpawner();
+               
+
             Bullet? bullet = null;
 
             Powerup? powerup = null;
@@ -35,14 +37,22 @@ namespace View
             while (true) {
                 Console.Clear();
 
-                player.Draw();
-                if (enemy != null) {
-                    enemy.Draw();
-                }
+    
+
+
+	            player.Draw();
+
+                if (enemy != null )
+                {
+                    enemis.UpdateCount();
+                        
+                    enemis.SpawnEnemies();        
+	            }
 
                 if (bullet != null) {
                     bullet.Draw();
-                }
+		
+	            }
 
                 if (powerup != null) {
                     powerup.Draw();
@@ -55,36 +65,43 @@ namespace View
                 Thread.Sleep(100);
 
 
-                if (Console.KeyAvailable) {
-                    var keypress = Console.ReadKey(true);
+                if (Console.KeyAvailable)
+                    {
+                        var keypress = Console.ReadKey(true);
 
                     if (keypress.Key == ConsoleKey.A) {
                         player.XPos -= 1;
                     }
-                    if (keypress.Key == ConsoleKey.Spacebar) {
-                        bullet = new Bullet(Console.WindowHeight, player.XPos, 500);
+                    if (keypress.Key == ConsoleKey.Spacebar)
+                    {
+                        bullet = new Bullet(Console.WindowHeight, player.XPos, 100);
                     }
 
-                    if (didPowerUp == true && keypress.Key == ConsoleKey.Spacebar) {
-                        bullet = new Bullet(Console.WindowHeight, player.XPos, 200);
+                    if (didPowerUp == true && keypress.Key == ConsoleKey.Spacebar)
+                    {
+                        bullet = new Bullet(Console.WindowHeight, player.XPos, 50);
                     }
                     else if (keypress.Key == ConsoleKey.D) {
                         player.XPos += 1;
                     }
-                }
+                }       
 
-                if (powerup != null && didPowerUp == false) {
-                    if (powerup.XPos == player.XPos) {
-                        didPowerUp = true;
-                        powerup = null;
+                if (powerup != null && didPowerUp == false)
+                    {
+                    if (powerup.XPos == player.XPos)
+                        {
+                            didPowerUp = true;
+                            powerup = null;
+                        }
                     }
-                }
 
-                if (bullet != null && enemy != null) {
-                    if (bullet.XPos == enemy.XPos && bullet.YPos == 2) {
-                        enemy = null;
+                    if (bullet != null && enemy != null)
+                        {
+                            if (bullet.XPos == enemy.XPos && bullet.YPos == 2)
+                        {
+                            enemy = null;
+                        }
                     }
-                }
             }
         }
     }

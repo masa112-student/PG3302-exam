@@ -6,10 +6,21 @@ using System.Threading.Tasks;
 
 namespace Domain
 {
-    public class BaseEnemy : IHittable
+    public class BaseEnemy : IHittable, IEnemy
     {
         private Sprite activeSprite;
         private bool isDead;
+        EnemyMovement? _enemyMovement;
+
+        public int XPos { get => _enemyMovement.XPos; }
+        public int YPos { get => _enemyMovement.YPos; }
+
+        public int Speed() => 200;
+
+        public BaseEnemy()
+        {
+            Move();
+        }
 
         public Point Pos { get; set; }
         public Sprite ActiveSprite {
@@ -33,6 +44,16 @@ namespace Domain
 
         public Bullet Attack() {
             return new Bullet(0, 0, 0);
+        public void Draw()
+        {
+            Console.SetCursorPosition(XPos, YPos);
+            Console.Write("X");
+        }
+
+        public EnemyMovement Move()
+        {
+            _enemyMovement = new EnemyMovement(Speed());
+            return _enemyMovement;
         }
 
         public Point GetPos() {
@@ -55,3 +76,4 @@ namespace Domain
         }
     }
 }
+
