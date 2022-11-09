@@ -11,7 +11,7 @@ namespace Domain
             if (enemyType.Equals(baseEnemy)) {
                 enemy = new BaseEnemy();
             }
-            else if (enemyType.Equals(MoreSpeedEnemyDecorator(baseEnemy));
+            else if (enemyType.Equals(baseEnemy))
             {
                 enemy = new MoreSpeedEnemyDecorator(baseEnemy);
             }
