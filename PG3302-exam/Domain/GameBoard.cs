@@ -10,6 +10,17 @@ using View;
 
 namespace Domain
 {
+    public struct BoardDimensions {
+        public readonly int Width = 0;
+        public readonly int Height = 0;
+        
+        public BoardDimensions(int width, int height) {
+            Width = width;
+            Height = height;
+        }
+    }
+
+
     public class GameBoard : IGameBoard
     {
         public int Score { get; set; }
@@ -24,16 +35,13 @@ namespace Domain
 		private Point _moveDir;
         private bool _fire;
 
-        private int _boardWidth;
-        private int _boardHeight;
+        private BoardDimensions _boardDimensions;
 
         public GameBoard(int boardWidth, int boardHeight) {
-            _boardWidth = boardWidth;
-            _boardHeight = boardHeight;
+            _boardDimensions = new(boardWidth, boardHeight);
 
         }
         public void Start() {
-			
 			_enemies = new ();
 			_bullets = new();
             _moveDir = new();
@@ -44,7 +52,7 @@ namespace Domain
 
             _player = new Player();
             _player.ActiveSprite = new Sprite(" ^ \n^^^");
-            _player.Pos = new Point(_boardWidth / 2, _boardHeight - 2);			
+            _player.Pos = new Point(_boardDimensions.Width / 2, _boardDimensions.Height - 2);			
 
 		}
 
@@ -83,7 +91,6 @@ namespace Domain
 			}
 
             _enemies.RemoveAll(enemy => enemy.IsDead);	
-
 
 
 			// TODO: BULLET POOL
