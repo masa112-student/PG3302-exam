@@ -56,5 +56,23 @@ namespace Domain
         public Sprite(Sprite previous) : this(previous.Data, previous.Pos) { }
 
         public Sprite(string data = "") : this(data, null) { }
+
+        public static Sprite CreateBlankFromSprite(Sprite s) {
+            string[] lines = s.Data.Split('\n');
+            int width = lines.First().Length;
+            int height = lines.Length;
+
+            StringBuilder stringBuilder = new StringBuilder();
+
+            for (int i = 0; i < height; i++) {
+                for(int j = 0; j< width; j++) {
+                    stringBuilder.Append(" ");
+                }
+                stringBuilder.Append("\n");
+            }
+
+
+            return new Sprite(stringBuilder.ToString(), s.Pos);
+        }
     }
 }
