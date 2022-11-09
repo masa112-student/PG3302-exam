@@ -1,6 +1,4 @@
-﻿using System.Net.Sockets;
-
-namespace Serialization
+﻿namespace Serialization
 {
     internal class Program
     {
@@ -10,7 +8,7 @@ namespace Serialization
             HighScores highScores = serializer.LoadHighScores();
 
             bool quit = false;
-            while(!quit) {
+            while (!quit) {
                 Console.Clear();
                 Console.WriteLine("Select option");
                 Console.WriteLine("1: Add score");
@@ -21,11 +19,11 @@ namespace Serialization
 
                 if (keyPress.Key == ConsoleKey.D1) {
                     Console.WriteLine("Enter your name:");
-                    
+
                     string? name = Console.ReadLine();
 
                     Console.WriteLine("Enter score:");
-                    
+
                     string? score = Console.ReadLine();
                     int points = int.Parse(string.IsNullOrEmpty(score) ? "0" : score);
 
@@ -36,7 +34,7 @@ namespace Serialization
                 }
                 if (keyPress.Key == ConsoleKey.D2) {
                     Console.WriteLine("Enter your name:");
-                    
+
                     string? name = Console.ReadLine();
 
                     highScores.DeleteScore(name);

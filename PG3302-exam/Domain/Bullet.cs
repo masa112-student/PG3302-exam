@@ -1,17 +1,16 @@
-﻿using System;
-using System.Diagnostics;
-namespace Domain
+﻿namespace Domain
 {
     public class Bullet : IHittable
     {
         private Sprite activeSprite = new Sprite("o");
 
-        public Point Pos { 
-            get => _pos; 
+        public Point Pos {
+            get => _pos;
             set {
                 _pos = value;
                 activeSprite.Pos = _pos;
-            } }
+            }
+        }
         public Sprite ActiveSprite {
             get {
                 return activeSprite;
@@ -33,7 +32,7 @@ namespace Domain
         }
 
         public void Update() {
-            Pos += new Point(0, -1*_moveSpeed);
+            Pos += new Point(0, -1 * _moveSpeed);
         }
 
         public Point GetPos() {

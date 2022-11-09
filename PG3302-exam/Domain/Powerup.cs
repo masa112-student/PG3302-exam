@@ -1,7 +1,4 @@
-﻿using System;
-using System.Diagnostics;
-
-namespace View
+﻿namespace View
 {
     public class Powerup
     {
@@ -14,8 +11,7 @@ namespace View
 
         public int XPos { get => _xPos; }
 
-        public Powerup(int maxHeight, int xPos)
-        {
+        public Powerup(int maxHeight, int xPos) {
             _maxHeight = maxHeight;
 
             _xPos = xPos;
@@ -25,8 +21,7 @@ namespace View
 
         }
 
-        public void Draw()
-        {
+        public void Draw() {
             Console.SetCursorPosition(XPos, (Console.WindowHeight - 2));
             Console.Write("#");
             Console.Write("#");

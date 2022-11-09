@@ -1,7 +1,4 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-
-namespace Domain.Enemies
+﻿namespace Domain.Enemies
 {
     public class EnemyMovement
     {
@@ -42,7 +39,7 @@ namespace Domain.Enemies
             }
         }
         private BoardDimensions _boardDimensions;
-        public EnemyMovement(int speed) : this(speed, new BoardDimensions()) {}
+        public EnemyMovement(int speed) : this(speed, new BoardDimensions()) { }
 
         public EnemyMovement(int speed, BoardDimensions boardDimensions) {
             enemyTimer = new System.Timers.Timer();
@@ -58,7 +55,7 @@ namespace Domain.Enemies
         }
 
         public void Update() {
-            if (XPos == _boardDimensions.Width- 2) {
+            if (XPos == _boardDimensions.Width - 2) {
                 XPos = 0;
                 YPos += 1;
             }

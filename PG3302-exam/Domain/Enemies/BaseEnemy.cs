@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Domain.Enemies
+﻿namespace Domain.Enemies
 {
     public class BaseEnemy : IEnemy, IHittable
     {
@@ -16,8 +10,7 @@ namespace Domain.Enemies
         private int _movementDir = 1;
 
         public BaseEnemy() : this(new BoardDimensions()) { }
-        public BaseEnemy(BoardDimensions boardDimensions)
-        {
+        public BaseEnemy(BoardDimensions boardDimensions) {
             _boardDimensions = boardDimensions;
             ActiveSprite = new Sprite();
         }
@@ -63,7 +56,7 @@ namespace Domain.Enemies
                 Pos += new Point(0, 1);
                 _movementDir *= -1;
             }
-            else if(_movementDir < 0 && Pos.X <= 0) {
+            else if (_movementDir < 0 && Pos.X <= 0) {
                 Pos += new Point(0, 1);
                 _movementDir *= -1;
             }

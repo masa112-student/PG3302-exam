@@ -1,7 +1,6 @@
-﻿using System.Diagnostics;
-using System.Runtime.InteropServices;
-using Domain;
+﻿using Domain;
 using Serialization;
+using System.Runtime.InteropServices;
 
 namespace View
 {

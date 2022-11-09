@@ -6,7 +6,7 @@ namespace View
     public class Player
     {
         public Point Pos {
-            get => _pos; 
+            get => _pos;
             set {
                 if (value.Y < 0)
                     value.Y = 0;

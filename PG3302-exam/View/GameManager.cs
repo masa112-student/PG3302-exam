@@ -1,7 +1,7 @@
-﻿using System.Text;
+﻿using Domain;
 using Serialization;
-using Domain;
 using System.Diagnostics;
+using System.Text;
 
 namespace View
 {
@@ -48,9 +48,9 @@ namespace View
             _renderer.ClearScreen();
             bool quit = false;
             while (!quit) {
-                _renderer.DrawString(0, 0, 
-                    "Select option\n"   +
-                    "1: View scores\n"    +
+                _renderer.DrawString(0, 0,
+                    "Select option\n" +
+                    "1: View scores\n" +
                     "2: Play game\n" +
                     "3: Quit\n"
                 );
@@ -103,7 +103,7 @@ namespace View
                     //CLEAR--;
                 }
             }
-            
+
             GameOverView();
         }
 
@@ -115,8 +115,8 @@ namespace View
             _renderer.ClearScreen();
             _renderer.DrawString(0, 0, $"Game over. Score {_gameBoard.Score}");
             _renderer.DrawString(0, 2, "Press enter to return to the menu");
-            while (!_userInput.IsKeyDown(ConsoleKey.Enter));
-            
+            while (!_userInput.IsKeyDown(ConsoleKey.Enter)) ;
+
             _renderer.ClearScreen();
         }
 
@@ -125,13 +125,13 @@ namespace View
             _renderer.ClearScreen();
             _renderer.DrawString(0, 0, "HighScores:");
             int y = 1;
-            foreach(var score in scores.Scores) {
+            foreach (var score in scores.Scores) {
                 _renderer.DrawString(0, y++, $"{score.Name,-10}: {score.Points}");
             }
 
             _renderer.DrawString(0, ++y, "Press enter to return to the menu");
 
-            while (!_userInput.IsKeyDown(ConsoleKey.Enter));
+            while (!_userInput.IsKeyDown(ConsoleKey.Enter)) ;
             _renderer.ClearScreen();
         }
 
@@ -139,9 +139,10 @@ namespace View
 }
 
 
-class UserInputFormatter {
+class UserInputFormatter
+{
     private StringBuilder _input = new StringBuilder();
-    
+
     public char LastReadChar { get; private set; }
 
     public void AddInput(char c) {
@@ -156,7 +157,7 @@ class UserInputFormatter {
         _input.Replace("\r", string.Empty);
         _input.Replace("\n'", string.Empty);
         _input.Replace("\b", string.Empty);
-        
-        return _input.ToString();   
+
+        return _input.ToString();
     }
 }

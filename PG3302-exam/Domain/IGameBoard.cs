@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Domain
+﻿namespace Domain
 {
     public interface IGameBoard
     {
-        public enum MoveDir {
+        public enum MoveDir
+        {
             Left,
             Right,
         }

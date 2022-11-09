@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Linq.Expressions;
+﻿using System.Diagnostics;
 using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace Serialization
 {
@@ -15,7 +10,7 @@ namespace Serialization
         string fileName = "highScores.json";
 
         public HighScores LoadHighScores() {
-            if(!File.Exists(fileName))
+            if (!File.Exists(fileName))
                 return new(new List<Score>());
 
             string jsonScores = File.ReadAllText(fileName, Encoding.UTF8);

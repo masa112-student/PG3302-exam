@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Domain;
+﻿using Domain;
 
 namespace View
 {
     public class SimpleConsoleRenderer : IRenderer
     {
-        public SimpleConsoleRenderer() { 
+        public SimpleConsoleRenderer() {
             Console.CursorVisible = false;
         }
         ~SimpleConsoleRenderer() {
@@ -17,9 +12,9 @@ namespace View
         }
 
         public void DrawString(int x, int y, string s) {
-            if(x < Console.BufferWidth && y < Console.BufferHeight) {
-               Console.SetCursorPosition(x, y);
-               Console.Write(s);
+            if (x < Console.BufferWidth && y < Console.BufferHeight) {
+                Console.SetCursorPosition(x, y);
+                Console.Write(s);
             }
         }
 
@@ -51,7 +46,7 @@ namespace View
                 }
             }
 
-            if(sprite.Visible) {
+            if (sprite.Visible) {
                 spritePos = new Point(sprite.Pos);
                 int i = 0;
                 foreach (string line in lines) {

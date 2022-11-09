@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Domain.Enemies;
+﻿using Domain.Enemies;
 
 namespace Domain.EnemyDecorators
 {
@@ -17,7 +12,7 @@ namespace Domain.EnemyDecorators
         public BaseEnemyDecorator(IEnemy moreSpeedEnemy) {
             _enemy = moreSpeedEnemy;
         }
-        
+
         public int Speed() => _enemy.Speed();
 
         public void Move() => _enemy.Move();

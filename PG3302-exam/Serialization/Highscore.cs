@@ -1,18 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Serialization
+﻿namespace Serialization
 {
-    public class HighScores {
+    public class HighScores
+    {
         private List<Score> _scores;
         public List<Score> Scores { get { return _scores; } }
 
         public HighScores(List<Score> scores) {
             _scores = scores;
-            _scores.Sort((a, b) => b.Points - a.Points);    
+            _scores.Sort((a, b) => b.Points - a.Points);
         }
         public void UpdateScore(Score newScore) {
             if (_scores.Contains(newScore)) {
@@ -25,13 +20,13 @@ namespace Serialization
                 _scores.Add(newScore);
             }
 
-            _scores.Sort((a, b) => b.Points - a.Points);    
+            _scores.Sort((a, b) => b.Points - a.Points);
         }
 
         public bool DeleteScore(string name) {
             Score? scoreToDelete = _scores.Find(score => score.Name.Equals(name));
             if (scoreToDelete == null) return false;
-            return _scores.Remove(scoreToDelete);   
+            return _scores.Remove(scoreToDelete);
         }
     }
 
@@ -48,7 +43,7 @@ namespace Serialization
 
         public override bool Equals(object? obj) {
             if (obj == null) return false;
-            if(obj.GetType() != typeof(Score)) return false;
+            if (obj.GetType() != typeof(Score)) return false;
             Score score = (Score)obj;
             if (score == this) return true;
             return score.Name.Equals(Name);

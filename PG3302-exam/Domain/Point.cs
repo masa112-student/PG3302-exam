@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Domain
+﻿namespace Domain
 {
     public class Point
     {
@@ -12,19 +6,19 @@ namespace Domain
         public int Y;
 
         public Point(int x, int y) {
-            X = x; Y = y;   
+            X = x; Y = y;
         }
-        public Point() {}
+        public Point() { }
 
         public Point(Point prevPos) {
             X = prevPos.X;
-            Y = prevPos.Y; 
+            Y = prevPos.Y;
         }
 
-        public static Point operator+(Point a, Point b) {
+        public static Point operator +(Point a, Point b) {
             return new Point(a.X + b.X, a.Y + b.Y);
         }
-        public static Point operator-(Point a, Point b) {
+        public static Point operator -(Point a, Point b) {
             return new Point(a.X - b.X, a.Y - b.Y);
         }
         public static bool operator ==(Point? a, Point? b) {
@@ -43,7 +37,7 @@ namespace Domain
                 return false;
             }
             Point p = (Point)obj;
-            return X == p.X && Y == p.Y;    
+            return X == p.X && Y == p.Y;
         }
     }
 }

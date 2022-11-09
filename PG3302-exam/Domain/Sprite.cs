@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 
 namespace Domain
 {
     public class Sprite
     {
-        public enum Color {
+        public enum Color
+        {
             White,
             Black,
             Red
@@ -31,7 +28,7 @@ namespace Domain
                     width: lines.First().Length,
                     height: lines.Length
                 );
-            } 
+            }
         }
         public Point? Pos {
             get => _pos;
@@ -69,9 +66,9 @@ namespace Domain
             StringBuilder stringBuilder = new StringBuilder();
 
             for (int i = 0; i < height; i++) {
-                if(i > 0)
+                if (i > 0)
                     stringBuilder.Append("\n");
-                for (int j = 0; j< width; j++) {
+                for (int j = 0; j < width; j++) {
                     stringBuilder.Append(" ");
                 }
             }
