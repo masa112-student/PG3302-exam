@@ -14,7 +14,8 @@ namespace View
                 new JsonPersistance()
                 );
 
-            manager.StartupView();
+            //manager.StartupView();
+            OldRenderLoop();
         }
 
         static void OldRenderLoop() {
@@ -74,7 +75,7 @@ namespace View
                     }
                     if (keypress.Key == ConsoleKey.Spacebar)
                     {
-                        bullet = new Bullet(Console.WindowHeight, player.XPos, 100);
+                        bullet = new Bullet(Console.WindowHeight, player.XPos, 25);
                     }
 
                     if (didPowerUp == true && keypress.Key == ConsoleKey.Spacebar)
