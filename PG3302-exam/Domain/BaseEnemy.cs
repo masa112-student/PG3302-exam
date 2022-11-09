@@ -3,19 +3,36 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Domain;
+
 
 namespace View
 {
-    internal class BaseEnemy
+    public class BaseEnemy : IEnemy
     {
-        public Point pos { get; set; }
+        EnemyMovement? _enemyMovement;
 
-        public void Move() { }
-        public Sprite GetSprite() {
-            return new Sprite();
+        public int XPos { get => _enemyMovement.XPos; }
+        public int YPos { get => _enemyMovement.YPos; }
+
+        public int Speed() => 200;
+
+        public BaseEnemy()
+        {
+            Move();
         }
-        public Bullet Attack() {
-            return new Bullet(0, 0, 0);
+
+        public void Draw()
+        {
+            Console.SetCursorPosition(XPos, YPos);
+            Console.Write("X");
+        }
+
+        public EnemyMovement Move()
+        {
+            _enemyMovement = new EnemyMovement(Speed());
+            return _enemyMovement;
         }
     }
 }
+
