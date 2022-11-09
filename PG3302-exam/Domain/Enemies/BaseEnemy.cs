@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domain
+namespace Domain.Enemies
 {
-    public class BaseEnemy : IEnemy, IHittable 
+    public class BaseEnemy : IEnemy, IHittable
     {
         private Sprite _activeSprite;
         private bool _isDead;
@@ -14,36 +14,45 @@ namespace Domain
         EnemyMovement? _enemyMovement;
 
         public Point Pos { get; set; }
-        public Sprite ActiveSprite {
-            get {
+        public Sprite ActiveSprite
+        {
+            get
+            {
                 return _activeSprite;
             }
-            set {
-                if (value != null) {
+            set
+            {
+                if (value != null)
+                {
                     _activeSprite = value;
                     _activeSprite.Pos = Pos;
                 }
             }
         }
 
-        public bool IsDead {
+        public bool IsDead
+        {
             get => _isDead;
-            internal set {
+            internal set
+            {
                 _isDead = value;
-                
-                if(_isDead) {
+
+                if (_isDead)
+                {
                     ActiveSprite = Sprite.CreateBlankFromSprite(ActiveSprite);
                 }
-            } 
+            }
         }
 
-        public BaseEnemy() {
+        public BaseEnemy()
+        {
             ActiveSprite = new Sprite();
             Move();
         }
         public int Speed() => 200;
 
-        public Bullet Attack() {
+        public Bullet Attack()
+        {
             return new Bullet(0, 0, 0);
         }
 
@@ -53,22 +62,25 @@ namespace Domain
             return _enemyMovement;
         }
 
-        public Point GetPos() {
+        public Point GetPos()
+        {
             return Pos;
         }
 
-        public bool Hit(IHittable hittable) {
+        public bool Hit(IHittable hittable)
+        {
             Point otherP = hittable.GetPos();
             Dimension otherSize = hittable.GetDimension();
             Dimension size = GetDimension();
 
-            return Pos.X < (otherP.X + otherSize.Width) &&
-                Pos.Y < (otherP.Y + otherSize.Height) &&
-                (Pos.X + size.Width) > otherP.X &&
-                (Pos.Y + size.Height) > otherP.Y;
+            return Pos.X < otherP.X + otherSize.Width &&
+                Pos.Y < otherP.Y + otherSize.Height &&
+                Pos.X + size.Width > otherP.X &&
+                Pos.Y + size.Height > otherP.Y;
         }
 
-        public Dimension GetDimension() {
+        public Dimension GetDimension()
+        {
             return ActiveSprite.Size;
         }
 

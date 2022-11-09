@@ -1,5 +1,6 @@
 ﻿using System;
-namespace Domain
+
+namespace Domain.Enemies
 {
     public class EnemyMovement
     {
@@ -63,7 +64,7 @@ namespace Domain
 
         private void EnemyTimer_Elapsed(object? sender, System.Timers.ElapsedEventArgs e)
         {
-            if (XPos == (Console.WindowWidth - 2))
+            if (XPos == Console.WindowWidth - 2)
             {
                 XPos = 0;
                 YPos += 1;

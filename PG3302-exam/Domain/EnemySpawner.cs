@@ -5,11 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
+using Domain.Enemies;
 using View;
 
 namespace Domain
 {
-	public class EnemySpawner
+    public class EnemySpawner
 	{
 
 		private List<BaseEnemy> _enemies = new();

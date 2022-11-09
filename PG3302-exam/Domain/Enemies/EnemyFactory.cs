@@ -1,5 +1,6 @@
 ﻿using System;
-namespace Domain
+
+namespace Domain.Enemies
 {
     public class EnemyFactory
     {
@@ -8,7 +9,8 @@ namespace Domain
             IEnemy? enemy = null;
             BaseEnemy baseEnemy = new BaseEnemy();
 
-            if (enemyType.Equals(baseEnemy)) {
+            if (enemyType.Equals(baseEnemy))
+            {
                 enemy = new BaseEnemy();
             }
             else if (enemyType.Equals(baseEnemy))
