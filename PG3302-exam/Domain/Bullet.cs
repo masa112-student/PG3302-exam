@@ -4,7 +4,7 @@ namespace Domain
 {
     public class Bullet : IHittable
     {
-        private Sprite activeSprite;
+        private Sprite activeSprite = new Sprite("o");
 
         public Point Pos { 
             get => _pos; 
@@ -22,60 +22,18 @@ namespace Domain
             }
         }
 
-        private int _yPos;
-
-        private int _startX;
-
-        private System.Timers.Timer _enemyTimer;
         private Point _pos;
-
-        public int SpirteHeight { get; set; }
-        public int SpirteWidth { get; set; }
-
-        public int XPos { get => _startX; }
-        public int YPos {
-            get => _yPos;
-            set {
-                if (value < 1)
-                    _yPos = 0;
-                else
-                    _yPos = value;
-
-            }
-        }
 
         private int _moveSpeed;
 
-        public Bullet(int startY, int startX, int speed) {
-            _enemyTimer = new System.Timers.Timer();
-            _enemyTimer.Elapsed += BulletTimer_Elapsed;
-            _enemyTimer.Interval = 1000.0/speed;
-            _enemyTimer.Start();
-
-
+        public Bullet(Point startPos, int speed) {
             _moveSpeed = speed;
 
-            //_maxHeight = maxHeight;
-            ActiveSprite = new Sprite("o");
-            Pos = new Point(startX, startY);
-            _startX = startX;
-
-            YPos = startY;
+            Pos = new Point(startPos);
         }
-
-        private void BulletTimer_Elapsed(object? sender, System.Timers.ElapsedEventArgs e) {
-            //Pos += new Point(0, -1);
-            YPos -= 1;
-        }
-
 
         public void Update() {
             Pos += new Point(0, -1*_moveSpeed);
-        }
-
-        public void Draw() {
-            Console.SetCursorPosition(_startX, YPos);
-            Console.Write("o");
         }
 
         public Point GetPos() {
