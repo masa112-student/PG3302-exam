@@ -31,6 +31,8 @@ namespace View
             if (sprite.Pos == null)
                 return;
 
+            ConsoleColor currentColor = Console.ForegroundColor;
+
             string[] lines = sprite.Data.Split("\n");
 
             Point spritePos;
@@ -50,14 +52,19 @@ namespace View
             }
 
             spritePos = new Point(sprite.Pos);
+            int i = 0;
             foreach (string line in lines) {
                 if (!IsPointInBounds(spritePos))
                     break;
-
+                SetColor(sprite.ColorData[i]);
                 Console.SetCursorPosition(spritePos.X, spritePos.Y);
                 Console.Write(line);
                 spritePos.Y++;
+                i++;
             }
+
+            Console.ForegroundColor = currentColor;
+
         }
 
         private bool IsPointInBounds(Point p) {
@@ -65,6 +72,17 @@ namespace View
                 p.Y >= 0 &&
                 p.X < Console.BufferWidth &&
                 p.Y < Console.BufferHeight;
+        }
+
+        private void SetColor(Sprite.Color color) {
+            switch (color) {
+                case Sprite.Color.White:
+                    Console.ForegroundColor = ConsoleColor.White;
+                    break;
+                case Sprite.Color.Red:
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    break;
+            }
         }
     }
 }

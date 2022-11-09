@@ -8,18 +8,53 @@ namespace Domain
 {
     public class Sprite
     {
-        private Point? pos;
+        public enum Color {
+            White,
+            Black,
+            Red
+        }
 
-        public string Data { get; private set; }
-        public Point? Pos { get => pos; set {
-                PrevPos = Pos;
-                pos = value;
-            } }
-        public Point? PrevPos { get; set; }
+
+        private Point? _pos;
+        private string _data;
+
+        public string Data {
+            get => _data;
+            private set {
+                _data = value;
+
+                string[] lines = value.Split('\n');
+
+                Size = new(
+                    width: lines.First().Length,
+                    height: lines.Length
+                );
+            } 
+        }
+        public Point? Pos {
+            get => _pos;
+            set {
+                PrevPos = _pos;
+                _pos = value;
+            }
+        }
+
+
+        public Color[] ColorData { get; set; }
+
+        public Dimension Size { get; private set; }
+
+        public Point? PrevPos { get; private set; }
         public Sprite(string data, Point? pos) {
             Data = data;
             Pos = pos;
+
+            ColorData = new Color[data.Replace("\n", String.Empty).Length];
+            Array.Fill(ColorData, Color.White);
         }
+
+        public Sprite(Sprite previous) : this(previous.Data, previous.Pos) { }
+
         public Sprite(string data = "") : this(data, null) { }
     }
 }
