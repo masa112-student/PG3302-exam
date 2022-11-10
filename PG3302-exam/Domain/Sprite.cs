@@ -8,7 +8,8 @@ namespace Domain
         {
             White,
             Black,
-            Red
+            Red,
+            Yellow
         }
 
         private Point? _pos;

@@ -79,6 +79,12 @@ namespace View
                 case Sprite.Color.Red:
                     Console.ForegroundColor = ConsoleColor.Red;
                     break;
+                case Sprite.Color.Black:
+                    Console.ForegroundColor = ConsoleColor.Black;
+                    break;
+                case Sprite.Color.Yellow:
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    break;
             }
         }
     }
