@@ -1,6 +1,6 @@
 ﻿namespace Domain.Enemies
 {
-    public class BaseEnemy : IEnemy, IHittable
+    public class BasicEnemy : Enemy
     {
         private Sprite _activeSprite;
         private bool _isDead;
@@ -9,20 +9,20 @@
         private Point _pos;
         private int _movementDir = 1;
 
-        public BaseEnemy() : this(new BoardDimensions()) { }
-        public BaseEnemy(BoardDimensions boardDimensions) {
+        public BasicEnemy() : this(new BoardDimensions()) { }
+        public BasicEnemy(BoardDimensions boardDimensions) {
             _boardDimensions = boardDimensions;
             ActiveSprite = new Sprite();
         }
 
-        public Point Pos {
+        public override Point Pos {
             get => _pos;
             set {
                 _pos = value;
                 _activeSprite.Pos = value;
             }
         }
-        public Sprite ActiveSprite {
+        public override Sprite ActiveSprite {
             get => _activeSprite;
             set {
                 if (value != null) {
@@ -31,7 +31,7 @@
                 }
             }
         }
-        public bool IsDead {
+        public override bool IsDead {
             get => _isDead;
             set {
                 _isDead = value;
@@ -39,37 +39,39 @@
             }
         }
 
-        public int Speed() => 1;
+        public override int Speed() => 1;
 
-        public Bullet Attack() {
+        public override Bullet Attack() {
             return new Bullet(new Point(), 0);
         }
 
-        public void Move() { }
-        public void Update() {
+        public override void Move(Point direction) {
+                Pos += direction * Speed();
+        }
+
+        public override void Update() {
             if (IsDead)
                 return;
 
             Dimension dimension = GetDimension();
 
-            if (_movementDir > 0 && Pos.X == _boardDimensions.Width - dimension.Width) {
-                Pos += new Point(0, 1);
-                _movementDir *= -1;
-            }
-            else if (_movementDir < 0 && Pos.X <= 0) {
-                Pos += new Point(0, 1);
+            if (
+                (_movementDir > 0 && Pos.X == _boardDimensions.Width - dimension.Width) ||
+                (_movementDir < 0 && Pos.X <= 0)
+            ) {
+                Move(new Point(0, 1));
                 _movementDir *= -1;
             }
             else {
-                Pos += new Point(_movementDir * Speed(), 0);
+                Move(new Point(_movementDir, 0));
             }
         }
 
-        public Point GetPos() {
+        public override Point GetPos() {
             return Pos;
         }
 
-        public bool Hit(IHittable hittable) {
+        public override bool Hit(IHittable hittable) {
             if (IsDead)
                 return false;
 
@@ -83,7 +85,7 @@
                 Pos.Y + size.Height > otherP.Y;
         }
 
-        public Dimension GetDimension() {
+        public override Dimension GetDimension() {
             return ActiveSprite.Size;
         }
 

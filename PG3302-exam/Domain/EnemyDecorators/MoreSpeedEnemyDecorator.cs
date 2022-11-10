@@ -5,9 +5,21 @@ namespace Domain.EnemyDecorators
 {
     public class MoreSpeedEnemyDecorator : BaseEnemyDecorator
     {
-        public MoreSpeedEnemyDecorator(IEnemy moreSpeedEnemy) : base(moreSpeedEnemy) {
+        public MoreSpeedEnemyDecorator(Enemy moreSpeedEnemy) : base(moreSpeedEnemy) { }
+
+        public override Sprite ActiveSprite { 
+            get => base.ActiveSprite;
+            set { 
+                base.ActiveSprite = value;
+                Array.Fill(base.ActiveSprite.ColorData, Sprite.Color.Yellow);
+            } 
         }
-        public int Speed() => _enemy.Speed() - 50;
+
+        public override int Speed() => _enemy.Speed() + 1;
+
+        public override void Move(Point direction) {
+            Pos += direction * Speed();
+        }
     }
 }
 
