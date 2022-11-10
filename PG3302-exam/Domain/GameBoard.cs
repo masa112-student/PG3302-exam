@@ -21,7 +21,7 @@ namespace Domain
 
         private List<Bullet> _bullets;
         private EnemySpawner _enemySpawner;
-        private List<BaseEnemy> _enemies = new();
+        private List<Enemy> _enemies = new();
 
         private Point _moveDir;
         private bool _fire;
@@ -80,6 +80,10 @@ namespace Domain
                 _bullets.Add(_player.Attack());
 
             if (_enemies.Count == 0) {
+                if(Score > 0) {
+                    _enemySpawner.AddTypeToSpawnPool(EnemyType.Fast);
+                }
+
                 _enemySpawner.EnemySpawnChecker();
                 _enemies = _enemySpawner.Enemies;
             }
