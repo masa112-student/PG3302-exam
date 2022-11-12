@@ -2,7 +2,7 @@
 {
     public class EnemyMovement
     {
-        public static void Update(Enemy enemy, BoardDimensions boardDimensions) {
+        public static void Update(Enemy enemy, Dimension boardDimensions) {
             Dimension dimension = enemy.GetDimension();
 
             if (

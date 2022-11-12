@@ -4,9 +4,9 @@ namespace Domain.Enemies
 {
     public class FastEnemyFactory : EnemyFactory
     {
-        private BoardDimensions _boardDimensions;
+        private Dimension _boardDimensions;
 
-        public FastEnemyFactory(BoardDimensions boardDimensions) {
+        public FastEnemyFactory(Dimension boardDimensions) {
             _boardDimensions = boardDimensions;
         }
 

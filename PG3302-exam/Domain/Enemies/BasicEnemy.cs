@@ -5,12 +5,12 @@
         private Sprite _activeSprite;
         private bool _isDead;
 
-        private BoardDimensions _boardDimensions;
+        private Dimension _boardDimensions;
         private Point _pos;
         private int _movementDir = 1;
 
-        public BasicEnemy() : this(new BoardDimensions()) { }
-        public BasicEnemy(BoardDimensions boardDimensions) {
+        public BasicEnemy() : this(new Dimension()) { }
+        public BasicEnemy(Dimension boardDimensions) {
             _boardDimensions = boardDimensions;
             ActiveSprite = new Sprite();
             Speed = 1;

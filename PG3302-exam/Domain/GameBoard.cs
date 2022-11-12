@@ -3,18 +3,7 @@ using View;
 
 namespace Domain
 {
-    public struct BoardDimensions
-    {
-        public readonly int Width = 0;
-        public readonly int Height = 0;
-
-        public BoardDimensions(int width, int height) {
-            Width = width;
-            Height = height;
-        }
-    }
-
-
+    
     public class GameBoard : IGameBoard
     {
         private Player _player;
@@ -26,7 +15,7 @@ namespace Domain
         private Point _moveDir;
         private bool _fire;
 
-        private BoardDimensions _boardDimensions;
+        private Dimension _boardDimensions;
 
         public GameBoard(int boardWidth, int boardHeight) {
             _boardDimensions = new(boardWidth, boardHeight);

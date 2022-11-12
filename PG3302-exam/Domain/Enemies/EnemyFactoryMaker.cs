@@ -8,9 +8,9 @@
 
     public class EnemyFactoryMaker
     {
-        private readonly BoardDimensions _boardDimensions;
+        private readonly Dimension _boardDimensions;
 
-        public EnemyFactoryMaker(BoardDimensions boardDimensions) {
+        public EnemyFactoryMaker(Dimension boardDimensions) {
             _boardDimensions = boardDimensions;
         }
 

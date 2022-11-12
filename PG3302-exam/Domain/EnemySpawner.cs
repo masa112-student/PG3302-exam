@@ -15,10 +15,10 @@ namespace Domain
 
 		private List<EnemyType> _enemyTypes = new () { EnemyType.Basic };
 
-        private BoardDimensions _boardDimensions;
+        private Dimension _boardDimensions;
 		private EnemyFactoryMaker _enemyFactoryMaker;
 
-        public EnemySpawner(BoardDimensions boardDimensions) {
+        public EnemySpawner(Dimension boardDimensions) {
             _boardDimensions = boardDimensions;
 			_enemyFactoryMaker = new(boardDimensions);
         }
@@ -31,7 +31,7 @@ namespace Domain
 
         public void EnemySpawnChecker() {
 			_enemies = new();
-			int enemyCount = random.Next(1, 4);
+			int enemyCount = random.Next(1, 10);
 
 			EnemyType typeToSpawn;
 			int typeToSpawnIndex;
