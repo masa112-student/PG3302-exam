@@ -4,13 +4,6 @@ namespace Domain
 {
     public class Sprite
     {
-        public enum Color
-        {
-            White,
-            Black,
-            Red,
-            Yellow
-        }
 
         private Point? _pos;
         private string _data;
@@ -19,8 +12,8 @@ namespace Domain
             Data = data;
             Pos = pos;
 
-            ColorData = new Color[data.Replace("\n", String.Empty).Length];
-            Array.Fill(ColorData, Color.White);
+            ColorData = new ConsoleColor[data.Replace("\n", string.Empty).Length];
+            Array.Fill(ColorData, ConsoleColor.White);
 
             Visible = true;
         }
@@ -50,7 +43,7 @@ namespace Domain
         }
 
         public bool Visible { get; set; }
-        public Color[] ColorData { get; set; }
+        public ConsoleColor[] ColorData { get; set; }
         public Dimension Size { get; private set; }
         public Point? PrevPos { get; private set; }
 

@@ -52,7 +52,7 @@ namespace View
                 foreach (string line in lines) {
                     if (!IsPointInBounds(spritePos))
                         break;
-                    SetColor(sprite.ColorData[i]);
+                    Console.ForegroundColor = sprite.ColorData[i];
                     Console.SetCursorPosition(spritePos.X, spritePos.Y);
                     Console.Write(line);
                     spritePos.Y++;
@@ -69,23 +69,6 @@ namespace View
                 p.Y >= 0 &&
                 p.X < Console.BufferWidth &&
                 p.Y < Console.BufferHeight;
-        }
-
-        private void SetColor(Sprite.Color color) {
-            switch (color) {
-                case Sprite.Color.White:
-                    Console.ForegroundColor = ConsoleColor.White;
-                    break;
-                case Sprite.Color.Red:
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    break;
-                case Sprite.Color.Black:
-                    Console.ForegroundColor = ConsoleColor.Black;
-                    break;
-                case Sprite.Color.Yellow:
-                    Console.ForegroundColor = ConsoleColor.Yellow;
-                    break;
-            }
         }
     }
 }

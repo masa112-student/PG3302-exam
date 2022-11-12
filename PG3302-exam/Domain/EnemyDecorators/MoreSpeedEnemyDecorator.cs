@@ -11,7 +11,7 @@ namespace Domain.EnemyDecorators
             get => base.ActiveSprite;
             set { 
                 base.ActiveSprite = value;
-                Array.Fill(base.ActiveSprite.ColorData, Sprite.Color.Yellow);
+                Array.Fill(base.ActiveSprite.ColorData, ConsoleColor.Yellow);
             } 
         }
     }
