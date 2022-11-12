@@ -19,9 +19,6 @@ namespace Domain.EnemyDecorators
 
         public override void Move(Point direction) => _enemy.Move(direction);
 
-        public override void Update() {
-            _enemy.Update();
-        }
 
         public override Bullet Attack() {
             return _enemy.Attack();

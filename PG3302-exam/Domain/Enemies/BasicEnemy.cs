@@ -50,12 +50,6 @@
         public override void Move(Point direction) {
         }
 
-        public override void Update() {
-            if (IsDead)
-                return;
-
-        }
-
         public override Point GetPos() {
             return Pos;
         }

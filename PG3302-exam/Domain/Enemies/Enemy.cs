@@ -10,7 +10,6 @@
 
         public abstract void Move(Point direction);
 
-        public abstract void Update();
         public abstract Bullet Attack();
 
         public abstract Point GetPos();
