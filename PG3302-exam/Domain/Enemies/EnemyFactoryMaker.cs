@@ -15,7 +15,7 @@
         }
 
 
-        public EnemyFactory GetFactory(EnemyType type) {
+        public EnemyFactory MakeFactory(EnemyType type) {
             switch(type) {
                 case EnemyType.Basic:
                     return new BasicEnemyFactory(_boardDimensions);

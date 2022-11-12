@@ -39,7 +39,7 @@ namespace Domain
 				typeToSpawnIndex = random.Next(_enemyTypes.Count);
 				typeToSpawn = _enemyTypes[typeToSpawnIndex];
 
-                Enemy enemy = _enemyFactoryMaker.GetFactory(typeToSpawn).getEnemy();
+                Enemy enemy = _enemyFactoryMaker.MakeFactory(typeToSpawn).getEnemy();
 				enemy.Pos = enemyStartPos + new Point(i * (enemySprite.Size.Width + 1), 0);
 				enemy.ActiveSprite = new Sprite(enemySprite);
 				_enemies.Add(enemy);
