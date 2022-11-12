@@ -5,8 +5,8 @@
         public abstract Point Pos { get; set; }
         public abstract Sprite ActiveSprite { get; set; }
         public abstract bool IsDead { get; set; }
-
-        public abstract int Speed();
+        public abstract int Speed { get; set; }
+        public abstract int MovementDir { get; set; }
 
         public abstract void Move(Point direction);
 

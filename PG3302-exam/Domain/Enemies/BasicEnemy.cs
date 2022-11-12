@@ -13,6 +13,7 @@
         public BasicEnemy(BoardDimensions boardDimensions) {
             _boardDimensions = boardDimensions;
             ActiveSprite = new Sprite();
+            Speed = 1;
         }
 
         public override Point Pos {
@@ -39,32 +40,20 @@
             }
         }
 
-        public override int Speed() => 1;
+        public override int Speed { get; set; }
+        public override int MovementDir { get => _movementDir; set => _movementDir = value; }
 
         public override Bullet Attack() {
             return new Bullet(new Point(), 0);
         }
 
         public override void Move(Point direction) {
-                Pos += direction * Speed();
         }
 
         public override void Update() {
             if (IsDead)
                 return;
 
-            Dimension dimension = GetDimension();
-
-            if (
-                (_movementDir > 0 && Pos.X == _boardDimensions.Width - dimension.Width) ||
-                (_movementDir < 0 && Pos.X <= 0)
-            ) {
-                Move(new Point(0, 1));
-                _movementDir *= -1;
-            }
-            else {
-                Move(new Point(_movementDir, 0));
-            }
         }
 
         public override Point GetPos() {

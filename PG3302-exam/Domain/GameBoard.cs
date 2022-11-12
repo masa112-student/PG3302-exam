@@ -88,9 +88,7 @@ namespace Domain
                 _enemies = _enemySpawner.Enemies;
             }
 
-            _enemies.ForEach(enemy => enemy.Update());
-
-
+            _enemies.ForEach(enemy => EnemyMovement.Update(enemy, _boardDimensions));
             _enemies.RemoveAll(enemy => enemy.IsDead);
 
 
