@@ -4,15 +4,22 @@ namespace View
 {
     public class SimpleConsoleRenderer : IRenderer
     {
-        public SimpleConsoleRenderer() {
+        private int _windowWidth;
+        private int _windowHeight;
+
+        public SimpleConsoleRenderer(int windowWidth, int windowHeight) {
+            _windowWidth = windowWidth;
+            _windowHeight = windowHeight;
+         
             Console.CursorVisible = false;
         }
+
         ~SimpleConsoleRenderer() {
             Console.CursorVisible = true;
         }
 
         public void DrawString(int x, int y, string s) {
-            if (x < Console.BufferWidth && y < Console.BufferHeight) {
+            if (x < _windowWidth && y < _windowHeight) {
                 Console.SetCursorPosition(x, y);
                 Console.Write(s);
             }
@@ -59,16 +66,14 @@ namespace View
                     i++;
                 }
             }
-
             Console.ForegroundColor = currentColor;
-
         }
 
         private bool IsPointInBounds(Point p) {
             return p.X >= 0 &&
                 p.Y >= 0 &&
-                p.X < Console.BufferWidth &&
-                p.Y < Console.BufferHeight;
+                p.X < _windowWidth &&
+                p.Y < _windowHeight;
         }
     }
 }
