@@ -34,13 +34,12 @@ namespace Domain
             _fire = false;
             _enemySpawner = new EnemySpawner(_boardDimensions);
 
-            IsGameActive = true;
-            Score = 0;
-
             _player = new Player();
             _player.ActiveSprite = new Sprite(" ^ \n^^^");
             _player.Pos = new Point(_boardDimensions.Width / 2, _boardDimensions.Height - 2);
 
+            IsGameActive = true;
+            Score = 0;
         }
 
         public List<Sprite> GetSprites() {
