@@ -6,19 +6,20 @@ namespace Domain
 
     public class GameBoard : IGameBoard
     {
+        private readonly Dimension _boardDimensions;
+        private readonly EntityMover _entityMover;
+
         private Player _player;
 
         private List<Bullet> _bullets;
         private EnemySpawner _enemySpawner;
         private List<Enemy> _enemies = new();
 
-        private Point _moveDir;
         private bool _fire;
-
-        private Dimension _boardDimensions;
-
-        public GameBoard(Dimension boardDimension) {
-            _boardDimensions = boardDimension;
+        
+        public GameBoard(Dimension boardDimensions) {
+            _boardDimensions = boardDimensions;
+            _entityMover = new EntityMover(boardDimensions);
         }
 
         public GameBoard(int boardWidth, int boardHeight) 
@@ -30,9 +31,8 @@ namespace Domain
         public void Start() {
             _enemies = new();
             _bullets = new();
-            _moveDir = new();
             _fire = false;
-            _enemySpawner = new EnemySpawner(_boardDimensions);
+            _enemySpawner = new EnemySpawner();
 
             _player = new Player();
             _player.ActiveSprite = new Sprite(" ^ \n^^^");
@@ -53,10 +53,10 @@ namespace Domain
         public void MovePlayer(IGameBoard.MoveDir dir) {
             switch (dir) {
                 case IGameBoard.MoveDir.Left:
-                    _moveDir = new Point(-1, 0);
+                    _player.MoveDir = new Point(-1, 0);
                     break;
                 case IGameBoard.MoveDir.Right:
-                    _moveDir = new Point(1, 0);
+                    _player.MoveDir = new Point(1, 0);
                     break;
             }
         }
@@ -66,7 +66,7 @@ namespace Domain
         }
 
         public void Update() {
-            _player.Pos += _moveDir;
+            _entityMover.Move(_player, clamp: true);
 
             if (_fire && _player.CanAttack)
                 _bullets.Add(_player.Attack());
@@ -80,13 +80,19 @@ namespace Domain
                 _enemies = _enemySpawner.Enemies;
             }
 
-            _enemies.ForEach(enemy => EnemyMovement.Update(enemy, _boardDimensions));
+            _enemies.ForEach(enemy => {
+                EnemyMovement.Update(enemy, _boardDimensions);
+                _entityMover.Move(enemy, clamp: true);
+            });
             _enemies.RemoveAll(enemy => enemy.IsDead);
 
 
+            _bullets.RemoveAll(bullet => !_boardDimensions.IsPointInside(bullet.Pos));
+
             // TODO: BULLET POOL
             _bullets.ForEach(bullet => {
-                bullet.Update();
+                //bullet.Update();
+                _entityMover.Move(bullet);
 
                 _enemies.ForEach(enemy => {
                     if (bullet.Hit(enemy)) {
@@ -96,12 +102,11 @@ namespace Domain
                         }
                     }
                 });
-
             });
-            _bullets.RemoveAll(bullet => bullet.Pos.Y < -1);
             
+
             // Reset input vars
-            _moveDir = new Point();
+            _player.MoveDir = new Point();
             _fire = false;
         }
     }

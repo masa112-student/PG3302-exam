@@ -3,7 +3,7 @@ using System.Diagnostics;
 
 namespace View
 {
-    public class Player
+    public class Player : IMovable
     {
         private Sprite _activeSprite;
         private Point _pos;
@@ -12,6 +12,9 @@ namespace View
 
         public Player() {
             _attackTimer.Start();
+
+            Speed = 1;
+            MoveDir = new Point(0, 0);
         }
         public Point Pos {
             get => _pos;
@@ -32,6 +35,9 @@ namespace View
             }
         }
         public bool CanAttack { get => _attackTimer.ElapsedMilliseconds > _attackDelayMs; }
+        public int Speed { get; set; }
+        public Point MoveDir { get; set; }
+        public Dimension Size => ActiveSprite.Size;
 
         public Bullet Attack() {
             _attackTimer.Restart();

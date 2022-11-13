@@ -1,6 +1,6 @@
 ﻿namespace Domain
 {
-    public class Bullet : IHittable
+    public class Bullet : IHittable, IMovable
     {
         private Sprite activeSprite = new Sprite("o");
         private Point _pos;
@@ -10,6 +10,7 @@
             _moveSpeed = speed;
 
             Pos = new Point(startPos);
+            MoveDir = new Point(0, -1);
         }
         public Point Pos {
             get => _pos;
@@ -30,9 +31,8 @@
 
         public Dimension Size => ActiveSprite.Size;
 
-        public void Update() {
-            Pos += new Point(0, -1 * _moveSpeed);
-        }
+        public int Speed { get => _moveSpeed; set => _moveSpeed = value; }
+        public Point MoveDir { get; set; }
 
 
         public bool Hit(IHittable other) {
