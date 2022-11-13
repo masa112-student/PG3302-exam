@@ -8,19 +8,12 @@
 
     public class EnemyFactoryMaker
     {
-        private readonly Dimension _boardDimensions;
-
-        public EnemyFactoryMaker(Dimension boardDimensions) {
-            _boardDimensions = boardDimensions;
-        }
-
-
         public EnemyFactory MakeFactory(EnemyType type) {
             switch(type) {
                 case EnemyType.Basic:
-                    return new BasicEnemyFactory(_boardDimensions);
+                    return new BasicEnemyFactory();
                 case EnemyType.Fast:
-                    return new FastEnemyFactory(_boardDimensions);
+                    return new FastEnemyFactory();
                 default:
                     throw new ArgumentException($"Invalid type supplied to enemy factory {type}");
             }

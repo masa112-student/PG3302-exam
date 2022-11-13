@@ -14,13 +14,11 @@ namespace Domain.Enemies
 
         private List<EnemyType> _enemyTypes = new() { EnemyType.Basic };
 
-        private Dimension _boardDimensions;
         private EnemyFactoryMaker _enemyFactoryMaker;
 
-        public EnemySpawner(Dimension boardDimensions)
+        public EnemySpawner()
         {
-            _boardDimensions = boardDimensions;
-            _enemyFactoryMaker = new(boardDimensions);
+            _enemyFactoryMaker = new();
         }
 
         public void AddTypeToSpawnPool(EnemyType type)
