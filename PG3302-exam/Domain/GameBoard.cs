@@ -104,7 +104,7 @@ namespace Domain
                 _enemies.ForEach(enemy => {
                     if (bullet.Hit(enemy)) {
                         if (!enemy.IsDead) {
-                            enemy.Kill();
+                            enemy.Damage();
                             bullet.Destroy();
 
                             Score += 100;

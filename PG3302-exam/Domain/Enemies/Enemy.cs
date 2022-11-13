@@ -12,7 +12,7 @@
 
         public abstract Bullet Attack();
 
-        public abstract void Kill();
+        public abstract void Damage();
 
         public abstract bool Hit(IHittable hittable);
     }

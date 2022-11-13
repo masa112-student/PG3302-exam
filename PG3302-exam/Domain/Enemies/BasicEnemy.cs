@@ -3,12 +3,16 @@
     public class BasicEnemy : Enemy
     {
         private Sprite _activeSprite;
-        private bool _isDead;
 
         private Point _pos;
         private Point _movementDir = new(1, 0);
 
+        private int _health;
+        private bool _isDead;
+
         public BasicEnemy() {
+            _health = 1;
+
             ActiveSprite = new Sprite();
             Speed = 1;
         }
@@ -51,9 +55,12 @@
                 Pos.Y + Size.Height > other.Pos.Y;
         }
 
-        public override void Kill() {
-            _isDead = true;
-            ActiveSprite.Visible = false;
+        public override void Damage() {
+            _health--;
+            if(_health <= 0) {
+                _isDead = true;
+                ActiveSprite.Visible = false;
+            }
         }
     }
 }

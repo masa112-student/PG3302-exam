@@ -28,8 +28,8 @@ namespace Domain.EnemyDecorators
             return _enemy.Hit(other);
         }
 
-        public override void Kill() {
-            _enemy.Kill();
+        public override void Damage() {
+            _enemy.Damage();
         }
     }
 }
