@@ -1,4 +1,5 @@
 ﻿using Domain.Enemies;
+using System.Reflection.Metadata.Ecma335;
 using View;
 
 namespace Domain
@@ -87,10 +88,16 @@ namespace Domain
             _enemies.RemoveAll(enemy => enemy.IsDead);
 
 
-            _bullets.RemoveAll(bullet => !_boardDimensions.IsPointInside(bullet.Pos));
+            _bullets.RemoveAll(bullet => 
+                bullet.IsDestroyed || 
+                !_boardDimensions.IsPointInside(bullet.Pos)
+            );
 
             // TODO: BULLET POOL
             _bullets.ForEach(bullet => {
+                if (bullet.IsDestroyed) 
+                    return;
+                    
                 //bullet.Update();
                 _entityMover.Move(bullet);
 
@@ -98,6 +105,8 @@ namespace Domain
                     if (bullet.Hit(enemy)) {
                         if (!enemy.IsDead) {
                             enemy.Kill();
+                            bullet.Destroy();
+
                             Score += 100;
                         }
                     }

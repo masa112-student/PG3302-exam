@@ -2,9 +2,10 @@
 {
     public class Bullet : IHittable, IMovable
     {
-        private Sprite activeSprite = new Sprite("o");
+        private Sprite _activeSprite = new Sprite("o");
         private Point _pos;
         private int _moveSpeed;
+        private bool _isDestroyed;
 
         public Bullet(Point startPos, int speed) {
             _moveSpeed = speed;
@@ -16,16 +17,16 @@
             get => _pos;
             set {
                 _pos = value;
-                activeSprite.Pos = _pos;
+                _activeSprite.Pos = _pos;
             }
         }
         public Sprite ActiveSprite {
             get {
-                return activeSprite;
+                return _activeSprite;
             }
             set {
                 if (value != null)
-                    activeSprite = value;
+                    _activeSprite = value;
             }
         }
 
@@ -34,9 +35,14 @@
         public int Speed { get => _moveSpeed; set => _moveSpeed = value; }
         public Point MoveDir { get; set; }
 
+        public bool IsDestroyed => _isDestroyed;
+        public void Destroy() {
+            ActiveSprite.Visible = false;
+            Speed = 0;
+            _isDestroyed = true;
+        }
 
         public bool Hit(IHittable other) {
-
             return Pos.X < (other.Pos.X + other.Size.Width) &&
                 Pos.Y < (other.Pos.Y + other.Size.Height) &&
                 (Pos.X + Size.Width) > other.Pos.X &&
