@@ -67,6 +67,7 @@ namespace Domain
 
         public void Update() {
             _player.Pos += _moveDir;
+
             if (_fire && _player.CanAttack)
                 _bullets.Add(_player.Attack());
 
@@ -86,6 +87,7 @@ namespace Domain
             // TODO: BULLET POOL
             _bullets.ForEach(bullet => {
                 bullet.Update();
+
                 _enemies.ForEach(enemy => {
                     if (bullet.Hit(enemy)) {
                         if (!enemy.IsDead) {
@@ -97,7 +99,7 @@ namespace Domain
 
             });
             _bullets.RemoveAll(bullet => bullet.Pos.Y < -1);
-            //_enemies.RemoveAll(enemy => enemy.isDead);
+            
             // Reset input vars
             _moveDir = new Point();
             _fire = false;

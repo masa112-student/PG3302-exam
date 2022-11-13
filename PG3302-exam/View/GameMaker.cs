@@ -14,6 +14,7 @@ namespace View
         public static GameManager MakeGame() {
             GameManager manager;
             Dimension gameDimension = new(Console.WindowWidth, Console.WindowHeight);
+
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows)) {
                 manager = new GameManager(
                 new SimpleConsoleRenderer(gameDimension),
