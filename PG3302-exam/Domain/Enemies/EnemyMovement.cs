@@ -8,11 +8,13 @@
                 (enemy.MoveDir.X < 0 && enemy.Pos.X <= 0);
 
             if (hasHitXBoundry) {
-                enemy.MoveDir.X *= -1;
-                enemy.MoveDir.Y = enemy.Size.Height;
+                enemy.MoveDir = new Point(
+                    x: enemy.MoveDir.X * -1,
+                    y: enemy.Size.Height
+                    );
             }
             else {
-                enemy.MoveDir.Y = 0;
+                enemy.MoveDir = enemy.MoveDir with { Y = 0 };
             }
         }
     }

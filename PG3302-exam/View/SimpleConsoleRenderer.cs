@@ -40,9 +40,10 @@ namespace View
 
             Point spritePos;
             if (sprite.PrevPos != null) {
-                spritePos = new Point(sprite.PrevPos);
+                Point prevPos = (Point)sprite.PrevPos;
+                spritePos = prevPos;
                 foreach (string line in lines) {
-                    spritePos.X = sprite.PrevPos.X;
+                    spritePos.X = prevPos.X;
                     foreach (char _ in line) {
                         if (!_windowDimension.IsPointInside(spritePos))
                             break;
@@ -54,8 +55,8 @@ namespace View
                 }
             }
 
-            if (sprite.Visible) {
-                spritePos = new Point(sprite.Pos);
+            if (sprite.Visible && sprite.Pos != null) {
+                spritePos = (Point)sprite.Pos;
                 int i = 0;
                 foreach (string line in lines) {
                     if (!_windowDimension.IsPointInside(spritePos))

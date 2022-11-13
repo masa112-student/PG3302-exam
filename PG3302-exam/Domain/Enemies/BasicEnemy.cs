@@ -33,17 +33,15 @@
                 }
             }
         }
-        public override bool IsDead { get => _isDead; }
 
+        public override bool IsDead { get => _isDead; }
         public override int Speed { get; set; }
         public override Point MoveDir { get => _movementDir; set => _movementDir = value; }
-
         public override Dimension Size { get => ActiveSprite.Size; }
 
         public override Bullet Attack() {
             return new Bullet(new Point(), 0);
         }
-
 
         public override bool Hit(IHittable other) {
             if (IsDead)

@@ -31,20 +31,20 @@ namespace Domain
 
                 if (movingLeft && entity.Pos.X < 0)
                 {
-                    entity.Pos.X = 0;
+                    entity.Pos = entity.Pos with { X = 0};
                 }
                 else if (!movingLeft && entity.Pos.X + entity.Size.Width > _boardDimensions.Width)
                 {
-                    entity.Pos.X = _boardDimensions.Width - entity.Size.Width;
+                    entity.Pos = entity.Pos with { X = _boardDimensions.Width - entity.Size.Width } ;
                 }
 
                 if (movingUp && entity.Pos.Y < 0)
                 {
-                    entity.Pos.Y = 0;
+                    entity.Pos = entity.Pos with { Y = 0 };
                 }
                 else if (!movingUp && entity.Pos.Y + entity.Size.Height > _boardDimensions.Height)
                 {
-                    entity.Pos.Y = _boardDimensions.Height - entity.Size.Height;
+                    entity.Pos = entity.Pos with { Y = _boardDimensions.Height - entity.Size.Height } ;
                 }
             }
         }

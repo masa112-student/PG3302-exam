@@ -112,7 +112,6 @@ namespace Domain
                     }
                 });
             });
-            
 
             // Reset input vars
             _player.MoveDir = new Point();

@@ -1,12 +1,11 @@
 ﻿namespace Domain
 {
-    public class Point
+    public struct Point
     {
         public Point(int x, int y) {
             X = x; Y = y;
         }
-        public Point() { }
-        public Point(Point prevPos) :this(prevPos.X, prevPos.Y) { }
+        public Point() : this(0, 0) { }
 
         public int X { get; set; }
         public int Y { get; set; }

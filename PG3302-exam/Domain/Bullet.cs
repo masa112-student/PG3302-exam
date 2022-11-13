@@ -10,7 +10,7 @@
         public Bullet(Point startPos, int speed) {
             _moveSpeed = speed;
 
-            Pos = new Point(startPos);
+            Pos = startPos;
             MoveDir = new Point(0, -1);
         }
         public Point Pos {
