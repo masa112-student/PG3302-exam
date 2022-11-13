@@ -32,13 +32,7 @@
                 }
             }
         }
-        public override bool IsDead {
-            get => _isDead;
-            set {
-                _isDead = value;
-                ActiveSprite.Visible = !_isDead;
-            }
-        }
+        public override bool IsDead { get => _isDead; }
 
         public override int Speed { get; set; }
         public override Point MoveDir { get => _movementDir; set => _movementDir = value; }
@@ -47,9 +41,6 @@
 
         public override Bullet Attack() {
             return new Bullet(new Point(), 0);
-        }
-
-        public override void Move(Point direction) {
         }
 
 
@@ -63,7 +54,10 @@
                 Pos.Y + Size.Height > other.Pos.Y;
         }
 
-
+        public override void Kill() {
+            _isDead = true;
+            ActiveSprite.Visible = false;
+        }
     }
 }
 

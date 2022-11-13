@@ -13,13 +13,11 @@ namespace Domain.EnemyDecorators
         
         public override Point Pos { get => _enemy.Pos; set => _enemy.Pos = value; }
         public override Sprite ActiveSprite { get => _enemy.ActiveSprite; set => _enemy.ActiveSprite = value; }
-        public override bool IsDead { get => _enemy.IsDead; set => _enemy.IsDead = value; }
+        public override bool IsDead { get => _enemy.IsDead;  }
         public override int Speed { get => _enemy.Speed; set => _enemy.Speed = value; }
         public override Point MoveDir { get => _enemy.MoveDir; set => _enemy.MoveDir = value; }
 
         public override Dimension Size => _enemy.Size;
-
-        public override void Move(Point direction) => _enemy.Move(direction);
 
 
         public override Bullet Attack() {
@@ -28,6 +26,10 @@ namespace Domain.EnemyDecorators
 
         public override bool Hit(IHittable other) {
             return _enemy.Hit(other);
+        }
+
+        public override void Kill() {
+            _enemy.Kill();
         }
     }
 }
