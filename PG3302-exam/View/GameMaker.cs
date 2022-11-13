@@ -13,19 +13,20 @@ namespace View
     {
         public static GameManager MakeGame() {
             GameManager manager;
+            Dimension gameDimension = new(Console.WindowWidth, Console.WindowHeight);
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows)) {
                 manager = new GameManager(
-                new SimpleConsoleRenderer(Console.WindowWidth, Console.WindowHeight),
+                new SimpleConsoleRenderer(gameDimension),
                 new WindowsConsoleUserInput(),
-                new GameBoard(Console.WindowWidth, Console.WindowHeight),
+                new GameBoard(gameDimension),
                 new JsonPersistance()
                 );
             }
             else {
                 manager = new GameManager(
-                new SimpleConsoleRenderer(Console.WindowWidth, Console.WindowHeight),
+                new SimpleConsoleRenderer(gameDimension),
                 new SimpleConsoleUserInput(),
-                new GameBoard(Console.WindowWidth, Console.WindowHeight),
+                new GameBoard(gameDimension),
                 new JsonPersistance()
                 );
             }

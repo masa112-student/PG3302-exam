@@ -4,22 +4,23 @@ namespace View
 {
     public class SimpleConsoleRenderer : IRenderer
     {
-        private int _windowWidth;
-        private int _windowHeight;
+        private Dimension _windowDimension;
 
-        public SimpleConsoleRenderer(int windowWidth, int windowHeight) {
-            _windowWidth = windowWidth;
-            _windowHeight = windowHeight;
-         
+        public SimpleConsoleRenderer(Dimension windowDimension) {
+            _windowDimension = windowDimension;
             Console.CursorVisible = false;
         }
+        public SimpleConsoleRenderer(int windowWidth, int windowHeight) 
+            : this(new Dimension(windowWidth, windowHeight)) { }
+
+      
 
         ~SimpleConsoleRenderer() {
             Console.CursorVisible = true;
         }
 
         public void DrawString(int x, int y, string s) {
-            if (x < _windowWidth && y < _windowHeight) {
+            if (_windowDimension.IsPointInside(x, y)) {
                 Console.SetCursorPosition(x, y);
                 Console.Write(s);
             }
@@ -43,7 +44,7 @@ namespace View
                 foreach (string line in lines) {
                     spritePos.X = sprite.PrevPos.X;
                     foreach (char _ in line) {
-                        if (!IsPointInBounds(spritePos))
+                        if (!_windowDimension.IsPointInside(spritePos))
                             break;
                         Console.SetCursorPosition(spritePos.X, spritePos.Y);
                         Console.Write(" ");
@@ -57,7 +58,7 @@ namespace View
                 spritePos = new Point(sprite.Pos);
                 int i = 0;
                 foreach (string line in lines) {
-                    if (!IsPointInBounds(spritePos))
+                    if (!_windowDimension.IsPointInside(spritePos))
                         break;
                     Console.ForegroundColor = sprite.ColorData[i];
                     Console.SetCursorPosition(spritePos.X, spritePos.Y);
@@ -67,13 +68,6 @@ namespace View
                 }
             }
             Console.ForegroundColor = currentColor;
-        }
-
-        private bool IsPointInBounds(Point p) {
-            return p.X >= 0 &&
-                p.Y >= 0 &&
-                p.X < _windowWidth &&
-                p.Y < _windowHeight;
         }
     }
 }

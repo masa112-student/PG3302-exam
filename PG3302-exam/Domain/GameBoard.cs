@@ -17,9 +17,12 @@ namespace Domain
 
         private Dimension _boardDimensions;
 
-        public GameBoard(int boardWidth, int boardHeight) {
-            _boardDimensions = new(boardWidth, boardHeight);
+        public GameBoard(Dimension boardDimension) {
+            _boardDimensions = boardDimension;
         }
+
+        public GameBoard(int boardWidth, int boardHeight) 
+            : this (new Dimension(boardWidth, boardHeight)) { }
 
         public int Score { get; set; }
         public bool IsGameActive { get; set; }
