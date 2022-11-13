@@ -2,20 +2,20 @@
 {
     public class EnemyMovement
     {
-        public static void Update(Enemy enemy, Dimension boardDimensions) {
-            Dimension dimension = enemy.GetDimension();
+        public static void Update(IMovable enemy, Dimension boardDimensions) {
+            Dimension size = enemy.Size;
 
             if (
-                (enemy.MovementDir > 0 && enemy.Pos.X >= boardDimensions.Width - dimension.Width) ||
-                (enemy.MovementDir < 0 && enemy.Pos.X <= 0)
+                (enemy.MoveDir.X > 0 && enemy.Pos.X >= boardDimensions.Width - size.Width) ||
+                (enemy.MoveDir.X < 0 && enemy.Pos.X <= 0)
             ) {
-                enemy.Pos += new Point(0, dimension.Height);
-                enemy.MovementDir *= -1;
+                enemy.Pos += new Point(0, size.Height);
+                enemy.MoveDir.X *= -1;
             }
             else {
-                Point newMove = new Point(enemy.MovementDir, 0);
+                Point newMove = new Point(enemy.MoveDir.X, 0);
                 if (
-                    enemy.Pos.X + newMove.X < boardDimensions.Width - dimension.Width &&
+                    enemy.Pos.X + newMove.X < boardDimensions.Width - size.Width &&
                     enemy.Pos.X + newMove.X > 0
                     ) {
                     newMove *= enemy.Speed;

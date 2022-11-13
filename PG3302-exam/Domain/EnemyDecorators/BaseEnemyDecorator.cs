@@ -15,7 +15,9 @@ namespace Domain.EnemyDecorators
         public override Sprite ActiveSprite { get => _enemy.ActiveSprite; set => _enemy.ActiveSprite = value; }
         public override bool IsDead { get => _enemy.IsDead; set => _enemy.IsDead = value; }
         public override int Speed { get => _enemy.Speed; set => _enemy.Speed = value; }
-        public override int MovementDir { get => _enemy.MovementDir; set => _enemy.MovementDir = value; }
+        public override Point MoveDir { get => _enemy.MoveDir; set => _enemy.MoveDir = value; }
+
+        public override Dimension Size => _enemy.Size;
 
         public override void Move(Point direction) => _enemy.Move(direction);
 
@@ -24,16 +26,8 @@ namespace Domain.EnemyDecorators
             return _enemy.Attack();
         }
 
-        public override Point GetPos() {
-            return _enemy.GetPos();
-        }
-
-        public override Dimension GetDimension() {
-            return _enemy.GetDimension();
-        }
-
-        public override bool Hit(IHittable hittable) {
-            return _enemy.Hit(hittable);
+        public override bool Hit(IHittable other) {
+            return _enemy.Hit(other);
         }
     }
 }

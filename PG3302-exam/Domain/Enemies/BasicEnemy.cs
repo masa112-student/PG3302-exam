@@ -7,7 +7,7 @@
 
         private Dimension _boardDimensions;
         private Point _pos;
-        private int _movementDir = 1;
+        private Point _movementDir = new(1, 0);
 
         public BasicEnemy() : this(new Dimension()) { }
         public BasicEnemy(Dimension boardDimensions) {
@@ -41,7 +41,9 @@
         }
 
         public override int Speed { get; set; }
-        public override int MovementDir { get => _movementDir; set => _movementDir = value; }
+        public override Point MoveDir { get => _movementDir; set => _movementDir = value; }
+
+        public override Dimension Size { get => ActiveSprite.Size; }
 
         public override Bullet Attack() {
             return new Bullet(new Point(), 0);
@@ -50,27 +52,17 @@
         public override void Move(Point direction) {
         }
 
-        public override Point GetPos() {
-            return Pos;
-        }
 
-        public override bool Hit(IHittable hittable) {
+        public override bool Hit(IHittable other) {
             if (IsDead)
                 return false;
 
-            Point otherP = hittable.GetPos();
-            Dimension otherSize = hittable.GetDimension();
-            Dimension size = GetDimension();
-
-            return Pos.X < otherP.X + otherSize.Width &&
-                Pos.Y < otherP.Y + otherSize.Height &&
-                Pos.X + size.Width > otherP.X &&
-                Pos.Y + size.Height > otherP.Y;
+            return Pos.X < other.Pos.X + other.Size.Width &&
+                Pos.Y < other.Pos.Y + other.Size.Height &&
+                Pos.X + Size.Width > other.Pos.X &&
+                Pos.Y + Size.Height > other.Pos.Y;
         }
 
-        public override Dimension GetDimension() {
-            return ActiveSprite.Size;
-        }
 
     }
 }

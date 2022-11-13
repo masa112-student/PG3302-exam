@@ -3,7 +3,7 @@ using View;
 
 namespace Domain
 {
-    
+
     public class GameBoard : IGameBoard
     {
         private Player _player;

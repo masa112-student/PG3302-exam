@@ -28,28 +28,21 @@
             }
         }
 
+        public Dimension Size => ActiveSprite.Size;
+
         public void Update() {
             Pos += new Point(0, -1 * _moveSpeed);
         }
 
-        public Point GetPos() {
-            return Pos;
+
+        public bool Hit(IHittable other) {
+
+            return Pos.X < (other.Pos.X + other.Size.Width) &&
+                Pos.Y < (other.Pos.Y + other.Size.Height) &&
+                (Pos.X + Size.Width) > other.Pos.X &&
+                (Pos.Y + Size.Height) > other.Pos.Y;
         }
 
-        public bool Hit(IHittable hittable) {
-            Point otherP = hittable.GetPos();
-            Dimension otherSize = hittable.GetDimension();
-            Dimension size = GetDimension();
-
-            return Pos.X < (otherP.X + otherSize.Width) &&
-                Pos.Y < (otherP.Y + otherSize.Height) &&
-                (Pos.X + size.Width) > otherP.X &&
-                (Pos.Y + size.Height) > otherP.Y;
-        }
-
-        public Dimension GetDimension() {
-            return ActiveSprite.Size;
-        }
     }
 }
 

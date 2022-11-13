@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Domain
 {
-    public interface IMovable : IEntity {
-        int Speed { get; set; }
-        
-        Point MoveDir { get; set; }
+    public interface IEntity
+    {
+        Dimension Size { get; }
 
+        Point Pos { get; set; }
     }
 }

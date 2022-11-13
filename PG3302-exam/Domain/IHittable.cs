@@ -1,6 +1,6 @@
 ﻿namespace Domain
 {
-    public interface IHittable
+    public interface IHittable : IEntity
     {
         enum Team
         {
@@ -8,9 +8,7 @@
             Enemy
         }
 
-        Point GetPos();
-        Dimension GetDimension();
-
-        bool Hit(IHittable hittable);
+        
+        bool Hit(IHittable other);
     }
 }
