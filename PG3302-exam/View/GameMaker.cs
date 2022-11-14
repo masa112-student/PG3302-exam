@@ -16,13 +16,14 @@ namespace View
         public static GameManager MakeGame() {
             GameManager manager;
             Dimension gameDimension = new(Console.WindowWidth, Console.WindowHeight);
+            string scoreFileName = "highscores.json";
 
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows)) {
                 manager = new GameManager(
                 new SimpleConsoleRenderer(gameDimension),
                 new WindowsConsoleUserInput(),
                 new GameBoard(gameDimension),
-                new JsonPersistance()
+                new JsonPersistance(scoreFileName)
                 );
             }
             else {
@@ -30,7 +31,7 @@ namespace View
                 new SimpleConsoleRenderer(gameDimension),
                 new SimpleConsoleUserInput(),
                 new GameBoard(gameDimension),
-                new JsonPersistance()
+                new JsonPersistance(scoreFileName)
                 );
             }
 

@@ -3,7 +3,8 @@
     internal class Program
     {
         static void Main(string[] args) {
-            JsonPersistance serializer = new JsonPersistance();
+            string scoreFileName = "highscores.json";
+            JsonPersistance serializer = new JsonPersistance(scoreFileName);
 
             HighScores highScores = serializer.LoadHighScores();
 
