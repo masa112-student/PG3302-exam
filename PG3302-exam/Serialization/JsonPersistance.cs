@@ -18,11 +18,12 @@ namespace Serialization
                 return new(new List<Score>());
 
             string jsonScores = File.ReadAllText(_fileName, Encoding.UTF8);
-            if (jsonScores == null || jsonScores.Equals(""))
+            if (string.IsNullOrEmpty(jsonScores))
                 return new(new List<Score>());
 
             List<Score>? data = JsonSerializer.Deserialize<List<Score>>(jsonScores);
             HighScores scores = new HighScores(data ?? new List<Score>());
+
             return scores;
         }
 
