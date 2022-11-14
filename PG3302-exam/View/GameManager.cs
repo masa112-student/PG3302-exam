@@ -106,7 +106,7 @@ namespace View
 
         public void GameOverView() {
             var scores = _serializer.LoadHighScores();
-            scores.UpdateScore(new Score(_userName, _gameBoard.Score));
+            scores.Add(new Score(_userName, _gameBoard.Score));
             _serializer.SaveHighScores(scores);
 
             _renderer.ClearScreen();
@@ -124,7 +124,7 @@ namespace View
             _renderer.DrawString(0, 0, "HighScores:");
 
             int y = 1;
-            foreach (var score in scores.Scores) {
+            foreach (var score in scores) {
                 _renderer.DrawString(0, y++, $"{score.Name,-10}: {score.Points}");
             }
 

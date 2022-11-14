@@ -30,7 +30,7 @@
 
                     Score newScore = new Score(name, points);
 
-                    highScores.UpdateScore(newScore);
+                    highScores.Add(newScore);
                     serializer.SaveHighScores(highScores);
                 }
                 if (keyPress.Key == ConsoleKey.D2) {
@@ -38,12 +38,12 @@
 
                     string? name = Console.ReadLine();
 
-                    highScores.DeleteScore(name);
+                    highScores.Remove(new (name, 0));
                     serializer.SaveHighScores(highScores);
                 }
                 if (keyPress.Key == ConsoleKey.D3) {
 
-                    foreach (var score in highScores.Scores) {
+                    foreach (var score in highScores) {
                         Console.WriteLine($"{score.Name}: {score.Points}");
                     }
 

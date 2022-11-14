@@ -1,24 +1,29 @@
-﻿using System.Data.Common;
+﻿using System.Collections;
+using System.Data.Common;
 using System.Runtime.CompilerServices;
 
 namespace Serialization
 {
-    public class HighScores
+    public class HighScores : ICollection<Score>
     {
         private List<Score> _scores;
 
-        public HighScores(List<Score> scores) {
-            _scores = scores;
+        public HighScores(IEnumerable<Score> scores) {
+            _scores = new List<Score>(scores);
             _scores.Sort();
         }
-        public List<Score> Scores { get { return _scores; } }
 
-        public void UpdateScore(Score newScore) {
+        public int Count => _scores.Count;
+
+        public bool IsReadOnly => false;
+
+        public void Add(Score newScore) {
             if (_scores.Contains(newScore)) {
-                var a = _scores.Find(s => s.Equals(newScore));
-                if (a != null)
-                    if (newScore.Points > a.Points)
-                        a.Points = newScore.Points;
+                var oldScore = _scores.Find(s => s == newScore);
+                if (newScore.Points > oldScore.Points) {
+                    _scores.Remove(oldScore);
+                    _scores.Add(newScore);
+                }
             }
             else {
                 _scores.Add(newScore);
@@ -26,15 +31,22 @@ namespace Serialization
 
             _scores.Sort();
         }
+        public bool Contains(Score item) => _scores.Contains(item);
+        public bool Remove(Score item) => _scores.Remove(item);
 
-        public bool DeleteScore(string name) {
-            Score? scoreToDelete = _scores.Find(score => score.Name.Equals(name));
-            if (scoreToDelete == null) return false;
-            return _scores.Remove(scoreToDelete);
+        public void Clear() {
+            _scores.Clear();
         }
+        public void CopyTo(Score[] array, int arrayIndex) {
+            _scores.CopyTo(array, arrayIndex);
+        }
+        public IEnumerator<Score> GetEnumerator() => _scores.GetEnumerator();
+        IEnumerator IEnumerable.GetEnumerator() => _scores.GetEnumerator();
+
+        public Score this[int index] => _scores[index]; 
     }
 
-    public class Score: IComparable<Score>
+    public struct Score: IComparable<Score>
     {
         public string Name { get; set; }
         public int Points { get; set; }
@@ -46,17 +58,17 @@ namespace Serialization
 
 
         public override bool Equals(object? obj) {
-            if (obj == null) return false;
-            if (obj.GetType() != typeof(Score)) return false;
+            if (obj is not Score) return false;
+            
             Score score = (Score)obj;
-            if (score == this) return true;
             return score.Name.Equals(Name);
         }
 
-        public int CompareTo(Score? other) {
-            if (other == null) return 1;
+        public int CompareTo(Score other) {
             return other.Points - Points;
         }
+        public static bool operator ==(Score a, Score b) => a.Equals(b);
+        public static bool operator !=(Score a, Score b) => !(a == b);
 
         public static bool operator <(Score a, Score b) => a.Points < b.Points;
         public static bool operator >(Score a, Score b) => a.Points > b.Points;
