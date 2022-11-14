@@ -1,4 +1,5 @@
-﻿using Domain;
+﻿using Domain.Data;
+using Domain.Core;
 using Serialization;
 using System.Diagnostics;
 using System.Text;

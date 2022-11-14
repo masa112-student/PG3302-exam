@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Domain.Data;
 
-namespace Domain
+namespace Domain.Core
 {
     public interface IEntity
     {

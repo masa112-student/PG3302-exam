@@ -10,6 +10,5 @@ namespace View
             GameManager manager = GameMaker.MakeGame();
             manager.StartupView();
         }
-
     }
 }

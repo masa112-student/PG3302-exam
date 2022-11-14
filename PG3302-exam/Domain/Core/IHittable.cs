@@ -1,4 +1,4 @@
-﻿namespace Domain
+﻿namespace Domain.Core
 {
     public interface IHittable : IEntity
     {
@@ -8,7 +8,7 @@
             Enemy
         }
 
-        
+
         bool Hit(IHittable other);
     }
 }

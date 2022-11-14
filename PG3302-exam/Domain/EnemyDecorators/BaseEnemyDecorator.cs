@@ -1,4 +1,6 @@
-﻿using Domain.Enemies;
+﻿using Domain.Data;
+using Domain.Enemies;
+using Domain.Core;
 
 namespace Domain.EnemyDecorators
 {

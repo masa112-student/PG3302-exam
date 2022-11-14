@@ -1,4 +1,4 @@
-﻿namespace Domain
+﻿namespace Domain.Data
 {
     public struct Point
     {
@@ -30,6 +30,5 @@
         public static bool operator !=(Point a, Point b) {
             return !a.Equals(b);
         }
-
     }
 }

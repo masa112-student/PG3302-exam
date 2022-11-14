@@ -1,4 +1,6 @@
 ﻿using Domain;
+using Domain.Data;
+using Domain.Core;
 using System.Diagnostics;
 
 namespace View

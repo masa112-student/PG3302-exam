@@ -1,4 +1,6 @@
 ﻿using System.Collections.Immutable;
+using Domain.Core;
+using Domain.Data;
 
 namespace Domain.Enemies
 {

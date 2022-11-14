@@ -1,4 +1,5 @@
-﻿using Domain;
+﻿using Domain.Core;
+using Domain.Data;
 
 namespace View
 {

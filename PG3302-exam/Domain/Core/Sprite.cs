@@ -1,6 +1,7 @@
 ﻿using System.Text;
+using Domain.Data;
 
-namespace Domain
+namespace Domain.Core
 {
     public class Sprite
     {
@@ -8,7 +9,8 @@ namespace Domain
         private Point? _pos;
         private string _data;
 
-        public Sprite(string data, Point? pos) {
+        public Sprite(string data, Point? pos)
+        {
             Data = data;
             Pos = pos;
 
@@ -20,9 +22,11 @@ namespace Domain
         public Sprite(Sprite previous) : this(previous.Data, previous.Pos) { }
         public Sprite(string data = "") : this(data, null) { }
 
-        public string Data {
+        public string Data
+        {
             get => _data;
-            private set {
+            private set
+            {
                 _data = value;
 
                 string[] lines = value.Split('\n');
@@ -34,9 +38,11 @@ namespace Domain
             }
         }
 
-        public Point? Pos {
+        public Point? Pos
+        {
             get => _pos;
-            set {
+            set
+            {
                 PrevPos = _pos;
                 _pos = value;
             }
@@ -47,17 +53,20 @@ namespace Domain
         public Dimension Size { get; private set; }
         public Point? PrevPos { get; private set; }
 
-        public static Sprite CreateBlankFromSprite(Sprite s) {
+        public static Sprite CreateBlankFromSprite(Sprite s)
+        {
             string[] lines = s.Data.Split('\n');
             int width = lines.First().Length;
             int height = lines.Length;
 
             StringBuilder stringBuilder = new StringBuilder();
 
-            for (int i = 0; i < height; i++) {
+            for (int i = 0; i < height; i++)
+            {
                 if (i > 0)
                     stringBuilder.Append("\n");
-                for (int j = 0; j < width; j++) {
+                for (int j = 0; j < width; j++)
+                {
                     stringBuilder.Append(" ");
                 }
             }

@@ -1,8 +1,9 @@
 ﻿using Domain.Enemies;
+using Domain.Data;
 using System.Reflection.Metadata.Ecma335;
 using View;
 
-namespace Domain
+namespace Domain.Core
 {
 
     public class GameBoard : IGameBoard

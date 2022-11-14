@@ -1,4 +1,4 @@
-﻿namespace Domain
+﻿namespace Domain.Core
 {
     /// <summary>
     /// The board where all the game logic takes place

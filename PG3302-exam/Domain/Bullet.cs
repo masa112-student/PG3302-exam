@@ -1,4 +1,7 @@
-﻿namespace Domain
+﻿using Domain.Data;
+using Domain.Core;
+
+namespace Domain
 {
     public class Bullet : IHittable, IMovable
     {

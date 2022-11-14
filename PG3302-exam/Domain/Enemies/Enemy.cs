@@ -1,4 +1,7 @@
-﻿namespace Domain.Enemies
+﻿using Domain.Data;
+using Domain.Core;
+
+namespace Domain.Enemies
 {
     public abstract class Enemy : IHittable, IMovable
     {
