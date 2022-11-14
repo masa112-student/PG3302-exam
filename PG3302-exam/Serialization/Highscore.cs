@@ -1,4 +1,7 @@
-﻿namespace Serialization
+﻿using System.Data.Common;
+using System.Runtime.CompilerServices;
+
+namespace Serialization
 {
     public class HighScores
     {
@@ -6,7 +9,7 @@
 
         public HighScores(List<Score> scores) {
             _scores = scores;
-            _scores.Sort((a, b) => b.Points - a.Points);
+            _scores.Sort();
         }
         public List<Score> Scores { get { return _scores; } }
 
@@ -21,7 +24,7 @@
                 _scores.Add(newScore);
             }
 
-            _scores.Sort((a, b) => b.Points - a.Points);
+            _scores.Sort();
         }
 
         public bool DeleteScore(string name) {
@@ -31,7 +34,7 @@
         }
     }
 
-    public class Score
+    public class Score: IComparable<Score>
     {
         public string Name { get; set; }
         public int Points { get; set; }
@@ -49,6 +52,14 @@
             if (score == this) return true;
             return score.Name.Equals(Name);
         }
+
+        public int CompareTo(Score? other) {
+            if (other == null) return 1;
+            return other.Points - Points;
+        }
+
+        public static bool operator <(Score a, Score b) => a.Points < b.Points;
+        public static bool operator >(Score a, Score b) => a.Points > b.Points;
 
     }
 }
