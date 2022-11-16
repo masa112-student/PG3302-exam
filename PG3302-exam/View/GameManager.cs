@@ -25,13 +25,17 @@ namespace View
 
         public void StartupView() {
             UserInputFormatter formatter = new();
+            _renderer.CursorVisible = true;
+            
             do {
                 _renderer.ClearScreen();
                 _renderer.DrawString(0, 0, "Enter your name:");
                 _renderer.DrawString(0, 1, formatter.GetInputString());
 
                 formatter.AddInput(_userInput.ReadInput());
-            } while (formatter.LastReadChar != '\r');
+            } while (!formatter.UserHitEnter);
+
+            _renderer.CursorVisible = false;
 
             _userName = formatter.GetInputString();
 
@@ -86,8 +90,8 @@ namespace View
             Stopwatch framerateTimer = Stopwatch.StartNew();
             double FPS = 15;
             double frameTime = (1.0 / FPS) * 1000;
-
-            while (!_userInput.IsKeyDown(ConsoleKey.Q)) {
+            bool forceQuit = false;
+            while (_gameBoard.IsGameActive && !forceQuit) {
 
                 moveDir.X = 0;
 
@@ -97,6 +101,8 @@ namespace View
                     _gameBoard.MovePlayer(IGameBoard.MoveDir.Right);
                 if (_userInput.IsKeyDown(ConsoleKey.Spacebar))
                     _gameBoard.PlayerAttack();
+                if (_userInput.IsKeyDown(ConsoleKey.Q))
+                    forceQuit = true;
 
                 if (framerateTimer.ElapsedMilliseconds > frameTime) {
                     _gameBoard.Update();
@@ -151,13 +157,17 @@ class UserInputFormatter
     private StringBuilder _input = new StringBuilder();
 
     public char LastReadChar { get; private set; }
+    public bool UserHitEnter { get; private set; }  
 
     public void AddInput(char c) {
         LastReadChar = c;
+        
         if (c == (char)ConsoleKey.Backspace && _input.Length > 0)
             _input.Remove(_input.Length - 1, 1);
-        else
+        else if(char.IsLetterOrDigit(c) || c == ' ')
             _input.Append(c);
+
+        UserHitEnter = (c == (char)ConsoleKey.Enter);
     }
 
     public string GetInputString() {

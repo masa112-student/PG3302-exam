@@ -76,11 +76,19 @@ namespace Domain.Core
 		}
 
         public void Update() {
-            _entityMover.Move(_player, clamp: true);
+            // Cleanup dead entities
+            _enemies.RemoveAll(enemy => enemy.IsDead);
+            _bullets.RemoveAll(bullet =>
+                bullet.IsDestroyed ||
+                !_boardDimensions.IsPointInside(bullet.Pos)
+            );
 
+            // Player updates
+            _entityMover.Move(_player, clamp: true);
             if (_fire && _player.CanAttack)
                 _bullets.Add(_player.Attack());
 
+            // Enemies updates
             if (_enemies.Count == 0) {
                 if(Score > 0) {
                     _enemySpawner.AddTypeToSpawnPool(EnemyType.Fast);
@@ -91,23 +99,15 @@ namespace Domain.Core
             }
 
             _enemies.ForEach(enemy => {
-                EnemyMovement.Update(enemy, _boardDimensions);
+                EnemyMovement.UpdateMoveDir(enemy, _boardDimensions);
                 _entityMover.Move(enemy, clamp: true);
             });
-            _enemies.RemoveAll(enemy => enemy.IsDead);
 
-
-            _bullets.RemoveAll(bullet => 
-                bullet.IsDestroyed || 
-                !_boardDimensions.IsPointInside(bullet.Pos)
-            );
-
-            // TODO: BULLET POOL
+            // Bullet updates
             _bullets.ForEach(bullet => {
                 if (bullet.IsDestroyed) 
                     return;
                     
-                //bullet.Update();
                 _entityMover.Move(bullet);
 
                 _enemies.ForEach(enemy => {
@@ -122,6 +122,11 @@ namespace Domain.Core
                 });
             });
                         
+            // Gamestate update
+            if (_enemies.Any(enemy => (enemy.Pos.Y + enemy.Size.Height) > _boardDimensions.Height - _player.Size.Height )) {
+                IsGameActive = false;
+            }
+
             // Reset input vars
             _player.MoveDir = new Point();
             _fire = false;

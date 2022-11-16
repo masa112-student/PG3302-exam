@@ -13,14 +13,15 @@ namespace Domain.Core
 
         public void Move(IMovable entity, bool clamp = false)
         {
-            Point newMove = entity.MoveDir;
+            Point newMove = entity.MoveDir * entity.Speed;
 
-            if (
+            bool moveIsInBoundry = 
                 entity.Pos.X + newMove.X < _boardDimensions.Width - entity.Size.Width &&
-                entity.Pos.X + newMove.X > 0
-                )
+                entity.Pos.X + newMove.X > 0;
+
+            if (!moveIsInBoundry)
             {
-                newMove *= entity.Speed;
+                newMove /= entity.Speed;
             }
 
             entity.Pos += newMove;

@@ -6,19 +6,31 @@ namespace View
     public class SimpleConsoleRenderer : IRenderer
     {
         private Dimension _windowDimension;
+        private bool _cursorVisible;
+
 
         public SimpleConsoleRenderer(Dimension windowDimension) {
             _windowDimension = windowDimension;
-            Console.CursorVisible = false;
+            CursorVisible = false;
         }
         public SimpleConsoleRenderer(int windowWidth, int windowHeight) 
             : this(new Dimension(windowWidth, windowHeight)) { }
 
       
-
         ~SimpleConsoleRenderer() {
-            Console.CursorVisible = true;
+            CursorVisible = true;
         }
+
+        // Console.CursorVisible's get is not available on all platforms, but the set is.
+        // We therefore cache the value ourselves and pass it along to the console
+        public bool CursorVisible { 
+            get => _cursorVisible; 
+            set {
+                _cursorVisible = value;
+                Console.CursorVisible = value;
+            }
+        }
+
 
         public void DrawString(int x, int y, string s) {
             if (_windowDimension.IsPointInside(x, y)) {
