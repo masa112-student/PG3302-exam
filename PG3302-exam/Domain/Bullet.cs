@@ -37,6 +37,7 @@ namespace Domain
 
         public int Speed { get => _moveSpeed; set => _moveSpeed = value; }
         public Point MoveDir { get; set; }
+        public IHittable.HitMask Mask { get; set; }
 
         public bool IsDestroyed => _isDestroyed;
         public void Destroy() {

@@ -12,6 +12,7 @@ namespace Domain.Enemies
         public abstract Point MoveDir { get; set; }
 
         public abstract Dimension Size { get; }
+        public abstract IHittable.HitMask Mask { get; set; }
 
         public abstract Bullet Attack();
 

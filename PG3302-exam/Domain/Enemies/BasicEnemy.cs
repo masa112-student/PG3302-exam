@@ -18,6 +18,7 @@ namespace Domain.Enemies
 
             ActiveSprite = new Sprite();
             Speed = 1;
+            Mask = IHittable.HitMask.Enemy;
         }
 
         public override Point Pos {
@@ -41,6 +42,7 @@ namespace Domain.Enemies
         public override int Speed { get; set; }
         public override Point MoveDir { get => _movementDir; set => _movementDir = value; }
         public override Dimension Size { get => ActiveSprite.Size; }
+        public override IHittable.HitMask Mask { get; set; }
 
         public override Bullet Attack() {
             return new Bullet(new Point(), 0);
