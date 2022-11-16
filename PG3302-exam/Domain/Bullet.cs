@@ -50,10 +50,7 @@ namespace Domain
             if (IsDestroyed) 
                 return false;
 
-            return Pos.X < (other.Pos.X + other.Size.Width) &&
-                Pos.Y < (other.Pos.Y + other.Size.Height) &&
-                (Pos.X + Size.Width) > other.Pos.X &&
-                (Pos.Y + Size.Height) > other.Pos.Y;
+            return CollisionHelpers.AABBHit(this, other);
         }
 
     }
