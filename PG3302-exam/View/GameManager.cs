@@ -79,8 +79,8 @@ namespace View
             Stopwatch framerateTimer = Stopwatch.StartNew();
             double FPS = 15;
             double frameTime = (1.0 / FPS) * 1000;
-
-            while (!_userInput.IsKeyDown(ConsoleKey.Q)) {
+            bool forceQuit = false;
+            while (_gameBoard.IsGameActive && !forceQuit) {
 
                 moveDir.X = 0;
 
@@ -90,6 +90,8 @@ namespace View
                     _gameBoard.MovePlayer(IGameBoard.MoveDir.Right);
                 if (_userInput.IsKeyDown(ConsoleKey.Spacebar))
                     _gameBoard.PlayerAttack();
+                if (_userInput.IsKeyDown(ConsoleKey.Q))
+                    forceQuit = true;
 
                 if (framerateTimer.ElapsedMilliseconds > frameTime) {
                     _gameBoard.Update();
