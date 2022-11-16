@@ -24,6 +24,8 @@ namespace View
 
         public void StartupView() {
             UserInputFormatter formatter = new();
+            _renderer.CursorVisible = true;
+            
             do {
                 _renderer.ClearScreen();
                 _renderer.DrawString(0, 0, "Enter your name:");
@@ -31,6 +33,8 @@ namespace View
 
                 formatter.AddInput(_userInput.ReadInput());
             } while (!formatter.UserHitEnter);
+
+            _renderer.CursorVisible = false;
 
             _userName = formatter.GetInputString();
 
@@ -150,9 +154,10 @@ class UserInputFormatter
 
     public void AddInput(char c) {
         LastReadChar = c;
+        
         if (c == (char)ConsoleKey.Backspace && _input.Length > 0)
             _input.Remove(_input.Length - 1, 1);
-        else
+        else if(char.IsLetterOrDigit(c) || c == ' ')
             _input.Append(c);
 
         UserHitEnter = (c == (char)ConsoleKey.Enter);
