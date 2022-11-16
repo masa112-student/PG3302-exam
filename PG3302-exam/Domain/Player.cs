@@ -5,18 +5,19 @@ using System.Diagnostics;
 
 namespace View
 {
-    public class Player : IMovable
+    public class Player : IMovable, IHittable
     {
         private Sprite _activeSprite;
         private Point _pos;
         private Stopwatch _attackTimer = new Stopwatch();
-        private readonly int _attackDelayMs = 500;
+        private readonly int _attackDelayMs = 100;
 
         public Player() {
             _attackTimer.Start();
 
             Speed = 1;
             MoveDir = new Point(0, 0);
+            Mask = IHittable.HitMask.Player;
         }
         public Point Pos {
             get => _pos;
@@ -41,10 +42,21 @@ namespace View
         public Point MoveDir { get; set; }
         public Dimension Size => ActiveSprite.Size;
 
+        public IHittable.HitMask Mask { get; set; }
+
         public Bullet Attack() {
-            _attackTimer.Restart();
             Point startPos = new Point(Pos.X + (ActiveSprite.Size.Width / 2), Pos.Y - 1);
-            return new Bullet(startPos, 1);
+            Bullet b = new Bullet(startPos, 1);
+
+            // The players bullets need to hit enemies
+            b.Mask = IHittable.HitMask.Enemy;
+
+            _attackTimer.Restart();
+            return b;
+        }
+
+        public bool Hit(IHittable other) {
+            return CollisionHelpers.AABBHit(this, other);
         }
     }
 }
