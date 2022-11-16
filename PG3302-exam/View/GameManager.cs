@@ -30,7 +30,7 @@ namespace View
                 _renderer.DrawString(0, 1, formatter.GetInputString());
 
                 formatter.AddInput(_userInput.ReadInput());
-            } while (formatter.LastReadChar != '\r');
+            } while (!formatter.UserHitEnter);
 
             _userName = formatter.GetInputString();
 
@@ -146,6 +146,7 @@ class UserInputFormatter
     private StringBuilder _input = new StringBuilder();
 
     public char LastReadChar { get; private set; }
+    public bool UserHitEnter { get; private set; }  
 
     public void AddInput(char c) {
         LastReadChar = c;
@@ -153,6 +154,8 @@ class UserInputFormatter
             _input.Remove(_input.Length - 1, 1);
         else
             _input.Append(c);
+
+        UserHitEnter = (c == (char)ConsoleKey.Enter);
     }
 
     public string GetInputString() {
