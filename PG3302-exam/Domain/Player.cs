@@ -7,9 +7,9 @@ namespace View
 {
     public class Player : IMovable, IHittable
     {
-        private Sprite _activeSprite;
+        private Sprite _activeSprite = new ();
         private Point _pos;
-        private Stopwatch _attackTimer = new Stopwatch();
+        private Stopwatch _attackTimer = new ();
         private readonly int _attackDelayMs = 100;
 
         public Player() {
