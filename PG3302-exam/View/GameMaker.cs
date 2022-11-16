@@ -8,6 +8,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using Domain.Music;
 
 namespace View
 {
@@ -23,7 +24,8 @@ namespace View
                 new SimpleConsoleRenderer(gameDimension),
                 new WindowsConsoleUserInput(),
                 new GameBoard(gameDimension),
-                new JsonPersistance(scoreFileName)
+                new JsonPersistance(scoreFileName),
+				new WindowsMusicManager()				
                 );
             }
             else {
@@ -31,10 +33,10 @@ namespace View
                 new SimpleConsoleRenderer(gameDimension),
                 new SimpleConsoleUserInput(),
                 new GameBoard(gameDimension),
-                new JsonPersistance(scoreFileName)
-                );
+                new JsonPersistance(scoreFileName),
+				new MusicManager() 
+                );                
             }
-
             return manager; 
         }
     }

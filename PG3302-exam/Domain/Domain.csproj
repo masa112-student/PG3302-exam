@@ -11,7 +11,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="gameloopMusic.wav">
+    <None Update="Music\gameloopMusic.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Music\gameOver.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Music\menuMusic.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

@@ -2,7 +2,6 @@
 using Domain.Data;
 using System.Reflection.Metadata.Ecma335;
 using View;
-using System.Media;
 using System.Diagnostics;
 
 namespace Domain.Core
@@ -11,9 +10,9 @@ namespace Domain.Core
     public class GameBoard : IGameBoard
     {
         private readonly Dimension _boardDimensions;
-        private readonly EntityMover _entityMover;
+        private readonly EntityMover _entityMover;		
 
-        private Player _player;
+		private Player _player;
 
         private List<Bullet> _bullets;
         private EnemySpawner _enemySpawner;
@@ -24,7 +23,7 @@ namespace Domain.Core
         public GameBoard(Dimension boardDimensions) {
             _boardDimensions = boardDimensions;
             _entityMover = new EntityMover(boardDimensions);
-        }
+		}
 
         public GameBoard(int boardWidth, int boardHeight) 
             : this (new Dimension(boardWidth, boardHeight)) { }
@@ -33,7 +32,7 @@ namespace Domain.Core
         public bool IsGameActive { get; set; }
 
         public void Start() {
-            _enemies = new();
+			_enemies = new();
             _bullets = new();
             _fire = false;
             _enemySpawner = new EnemySpawner();
@@ -44,13 +43,7 @@ namespace Domain.Core
 
             IsGameActive = true;
             Score = 0;
-			if (OperatingSystem.IsWindows())
-			{
-				SoundPlayer gameLoopMusic = new SoundPlayer("gameloopMusic.wav");
-				gameLoopMusic.Load();
-				gameLoopMusic.PlayLooping();
-			}
-		}
+            }
 
         public List<Sprite> GetSprites() {
             var sprites = new List<Sprite>();

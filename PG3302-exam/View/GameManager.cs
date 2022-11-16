@@ -13,14 +13,18 @@ namespace View
         private readonly IPersistance _serializer;
         private readonly IUserInput _userInput;
         private readonly IGameBoard _gameBoard;
+        private readonly IMusic _music;
 
         private string _userName = "<<Not set>>";
 
-        public GameManager(IRenderer renderer, IUserInput userInput, IGameBoard gameBoard, IPersistance serializer) {
-            _renderer = renderer;
+        public GameManager(IRenderer renderer, IUserInput userInput,
+			IGameBoard gameBoard, IPersistance serializer, IMusic music){ 
+
+			_renderer = renderer;
             _serializer = serializer;
             _userInput = userInput;
             _gameBoard = gameBoard;
+            _music = music;
         }
 
         public void StartupView() {
@@ -53,12 +57,7 @@ namespace View
 
         public void MenuView() {
             _renderer.ClearScreen();
-			if (OperatingSystem.IsWindows())
-			{
-				SoundPlayer menuMusic = new SoundPlayer("menuMusic.wav");
-              menuMusic.Load();
-              menuMusic.PlayLooping();                
-			}
+            _music.PlayMenuMuisc();
 			bool quit = false;
             while (!quit) {
                 _renderer.DrawString(0, 0,
@@ -85,7 +84,7 @@ namespace View
         public void GameView() {
             _renderer.ClearScreen();
             _gameBoard.Start();
-
+            _music.PlayGameLoopMusic();
             Point center = new Point(Console.WindowWidth / 2, Console.WindowHeight / 2);
             Point moveDir = new Point(0, 0);
 
@@ -128,22 +127,12 @@ namespace View
             _renderer.DrawString(0, 0, $"Game over. Score {_gameBoard.Score}");
             _renderer.DrawString(0, 2, "Press enter to return to the menu");
 
-			if (OperatingSystem.IsWindows())
-			{
-				SoundPlayer gameOverMusic = new SoundPlayer("gameOver.wav");
-				gameOverMusic.Load();
-				gameOverMusic.Play();
-			}
+            _music.PlayGameOverSound();
 
 			while (!_userInput.IsKeyDown(ConsoleKey.Enter)) ;
 
             _renderer.ClearScreen();
-			if (OperatingSystem.IsWindows())
-			{
-				SoundPlayer menuMusic = new SoundPlayer("menuMusic.wav");
-				menuMusic.Load();
-				menuMusic.PlayLooping();
-			}
+            _music.PlayMenuMuisc();
 		}
 
         public void HighScoreView() {
