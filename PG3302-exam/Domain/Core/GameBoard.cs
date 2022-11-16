@@ -2,6 +2,7 @@
 using Domain.Data;
 using System.Reflection.Metadata.Ecma335;
 using View;
+using System.Diagnostics;
 
 namespace Domain.Core
 {
@@ -99,7 +100,6 @@ namespace Domain.Core
                 if (bullet.IsDestroyed) 
                     return;
                     
-                //bullet.Update();
                 _entityMover.Move(bullet);
 
                 _enemies.ForEach(enemy => {
@@ -113,6 +113,10 @@ namespace Domain.Core
                     }
                 });
             });
+
+            if(_enemies.Any(enemy => (enemy.Pos.Y + enemy.Size.Height) > _boardDimensions.Height - _player.Size.Height )) {
+                IsGameActive = false;
+            }
 
             // Reset input vars
             _player.MoveDir = new Point();
