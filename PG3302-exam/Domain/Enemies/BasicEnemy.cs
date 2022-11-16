@@ -1,5 +1,6 @@
 ﻿using Domain.Data;
 using Domain.Core;
+using System.Diagnostics;
 
 namespace Domain.Enemies
 {
@@ -12,9 +13,14 @@ namespace Domain.Enemies
 
         private int _health;
         private bool _isDead;
+        private Random _attackRandom;
+        private Stopwatch _attackTimer;
+        private const int _attackDelayMs = 500;
 
         public BasicEnemy() {
             _health = 1;
+            _attackRandom = new();
+            _attackTimer = Stopwatch.StartNew();
 
             ActiveSprite = new Sprite();
             Speed = 1;
@@ -42,10 +48,20 @@ namespace Domain.Enemies
         public override int Speed { get; set; }
         public override Point MoveDir { get => _movementDir; set => _movementDir = value; }
         public override Dimension Size { get => ActiveSprite.Size; }
+        public override bool ShouldAttack { get => _attackRandom.Next(100) > 50; }
+        public override bool CanAttack { get => _attackTimer.ElapsedMilliseconds > _attackDelayMs; }
         public override IHittable.HitMask Mask { get; set; }
 
         public override Bullet Attack() {
-            return new Bullet(new Point(), 0);
+            Point bulleSpawnPoint = Pos + new Point(Size.Width / 2, Size.Height);
+            Bullet b = new Bullet(bulleSpawnPoint, 1);
+            b.MoveDir = new(0, 1);
+            
+            // Enemy bullets need to hit the player
+            b.Mask = IHittable.HitMask.Player;
+
+            _attackTimer.Restart();
+            return b;
         }
 
         public override bool Hit(IHittable other) {

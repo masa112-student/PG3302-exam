@@ -11,6 +11,9 @@ namespace Domain.Enemies
         public abstract int Speed { get; set; }
         public abstract Point MoveDir { get; set; }
 
+        public abstract bool CanAttack{ get; }
+        public abstract bool ShouldAttack{ get; }
+
         public abstract Dimension Size { get; }
         public abstract IHittable.HitMask Mask { get; set; }
 

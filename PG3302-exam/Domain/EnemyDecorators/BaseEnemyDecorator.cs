@@ -21,6 +21,10 @@ namespace Domain.EnemyDecorators
 
         public override Dimension Size => _enemy.Size;
 
+        public override bool CanAttack => _enemy.CanAttack;
+
+        public override bool ShouldAttack => _enemy.ShouldAttack;
+
         public override IHittable.HitMask Mask { get => _enemy.Mask; set => _enemy.Mask = value; }
 
         public override Bullet Attack() {
