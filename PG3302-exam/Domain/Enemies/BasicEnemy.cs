@@ -11,14 +11,13 @@ namespace Domain.Enemies
         private Point _pos;
         private Point _movementDir = new(1, 0);
 
-        private int _health;
         private bool _isDead;
         private Random _attackRandom;
         private Stopwatch _attackTimer;
         private const int _attackDelayMs = 500;
 
         public BasicEnemy() {
-            _health = 1;
+            Health = 1;
             _attackRandom = new();
             _attackTimer = Stopwatch.StartNew();
 
@@ -50,6 +49,7 @@ namespace Domain.Enemies
         public override bool ShouldAttack { get => _attackRandom.Next(100) > 50; }
         public override bool CanAttack { get => _attackTimer.ElapsedMilliseconds > _attackDelayMs; }
         public override IHittable.HitMask Mask { get; set; }
+        public override int Health { get; set; }
 
         public override Bullet Attack() {
             Point bulleSpawnPoint = Pos + new Point(Size.Width / 2, Size.Height);
@@ -70,12 +70,9 @@ namespace Domain.Enemies
             return CollisionHelpers.AABBHit(this, other);
         }
 
-        public override void Damage() {
-            _health--;
-            if(_health <= 0) {
-                _isDead = true;
-                ActiveSprite.Visible = false;
-            }
+        public override void Kill() {
+            _isDead = true;
+            ActiveSprite.Visible = false;
         }
     }
 }

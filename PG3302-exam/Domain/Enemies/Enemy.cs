@@ -10,6 +10,7 @@ namespace Domain.Enemies
         public abstract bool IsDead { get; }
         public abstract int Speed { get; set; }
         public abstract Point MoveDir { get; set; }
+        public abstract int Health { get; set; }
 
         public abstract bool CanAttack{ get; }
         public abstract bool ShouldAttack{ get; }
@@ -19,7 +20,7 @@ namespace Domain.Enemies
 
         public abstract Bullet Attack();
 
-        public abstract void Damage();
+        public abstract void Kill();
 
         public abstract bool Hit(IHittable hittable);
     }
