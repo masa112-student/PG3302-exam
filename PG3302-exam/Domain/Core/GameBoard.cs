@@ -2,6 +2,7 @@
 using Domain.Data;
 using System.Reflection.Metadata.Ecma335;
 using View;
+using System.Media;
 using System.Diagnostics;
 
 namespace Domain.Core
@@ -16,9 +17,9 @@ namespace Domain.Core
 
         private List<Bullet> _bullets;
         private EnemySpawner _enemySpawner;
-        private List<Enemy> _enemies = new();
-
-        private bool _fire;
+        private List<Enemy> _enemies = new();       
+		
+	private bool _fire;
         
         public GameBoard(Dimension boardDimensions) {
             _boardDimensions = boardDimensions;
@@ -43,7 +44,13 @@ namespace Domain.Core
 
             IsGameActive = true;
             Score = 0;
-        }
+			if (OperatingSystem.IsWindows())
+			{
+				SoundPlayer gameLoopMusic = new SoundPlayer("gameloopMusic.wav");
+				gameLoopMusic.Load();
+				gameLoopMusic.PlayLooping();
+			}
+		}
 
         public List<Sprite> GetSprites() {
             var sprites = new List<Sprite>();
@@ -65,8 +72,8 @@ namespace Domain.Core
         }
 
         public void PlayerAttack() {
-            _fire = true;
-        }
+            _fire = true;	           
+		}
 
         public void Update() {
             // Cleanup dead entities
