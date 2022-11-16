@@ -12,4 +12,10 @@
     <ProjectReference Include="..\Serialization\Serialization.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="menuMusic.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>    
+  </ItemGroup>
+
 </Project>

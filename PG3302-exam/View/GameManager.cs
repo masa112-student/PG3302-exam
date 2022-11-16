@@ -3,6 +3,7 @@ using Domain.Core;
 using Serialization;
 using System.Diagnostics;
 using System.Text;
+using System.Media;
 
 namespace View
 {
@@ -48,7 +49,13 @@ namespace View
 
         public void MenuView() {
             _renderer.ClearScreen();
-            bool quit = false;
+			if (OperatingSystem.IsWindows())
+			{
+				SoundPlayer menuMusic = new SoundPlayer("menuMusic.wav");
+              menuMusic.Load();
+              menuMusic.PlayLooping();                
+			}
+			bool quit = false;
             while (!quit) {
                 _renderer.DrawString(0, 0,
                     "Select option\n" +
@@ -61,7 +68,7 @@ namespace View
                     HighScoreView();
                 }
                 if (_userInput.IsKeyDown(ConsoleKey.D2)) {
-                    GameView();
+                    GameView();                    
                 }
                 if (_userInput.IsKeyDown(ConsoleKey.D3)) {
                     quit = true;
