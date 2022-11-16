@@ -18,6 +18,7 @@ namespace Domain.EnemyDecorators
         public override bool IsDead { get => _enemy.IsDead;  }
         public override int Speed { get => _enemy.Speed; set => _enemy.Speed = value; }
         public override Point MoveDir { get => _enemy.MoveDir; set => _enemy.MoveDir = value; }
+        public override int Health { get => _enemy.Health; set => _enemy.Health = value; }
 
         public override Dimension Size => _enemy.Size;
 
@@ -26,6 +27,7 @@ namespace Domain.EnemyDecorators
         public override bool ShouldAttack => _enemy.ShouldAttack;
 
         public override IHittable.HitMask Mask { get => _enemy.Mask; set => _enemy.Mask = value; }
+        
 
         public override Bullet Attack() {
             return _enemy.Attack();
@@ -35,8 +37,8 @@ namespace Domain.EnemyDecorators
             return _enemy.Hit(other);
         }
 
-        public override void Damage() {
-            _enemy.Damage();
+        public override void Kill() {
+            _enemy.Kill();
         }
     }
 }

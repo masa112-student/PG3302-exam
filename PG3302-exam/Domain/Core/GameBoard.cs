@@ -10,7 +10,8 @@ namespace Domain.Core
     public class GameBoard : IGameBoard
     {
         private readonly Dimension _boardDimensions;
-        private readonly EntityMover _entityMover;		
+        private readonly EntityMover _entityMover;
+        private readonly EnemyDamage _enemyDamage;
 
 		private Player _player;
 
@@ -23,6 +24,7 @@ namespace Domain.Core
         public GameBoard(Dimension boardDimensions) {
             _boardDimensions = boardDimensions;
             _entityMover = new EntityMover(boardDimensions);
+            _enemyDamage = new EnemyDamage();
 		}
 
         public GameBoard(int boardWidth, int boardHeight) 
@@ -86,6 +88,10 @@ namespace Domain.Core
                 if(Score > 0) {
                     _enemySpawner.AddTypeToSpawnPool(EnemyType.Fast);
                 }
+                if(Score > 1000)
+                {
+                    _enemySpawner.AddTypeToSpawnPool(EnemyType.Strong);
+                }
 
                 _enemySpawner.EnemySpawnChecker();
                 _enemies = _enemySpawner.Enemies;
@@ -110,7 +116,7 @@ namespace Domain.Core
                 _enemies.ForEach(enemy => {
                     if (bullet.Hit(enemy)) {
                         if (!enemy.IsDead) {
-                            enemy.Damage();
+                            _enemyDamage.Damage(enemy);
                             bullet.Destroy();
 
                             Score += 100;

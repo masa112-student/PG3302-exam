@@ -4,6 +4,7 @@
     {
         Basic,
         Fast,
+        Strong
         FastAttack,
     }
 
@@ -17,6 +18,8 @@
                     return new FastEnemyFactory();
                 case EnemyType.FastAttack:
                     return new FastAttackEnemyFactory();
+                case EnemyType.Strong:
+                    return new StrongEnemyFactory();
                 default:
                     throw new ArgumentException($"Invalid type supplied to enemy factory {type}");
             }
