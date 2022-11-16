@@ -94,6 +94,10 @@ namespace Domain.Core
             _enemies.ForEach(enemy => {
                 EnemyMovement.UpdateMoveDir(enemy, _boardDimensions);
                 _entityMover.Move(enemy, clamp: true);
+
+                if(enemy.CanAttack && enemy.ShouldAttack) {
+                    _bullets.Add(enemy.Attack());
+                }
             });
 
             // Bullet updates
@@ -111,6 +115,8 @@ namespace Domain.Core
 
                             Score += 100;
                         }
+                    } else if (bullet.Hit(_player)) {
+                        IsGameActive = false;
                     }
                 });
             });
