@@ -5,7 +5,7 @@ namespace Domain.Enemies
 {
     public class EnemyMovement
     {
-        public static void Update(IMovable enemy, Dimension boardDimensions) {
+        public static void UpdateMoveDir(IMovable enemy, Dimension boardDimensions) {
             bool hasHitXBoundry = 
                 (enemy.MoveDir.X > 0 && enemy.Pos.X >= boardDimensions.Width - enemy.Size.Width) ||
                 (enemy.MoveDir.X < 0 && enemy.Pos.X <= 0);
