@@ -15,7 +15,7 @@ namespace Domain.Enemies
         private bool _isDead;
         private Random _attackRandom;
         private Stopwatch _attackTimer;
-        private const int _attackDelayMs = 500;
+        private const int _attackDelayMs = 5000;
 
         public BasicEnemy() {
             _health = 1;
@@ -47,7 +47,13 @@ namespace Domain.Enemies
         public override int Speed { get; set; }
         public override Point MoveDir { get => _movementDir; set => _movementDir = value; }
         public override Dimension Size { get => ActiveSprite.Size; }
-        public override bool ShouldAttack { get => _attackRandom.Next(100) > 50; }
+        public override bool ShouldAttack { get {
+                if (!CanAttack)
+                    return false;
+                
+                _attackTimer.Restart();
+                return _attackRandom.Next(100) > 50; 
+            } }
         public override bool CanAttack { get => _attackTimer.ElapsedMilliseconds > _attackDelayMs; }
         public override IHittable.HitMask Mask { get; set; }
 
