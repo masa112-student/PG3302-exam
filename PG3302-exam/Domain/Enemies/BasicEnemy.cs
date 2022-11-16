@@ -6,7 +6,7 @@ namespace Domain.Enemies
 {
     public class BasicEnemy : Enemy
     {
-        private Sprite _activeSprite;
+        private Sprite _activeSprite = new ();
 
         private Point _pos;
         private Point _movementDir = new(1, 0);
@@ -22,7 +22,6 @@ namespace Domain.Enemies
             _attackRandom = new();
             _attackTimer = Stopwatch.StartNew();
 
-            ActiveSprite = new Sprite();
             Speed = 1;
             Mask = IHittable.HitMask.Enemy;
         }
