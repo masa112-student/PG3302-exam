@@ -4,7 +4,7 @@
     {
         Basic,
         Fast,
-        Strong
+        Strong,
         FastAttack,
     }
 

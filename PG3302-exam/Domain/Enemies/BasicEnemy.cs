@@ -14,7 +14,7 @@ namespace Domain.Enemies
         private bool _isDead;
         private Random _attackRandom;
         private Stopwatch _attackTimer;
-        private const int _attackDelayMs = 5000;
+        private const int _attackDelayMs = 10000;
 
         public BasicEnemy() {
             Health = 1;
@@ -51,7 +51,7 @@ namespace Domain.Enemies
                     return false;
                 
                 _attackTimer.Restart();
-                return _attackRandom.Next(100) > 50; 
+                return _attackRandom.Next(100) > 20;
             } }
         public override bool CanAttack { get => _attackTimer.ElapsedMilliseconds > _attackDelayMs; }
         public override IHittable.HitMask Mask { get; set; }

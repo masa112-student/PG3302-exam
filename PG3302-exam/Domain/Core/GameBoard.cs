@@ -88,11 +88,14 @@ namespace Domain.Core
                 if(Score > 0) {
                     _enemySpawner.AddTypeToSpawnPool(EnemyType.Fast);
                 }
-                if(Score > 1000)
+                if (Score > 500) {
+                    _enemySpawner.AddTypeToSpawnPool(EnemyType.FastAttack);
+                }
+                if (Score > 1000)
                 {
                     _enemySpawner.AddTypeToSpawnPool(EnemyType.Strong);
                 }
-
+                
                 _enemySpawner.EnemySpawnChecker();
                 _enemies = _enemySpawner.Enemies;
             }
