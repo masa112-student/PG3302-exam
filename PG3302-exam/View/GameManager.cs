@@ -62,11 +62,13 @@ namespace View
 			bool quit = false;
             while (!quit) {
                 _renderer.DrawString(0, 0,
-                    "Select option\n" +
-                    "1: View scores\n" +
-                    "2: Play game\n" +
-                    "3: Quit\n"
-                );
+					"\r\n   _____                           _____                         _                  \r\n  / ____|                         |_   _|                       | |                 \r\n | (___   _ __    __ _   ___  ___   | |   _ __ __   __ __ _   __| |  ___  _ __  ___ \r\n  \\___ \\ | '_ \\  / _` | / __|/ _ \\  | |  | '_ \\\\ \\ / // _` | / _` | / _ \\| '__|/ __|\r\n  ____) || |_) || (_| || (__|  __/ _| |_ | | | |\\ V /| (_| || (_| ||  __/| |   \\__ \\\r\n |_____/ | .__/  \\__,_| \\___|\\___||_____||_| |_| \\_/  \\__,_| \\__,_| \\___||_|   |___/\r\n         | |                                                                        \r\n         |_|                                                                        \r\n\n\n" +
+
+					"Select option\n\n\n" +
+					"1: View scores\n\n" +
+					"2: Play game\n\n" +
+					"3: Quit\n\n"
+				);
 
                 if (_userInput.IsKeyDown(ConsoleKey.D1)) {
                     HighScoreView();
