@@ -1,7 +1,8 @@
 ﻿using System.Diagnostics;
 using System.IO.Abstractions;
 using System.Text;
-using System.Text.Json;
+
+using Newtonsoft.Json;
 
 namespace Serialization
 {
@@ -26,14 +27,14 @@ namespace Serialization
             if (string.IsNullOrEmpty(jsonScores))
                 return new(new List<Score>());
 
-            List<Score>? data = JsonSerializer.Deserialize<List<Score>>(jsonScores);
+            List<Score>? data = JsonConvert.DeserializeObject<List<Score>>(jsonScores);
             HighScores scores = new HighScores(data ?? new List<Score>());
 
             return scores;
         }
 
         public void SaveHighScores(HighScores highScores) {
-            string jsonScores = JsonSerializer.Serialize(highScores);
+            string jsonScores = JsonConvert.SerializeObject(highScores);
             try {
                 _fileSystem.File.WriteAllText(_fileName, jsonScores);
             }
