@@ -1,4 +1,5 @@
 ﻿using System.Text;
+
 using Domain.Data;
 
 namespace Domain.Core

@@ -1,12 +1,6 @@
-﻿using Domain.Music;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Media;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Media;
 
-namespace View
+namespace Domain.Music
 {
 	public class WindowsMusicManager : IMusic{		
 

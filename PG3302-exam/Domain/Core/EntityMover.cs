@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.Design;
-using Domain.Data;
+﻿using Domain.Data;
 
 namespace Domain.Core
 {

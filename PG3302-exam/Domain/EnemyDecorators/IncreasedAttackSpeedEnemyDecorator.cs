@@ -1,11 +1,7 @@
-﻿using Domain.Core;
+﻿using System.Diagnostics;
+
+using Domain.Core;
 using Domain.Enemies;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain.EnemyDecorators
 {

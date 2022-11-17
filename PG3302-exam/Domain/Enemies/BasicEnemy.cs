@@ -1,6 +1,7 @@
-﻿using Domain.Data;
+﻿using System.Diagnostics;
+
+using Domain.Data;
 using Domain.Core;
-using System.Diagnostics;
 
 namespace Domain.Enemies
 {

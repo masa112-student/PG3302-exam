@@ -1,8 +1,11 @@
-﻿using Domain.Data;
-using Domain.Core;
-using Serialization;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Text;
+
+using Domain.Data;
+using Domain.Core;
+using Domain.Music;
+
+using Serialization;
 using View.Ui;
 
 namespace View

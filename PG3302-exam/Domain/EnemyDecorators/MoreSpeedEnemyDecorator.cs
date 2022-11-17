@@ -1,7 +1,6 @@
 ﻿using Domain.Core;
 using Domain.Enemies;
 
-
 namespace Domain.EnemyDecorators
 {
     public class MoreSpeedEnemyDecorator : BaseEnemyDecorator {

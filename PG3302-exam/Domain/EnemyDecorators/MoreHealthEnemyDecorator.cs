@@ -1,7 +1,5 @@
-﻿using System;
-using Domain.Core;
+﻿using Domain.Core;
 using Domain.Enemies;
-
 
 namespace Domain.EnemyDecorators
 {

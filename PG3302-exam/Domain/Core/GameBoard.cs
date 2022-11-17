@@ -1,8 +1,5 @@
 ﻿using Domain.Enemies;
 using Domain.Data;
-using System.Reflection.Metadata.Ecma335;
-using View;
-using System.Diagnostics;
 
 namespace Domain.Core
 {

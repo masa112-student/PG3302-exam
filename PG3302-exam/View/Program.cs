@@ -1,8 +1,4 @@
-﻿using Domain;
-using Serialization;
-using System.Runtime.InteropServices;
-
-namespace View
+﻿namespace View
 {
     internal class Program
     {

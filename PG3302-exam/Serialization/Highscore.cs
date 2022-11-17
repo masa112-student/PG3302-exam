@@ -1,6 +1,4 @@
 ﻿using System.Collections;
-using System.Data.Common;
-using System.Runtime.CompilerServices;
 
 namespace Serialization
 {

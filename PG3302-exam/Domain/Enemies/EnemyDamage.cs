@@ -1,12 +1,7 @@
-﻿using System;
-namespace Domain.Enemies
+﻿namespace Domain.Enemies
 {
     public class EnemyDamage
     {
-        public EnemyDamage()
-        {
-
-        }
         public void Damage(Enemy enemy)
         {
             enemy.Health--;

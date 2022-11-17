@@ -1,9 +1,9 @@
-﻿using Domain;
+﻿using System.Diagnostics;
+
 using Domain.Data;
 using Domain.Core;
-using System.Diagnostics;
 
-namespace View
+namespace Domain
 {
     public class Player : IMovable, IHittable
     {
