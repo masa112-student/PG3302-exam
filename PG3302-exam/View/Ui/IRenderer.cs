@@ -1,7 +1,7 @@
 ﻿using Domain.Core;
 using Domain.Data;
 
-namespace View
+namespace View.Ui
 {
     public interface IRenderer
     {

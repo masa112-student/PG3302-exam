@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 
-namespace View
+namespace View.Ui
 {
     public class SimpleConsoleUserInput : IUserInput
     {
@@ -9,16 +9,20 @@ namespace View
         private Stopwatch sw;
         private double pollRateMs = 35; // Keboard pollrate in the console averages about 33-36ms
 
-        public SimpleConsoleUserInput() {
+        public SimpleConsoleUserInput()
+        {
             sw = Stopwatch.StartNew();
         }
 
-        public bool IsKeyDown(ConsoleKey key) {
-            if (Console.KeyAvailable) {
+        public bool IsKeyDown(ConsoleKey key)
+        {
+            if (Console.KeyAvailable)
+            {
                 _keyDown = Console.ReadKey(true).Key;
                 sw.Restart();
             }
-            else if (sw.ElapsedMilliseconds > pollRateMs) {
+            else if (sw.ElapsedMilliseconds > pollRateMs)
+            {
                 _keyDown = null;
                 sw.Restart();
             }
@@ -26,7 +30,8 @@ namespace View
             return key == _keyDown;
         }
 
-        public char ReadInput() {
+        public char ReadInput()
+        {
             return Console.ReadKey(true).KeyChar;
         }
     }

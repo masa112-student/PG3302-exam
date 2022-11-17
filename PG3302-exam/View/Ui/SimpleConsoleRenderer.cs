@@ -1,7 +1,7 @@
 ﻿using Domain.Core;
 using Domain.Data;
 
-namespace View
+namespace View.Ui
 {
     public class SimpleConsoleRenderer : IRenderer
     {
@@ -9,23 +9,27 @@ namespace View
         private bool _cursorVisible;
 
 
-        public SimpleConsoleRenderer(Dimension windowDimension) {
+        public SimpleConsoleRenderer(Dimension windowDimension)
+        {
             _windowDimension = windowDimension;
             CursorVisible = false;
         }
-        public SimpleConsoleRenderer(int windowWidth, int windowHeight) 
+        public SimpleConsoleRenderer(int windowWidth, int windowHeight)
             : this(new Dimension(windowWidth, windowHeight)) { }
 
-      
-        ~SimpleConsoleRenderer() {
+
+        ~SimpleConsoleRenderer()
+        {
             CursorVisible = true;
         }
 
         // Console.CursorVisible's get is not available on all platforms, but the set is.
         // We therefore cache the value ourselves and pass it along to the console
-        public bool CursorVisible { 
-            get => _cursorVisible; 
-            set {
+        public bool CursorVisible
+        {
+            get => _cursorVisible;
+            set
+            {
                 _cursorVisible = value;
                 Console.CursorVisible = value;
             }
@@ -33,18 +37,22 @@ namespace View
 
         public Dimension WindowDimension => _windowDimension;
 
-        public void DrawString(int x, int y, string s) {
-            if (_windowDimension.IsPointInside(x, y)) {
+        public void DrawString(int x, int y, string s)
+        {
+            if (_windowDimension.IsPointInside(x, y))
+            {
                 Console.SetCursorPosition(x, y);
                 Console.Write(s);
             }
         }
 
-        public void ClearScreen() {
+        public void ClearScreen()
+        {
             Console.Clear();
         }
 
-        public void DrawSprite(Sprite sprite) {
+        public void DrawSprite(Sprite sprite)
+        {
             if (sprite.Pos == null)
                 return;
 
@@ -53,12 +61,15 @@ namespace View
             string[] lines = sprite.Data.Split("\n");
 
             Point spritePos;
-            if (sprite.PrevPos != null) {
+            if (sprite.PrevPos != null)
+            {
                 Point prevPos = (Point)sprite.PrevPos;
                 spritePos = prevPos;
-                foreach (string line in lines) {
+                foreach (string line in lines)
+                {
                     spritePos.X = prevPos.X;
-                    foreach (char _ in line) {
+                    foreach (char _ in line)
+                    {
                         if (!_windowDimension.IsPointInside(spritePos))
                             break;
                         Console.SetCursorPosition(spritePos.X, spritePos.Y);
@@ -69,10 +80,12 @@ namespace View
                 }
             }
 
-            if (sprite.Visible && sprite.Pos != null) {
+            if (sprite.Visible && sprite.Pos != null)
+            {
                 spritePos = (Point)sprite.Pos;
                 int i = 0;
-                foreach (string line in lines) {
+                foreach (string line in lines)
+                {
                     if (!_windowDimension.IsPointInside(spritePos))
                         break;
                     Console.ForegroundColor = sprite.ColorData[i];

@@ -1,14 +1,11 @@
-﻿using Domain;
+﻿using Serialization;
+using System.Runtime.InteropServices;
+
 using Domain.Data;
 using Domain.Core;
-using Serialization;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using Domain.Music;
+using View.Ui;
+
 
 namespace View
 {

@@ -1,6 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 
-namespace View
+namespace View.Ui
 {
     public class WindowsConsoleUserInput : IUserInput
     {
@@ -13,12 +13,14 @@ namespace View
 
         private static readonly ushort MOST_SIGNIFICANT_BIT = 0x8000; // = 10000000 00000000;
 
-        public bool IsKeyDown(ConsoleKey key) {
+        public bool IsKeyDown(ConsoleKey key)
+        {
             short result = GetKeyState((int)key);
             return (result & MOST_SIGNIFICANT_BIT) == MOST_SIGNIFICANT_BIT;
         }
 
-        public char ReadInput() {
+        public char ReadInput()
+        {
             return Console.ReadKey(true).KeyChar;
         }
     }

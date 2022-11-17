@@ -1,4 +1,4 @@
-﻿namespace View
+﻿namespace View.Ui
 {
     public interface IUserInput
     {
