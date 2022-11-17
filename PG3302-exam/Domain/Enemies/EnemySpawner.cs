@@ -1,4 +1,5 @@
 ﻿using System.Collections.Immutable;
+using System.Diagnostics;
 using Domain.Core;
 using Domain.Data;
 
@@ -37,8 +38,7 @@ namespace Domain.Enemies
 
             EnemyType typeToSpawn;
             int typeToSpawnIndex;
-            for (int i = 0; i < enemyCount; i++)
-            {
+            for (int i = 0; i < enemyCount; i++) {
                 typeToSpawnIndex = random.Next(_enemyTypes.Count);
                 typeToSpawn = _enemyTypes[typeToSpawnIndex];
 
@@ -50,9 +50,37 @@ namespace Domain.Enemies
                 _enemies.Add(enemy);
             }
         }
+
         public List<Enemy> Enemies
         {
             get { return _enemies; }
+        }
+
+
+        [Conditional("DEBUG")]
+        private void DebugSpawnEnemyTypes() {
+            int y = 0;
+            int fastY = 0; // In case the fast one is too fast to spawn as far down as the others during testing
+
+            Enemy enemy = _enemyFactoryMaker.MakeFactory(EnemyType.Basic).getEnemy();
+            enemy.Pos = enemyStartPos + new Point(0 * (enemySprite.Size.Width + enemy.Speed), y);
+            enemy.ActiveSprite = new Sprite(enemySprite);
+            _enemies.Add(enemy);
+
+            enemy = _enemyFactoryMaker.MakeFactory(EnemyType.Strong).getEnemy();
+            enemy.Pos = enemyStartPos + new Point(1 * (enemySprite.Size.Width + enemy.Speed), y);
+            enemy.ActiveSprite = new Sprite(enemySprite);
+            _enemies.Add(enemy);
+
+            enemy = _enemyFactoryMaker.MakeFactory(EnemyType.FastAttack).getEnemy();
+            enemy.Pos = enemyStartPos + new Point(2 * (enemySprite.Size.Width + enemy.Speed), y);
+            enemy.ActiveSprite = new Sprite(enemySprite);
+            _enemies.Add(enemy);
+
+            enemy = _enemyFactoryMaker.MakeFactory(EnemyType.Fast).getEnemy();
+            enemy.Pos = enemyStartPos + new Point(3 * (enemySprite.Size.Width + enemy.Speed), fastY);
+            enemy.ActiveSprite = new Sprite(enemySprite);
+            _enemies.Add(enemy);
         }
 
     }

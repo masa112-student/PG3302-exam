@@ -110,8 +110,9 @@ namespace View
 
                     var sprites = _gameBoard.GetSprites();
                     sprites.ForEach(sprite => _renderer.DrawSprite(sprite));
-                    framerateTimer.Restart();
 
+                    _renderer.DrawString(0, _renderer.WindowDimension.Height-1, $"Score: {_gameBoard.Score}");
+                    framerateTimer.Restart();
                 }
             }
 

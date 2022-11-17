@@ -31,6 +31,7 @@ namespace View
             }
         }
 
+        public Dimension WindowDimension => _windowDimension;
 
         public void DrawString(int x, int y, string s) {
             if (_windowDimension.IsPointInside(x, y)) {
