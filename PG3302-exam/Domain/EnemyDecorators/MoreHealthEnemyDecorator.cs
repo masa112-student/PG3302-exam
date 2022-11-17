@@ -1,4 +1,5 @@
-﻿using Domain.Core;
+﻿using System;
+using Domain.Core;
 using Domain.Enemies;
 
 
@@ -23,6 +24,12 @@ namespace Domain.EnemyDecorators
                 base.ActiveSprite = value;
                 Array.Fill(base.ActiveSprite.ColorData, ConsoleColor.Red);
             }
+        }
+
+        public override Bullet Attack(){
+            Bullet b = base.Attack();
+            Array.Fill(b.ActiveSprite.ColorData, ConsoleColor.Red);
+            return b;
         }
     }
 }
