@@ -9,11 +9,10 @@ namespace Domain.Music
 {
 	public class MusicPlayer
 	{
-		private SoundPlayer? _soundPlayer;
+		private SoundPlayer _soundPlayer;
 		
-		public MusicPlayer(SoundPlayer _soundPlayer)
-		{
-			this._soundPlayer = _soundPlayer;
+		public MusicPlayer(SoundPlayer soundPlayer) {
+			_soundPlayer = soundPlayer;
 			_soundPlayer.Load();
 			_soundPlayer.Play();
 		}		
