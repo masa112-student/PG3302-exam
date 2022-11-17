@@ -16,6 +16,7 @@ namespace Domain.Enemies
         private Stopwatch _attackTimer;
         private const int _attackDelayMs = 10000;
 
+        private const int _points = 100;
         public BasicEnemy() {
             Health = 1;
             _attackRandom = new();
@@ -44,6 +45,7 @@ namespace Domain.Enemies
 
         public override bool IsDead { get => _isDead; }
         public override int Speed { get; set; }
+        public override int Value { get => _points; }
         public override Point MoveDir { get => _movementDir; set => _movementDir = value; }
         public override Dimension Size { get => ActiveSprite.Size; }
         public override bool ShouldAttack { get {

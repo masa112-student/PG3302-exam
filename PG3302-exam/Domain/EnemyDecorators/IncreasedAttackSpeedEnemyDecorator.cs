@@ -19,6 +19,8 @@ namespace Domain.EnemyDecorators
             _attackTimer = Stopwatch.StartNew();
             _attackRandom = new();
         }
+
+        public override int Value => base.Value + 15;
         public override bool ShouldAttack {
             get {
                 if (!CanAttack)

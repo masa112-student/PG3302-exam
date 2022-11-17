@@ -7,6 +7,8 @@ namespace Domain.EnemyDecorators
     public class MoreSpeedEnemyDecorator : BaseEnemyDecorator {
         public MoreSpeedEnemyDecorator(Enemy moreSpeedEnemy) : base(moreSpeedEnemy) { }
 
+        public override int Value => base.Value + 50;
+
         public override int Speed {get => base.Speed + 1;}
         public override Sprite ActiveSprite { 
             get => base.ActiveSprite;

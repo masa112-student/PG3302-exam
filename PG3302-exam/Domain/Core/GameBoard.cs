@@ -122,7 +122,7 @@ namespace Domain.Core
                             _enemyDamage.Damage(enemy);
                             bullet.Destroy();
 
-                            Score += 100;
+                            Score += enemy.Value;
                         }
                     } else if (bullet.Hit(_player)) {
                         IsGameActive = false;

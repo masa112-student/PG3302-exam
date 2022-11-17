@@ -9,11 +9,12 @@ namespace Domain.Enemies
         public abstract Sprite ActiveSprite { get; set; }
         public abstract bool IsDead { get; }
         public abstract int Speed { get; set; }
+        public abstract int Value{ get; }
         public abstract Point MoveDir { get; set; }
         public abstract int Health { get; set; }
-
         public abstract bool CanAttack{ get; }
         public abstract bool ShouldAttack{ get; }
+
 
         public abstract Dimension Size { get; }
         public abstract IHittable.HitMask Mask { get; set; }

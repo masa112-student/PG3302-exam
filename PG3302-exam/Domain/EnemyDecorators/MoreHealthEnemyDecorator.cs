@@ -14,6 +14,7 @@ namespace Domain.EnemyDecorators
             health = moreHealthEnemy.Health + 1;
         }
 
+        public override int Value => base.Value + 100;
 
         public override int Health { get => health; set => health = value; }
         public override Sprite ActiveSprite
