@@ -10,22 +10,19 @@ namespace View
 {
 	public class WindowsMusicManager : IMusic{		
 
-		public WindowsMusicManager PlayMenuMuisc()
+		public void PlayMenuMuisc()
 		{		
 			MusicPlayer menuMusic = new MusicPlayer(new SoundPlayer(@"Music\menuMusic.wav"));			
-			return this;			
 		}
 
-		WindowsMusicManager IMusic.PlayGameLoopMusic()
+		public void PlayGameLoopMusic()
 		{
 			MusicPlayer gameLoopMusic = new MusicPlayer(new SoundPlayer(@"Music\gameloopMusic.wav"));
-			return this;
 		}
 
-		WindowsMusicManager IMusic.PlayGameOverSound()
+		public void PlayGameOverSound()
 		{
 			MusicPlayer gameOverSound = new MusicPlayer(new SoundPlayer(@"Music\gameOver.wav"));			
-			return this;			
 		}
 	}	
 	

@@ -9,10 +9,10 @@ namespace Domain.Music
 {
 	public class MusicManager : IMusic
 	{
-		public WindowsMusicManager? PlayGameLoopMusic() => null;
+		public void PlayGameLoopMusic() { }
 
-		public WindowsMusicManager? PlayGameOverSound() => null;
+		public void PlayGameOverSound() { }
 
-		public WindowsMusicManager? PlayMenuMuisc() => null;
+		public void PlayMenuMuisc() {}
 	}
 }

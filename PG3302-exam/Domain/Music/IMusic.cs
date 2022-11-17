@@ -9,11 +9,9 @@ namespace View
 {
 	public interface IMusic
 	{
-		public WindowsMusicManager PlayMenuMuisc();
-
-		public WindowsMusicManager PlayGameLoopMusic();
-
-		public WindowsMusicManager PlayGameOverSound();		
+		void PlayMenuMuisc();
+        void PlayGameLoopMusic();
+        void PlayGameOverSound();		
 		
 	}
 }
