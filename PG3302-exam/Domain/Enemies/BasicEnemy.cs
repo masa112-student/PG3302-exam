@@ -7,22 +7,26 @@ namespace Domain.Enemies
 {
     public class BasicEnemy : Enemy
     {
-        private Sprite _activeSprite = new ();
+        private Sprite _activeSprite;
 
         private Point _pos;
-        private Point _movementDir = new(1, 0);
+        private Point _movementDir;
 
         private bool _isDead;
+        private const int _value = 100;
+
         private Random _attackRandom;
         private Stopwatch _attackTimer;
         private const int _attackDelayMs = 10000;
 
-        private const int _points = 100;
         public BasicEnemy() {
-            Health = 1;
+            _activeSprite = new();
+            _movementDir = new(1, 0);
+        
             _attackRandom = new();
             _attackTimer = Stopwatch.StartNew();
 
+            Health = 1;
             Speed = 1;
             Mask = IHittable.HitMask.Enemy;
         }
@@ -39,14 +43,13 @@ namespace Domain.Enemies
             set {
                 if (value != null) {
                     _activeSprite = value;
-                    _activeSprite.Pos = Pos;
                 }
             }
         }
 
         public override bool IsDead { get => _isDead; }
         public override int Speed { get; set; }
-        public override int Value { get => _points; }
+        public override int Value { get => _value; }
         public override Point MoveDir { get => _movementDir; set => _movementDir = value; }
         public override Dimension Size { get => ActiveSprite.Size; }
         public override bool ShouldAttack { get {
@@ -64,7 +67,8 @@ namespace Domain.Enemies
             Point bulleSpawnPoint = Pos + new Point(Size.Width / 2, Size.Height);
             Bullet b = new Bullet(bulleSpawnPoint, 1);
             b.MoveDir = new(0, 1);
-            
+            b.ActiveSprite = SpriteConfig.EnemyBulletSprite;
+
             // Enemy bullets need to hit the player
             b.Mask = IHittable.HitMask.Player;
 

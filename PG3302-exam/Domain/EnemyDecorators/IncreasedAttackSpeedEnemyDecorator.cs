@@ -11,9 +11,13 @@ namespace Domain.EnemyDecorators
         private const int _attackSpeedMs = 3000;
         private readonly Random _attackRandom;
 
+        private Sprite _sprite;
+
         public IncreasedAttackSpeedEnemyDecorator(Enemy enemy) : base(enemy) {
             _attackTimer = Stopwatch.StartNew();
             _attackRandom = new();
+
+            ActiveSprite = new(enemy.ActiveSprite);
         }
 
         public override int Value => base.Value + 15;
@@ -38,6 +42,7 @@ namespace Domain.EnemyDecorators
         public override Bullet Attack() {
             _attackTimer.Restart();
             Bullet b =  base.Attack();
+
             Array.Fill(b.ActiveSprite.ColorData, ConsoleColor.Green);
             return b;
         }

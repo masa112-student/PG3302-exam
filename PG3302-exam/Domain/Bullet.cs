@@ -5,13 +5,14 @@ namespace Domain
 {
     public class Bullet : IHittable, IMovable
     {
-        private Sprite _activeSprite = new Sprite("o");
+        private Sprite _activeSprite;
         private Point _pos;
         private int _moveSpeed;
         private bool _isDestroyed;
 
         public Bullet(Point startPos, int speed) {
             _moveSpeed = speed;
+            _activeSprite = new();
 
             Pos = startPos;
             MoveDir = new Point(0, -1);

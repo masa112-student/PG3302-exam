@@ -3,26 +3,30 @@ using Domain.Data;
 
 namespace Domain.Core
 {
-
     public class GameBoard : IGameBoard
     {
         private readonly Dimension _boardDimensions;
         private readonly EntityMover _entityMover;
         private readonly EnemyDamage _enemyDamage;
+        private readonly EnemySpawner _enemySpawner;
 
 		private Player _player;
 
-        private List<Bullet> _bullets;
-        private EnemySpawner _enemySpawner;
-        private List<Enemy> _enemies = new();       
+        private readonly List<Bullet> _bullets;
+        private List<Enemy> _enemies;
 		
 	private bool _fire;
         
         public GameBoard(Dimension boardDimensions) {
             _boardDimensions = boardDimensions;
-            _entityMover = new EntityMover(boardDimensions);
-            _enemyDamage = new EnemyDamage();
-		}
+
+            _entityMover = new(boardDimensions);
+            _enemyDamage = new();
+            _enemySpawner = new();
+
+            _enemies = new();
+            _bullets = new();
+        }
 
         public GameBoard(int boardWidth, int boardHeight) 
             : this (new Dimension(boardWidth, boardHeight)) { }
@@ -31,18 +35,17 @@ namespace Domain.Core
         public bool IsGameActive { get; set; }
 
         public void Start() {
-			_enemies = new();
-            _bullets = new();
+            _enemies.Clear();
+            _bullets.Clear();
             _fire = false;
-            _enemySpawner = new EnemySpawner();
 
             _player = new Player();
-            _player.ActiveSprite = new Sprite(" ^ \n^^^");
+            _player.ActiveSprite = SpriteConfig.PlayerSprite;
             _player.Pos = new Point(_boardDimensions.Width / 2, _boardDimensions.Height - _player.Size.Height - 1);
 
             IsGameActive = true;
             Score = 0;
-            }
+        }
 
         public List<Sprite> GetSprites() {
             var sprites = new List<Sprite>();

@@ -7,22 +7,12 @@ namespace Domain.Enemies
 {
     public class EnemySpawner
     {
-
-        private List<Enemy> _enemies = new();
-
-        private static Random random = new Random();
+        private static readonly Random random = new Random();
 
         private Point enemyStartPos = new Point(0, 4);
-        private Sprite enemySprite = new Sprite("xxx\n\\x/");
-
-        private List<EnemyType> _enemyTypes = new() { EnemyType.Basic };
-
-        private EnemyFactoryMaker _enemyFactoryMaker;
-
-        public EnemySpawner()
-        {
-            _enemyFactoryMaker = new();
-        }
+        private readonly List<EnemyType> _enemyTypes = new() { EnemyType.Basic };
+        private readonly EnemyFactoryMaker _enemyFactoryMaker = new();
+        private List<Enemy> _enemies = new();
 
         public void AddTypeToSpawnPool(EnemyType type)
         {
@@ -45,13 +35,15 @@ namespace Domain.Enemies
                 // Create a new enemy from the factory. The position of each enemy is derived from the width of the sprite and also the speed at which they move.
                 // (Faster sprites needs a bigger gap, otherwise they will overlap)
                 Enemy enemy = _enemyFactoryMaker.MakeFactory(typeToSpawn).getEnemy();
-                enemy.Pos = enemyStartPos + new Point(i * (enemySprite.Size.Width + enemy.Speed), 0);
-                enemy.ActiveSprite = new Sprite(enemySprite);
+                enemy.ActiveSprite = SpriteConfig.EnemySprite;
+                enemy.Pos = enemyStartPos + new Point(i * (enemy.ActiveSprite.Size.Width + enemy.Speed), 0);
                 _enemies.Add(enemy);
             }
+
+            //DebugSpawnEnemyTypes();
         }
 
-        public List<Enemy> Enemies
+        public List<Enemy> Enemies 
         {
             get { return _enemies; }
         }
@@ -63,23 +55,23 @@ namespace Domain.Enemies
             int fastY = 0; // In case the fast one is too fast to spawn as far down as the others during testing
 
             Enemy enemy = _enemyFactoryMaker.MakeFactory(EnemyType.Basic).getEnemy();
-            enemy.Pos = enemyStartPos + new Point(0 * (enemySprite.Size.Width + enemy.Speed), y);
-            enemy.ActiveSprite = new Sprite(enemySprite);
+            enemy.ActiveSprite = SpriteConfig.EnemySprite;
+            enemy.Pos = enemyStartPos + new Point(0 * (enemy.ActiveSprite.Size.Width + enemy.Speed), y);
             _enemies.Add(enemy);
 
             enemy = _enemyFactoryMaker.MakeFactory(EnemyType.Strong).getEnemy();
-            enemy.Pos = enemyStartPos + new Point(1 * (enemySprite.Size.Width + enemy.Speed), y);
-            enemy.ActiveSprite = new Sprite(enemySprite);
+            enemy.ActiveSprite = SpriteConfig.EnemySprite;
+            enemy.Pos = enemyStartPos + new Point(1 * (enemy.ActiveSprite.Size.Width + enemy.Speed), y);
             _enemies.Add(enemy);
 
             enemy = _enemyFactoryMaker.MakeFactory(EnemyType.FastAttack).getEnemy();
-            enemy.Pos = enemyStartPos + new Point(2 * (enemySprite.Size.Width + enemy.Speed), y);
-            enemy.ActiveSprite = new Sprite(enemySprite);
+            enemy.ActiveSprite = SpriteConfig.EnemySprite;
+            enemy.Pos = enemyStartPos + new Point(2 * (enemy.ActiveSprite.Size.Width + enemy.Speed), y);
             _enemies.Add(enemy);
 
             enemy = _enemyFactoryMaker.MakeFactory(EnemyType.Fast).getEnemy();
-            enemy.Pos = enemyStartPos + new Point(3 * (enemySprite.Size.Width + enemy.Speed), fastY);
-            enemy.ActiveSprite = new Sprite(enemySprite);
+            enemy.ActiveSprite = SpriteConfig.EnemySprite;
+            enemy.Pos = enemyStartPos + new Point(3 * (enemy.ActiveSprite.Size.Width + enemy.Speed), fastY);
             _enemies.Add(enemy);
         }
 
