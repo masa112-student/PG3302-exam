@@ -4,12 +4,12 @@ namespace Domain.Music
 {
 	public class MusicPlayer
 	{
-		private SoundPlayer _soundPlayer;
+		public SoundPlayer SoundPlayer { get; private set; }
 		
 		public MusicPlayer(SoundPlayer soundPlayer) {
-			_soundPlayer = soundPlayer;
-			_soundPlayer.Load();
-			_soundPlayer.Play();
+			SoundPlayer = soundPlayer;
+			SoundPlayer.Load();
+			SoundPlayer.Play();
 		}		
 	}		
 }
