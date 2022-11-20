@@ -1,23 +1,32 @@
-﻿using System.Media;
+﻿using System.Diagnostics;
+using System.Media;
 
 namespace Domain.Music
 {
-	public class WindowsMusicManager : IMusic{		
+	public class WindowsMusicManager : IMusicManager {
+
+		private MusicPlayer? _activePlayer;
 
 		public void PlayMenuMuisc()
-		{		
-			MusicPlayer menuMusic = new MusicPlayer(new SoundPlayer(@"Music\menuMusic.wav"));			
-		}
+		{
+            PlayIfNotRunning(@"Music\menuMusic.wav");
+        }
 
 		public void PlayGameLoopMusic()
 		{
-			MusicPlayer gameLoopMusic = new MusicPlayer(new SoundPlayer(@"Music\gameloopMusic.wav"));
+            PlayIfNotRunning(@"Music\gameloopMusic.wav");
 		}
 
 		public void PlayGameOverSound()
 		{
-			MusicPlayer gameOverSound = new MusicPlayer(new SoundPlayer(@"Music\gameOver.wav"));			
-		}
+			PlayIfNotRunning(@"Music\gameOver.wav");
+        }
+
+		private void PlayIfNotRunning(string soundLoc) {
+            if (_activePlayer == null || _activePlayer.SoundPlayer.SoundLocation != soundLoc)
+                _activePlayer = new MusicPlayer(new SoundPlayer(soundLoc));
+        }
+
 	}	
 	
 }
