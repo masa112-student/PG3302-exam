@@ -1,6 +1,6 @@
 ﻿namespace Domain.Music
 {
-	public class MusicManager : IMusic
+	public class NoMusicManager : IMusicManager
 	{
 		public void PlayGameLoopMusic() { }
 

@@ -1,6 +1,6 @@
 ﻿namespace Domain.Music
 {
-	public interface IMusic
+	public interface IMusicManager
 	{
 		void PlayMenuMuisc();
         void PlayGameLoopMusic();
