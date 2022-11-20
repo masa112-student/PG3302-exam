@@ -9,27 +9,49 @@ using View.Ui;
 
 namespace View
 {
+    /// <summary>
+    /// The class that ties everything together, and orchestrates the flow of the app.
+    /// 
+    /// All the public methods will present the user with a different view
+    /// 
+    /// StartupView asks and retrieves the name of the user
+    /// MenuView presents the user with the options to play the game, view highscores or quit
+    /// GameplayView is where the actual game is played
+    /// GameOverView is shown at the end of the gameplay, and shows the users score
+    /// HighScoreView displays a sorted list of highscores
+    /// 
+    /// A brief example of how the various components work together:
+    ///     In the main gameplayloop input will be read from the supplied IUserInput implementation, which will be passed along to the IGameBoard instance where all the game logic takes place.
+    ///     Then the IRenderer fetches all of the sprites from the IGameBoard and render them at a fixed interval.
+    ///     
+    ///     IPersistance will read all files from storage when HighScoresView is called, and add/update the users score in the GameOverView
+    ///     IMusic will play a track relevant for the current view
+    /// 
+    /// With it relying only on interfaces for the various game components, behaviour can easily be changed with new implementations of the interfaces.
+    /// </summary>
     internal class GameManager
     {
         private readonly IRenderer _renderer;
-        private readonly IPersistance _serializer;
+        private readonly IPersistance _persistance;
         private readonly IUserInput _userInput;
         private readonly IGameBoard _gameBoard;
-        private readonly IMusic _music;
+        private readonly IMusicManager _music;
 
         private string _userName = "<<Not set>>";
 
         public GameManager(IRenderer renderer, IUserInput userInput,
-			IGameBoard gameBoard, IPersistance serializer, IMusic music){ 
+			IGameBoard gameBoard, IPersistance serializer, IMusicManager music) { 
 
 			_renderer = renderer;
-            _serializer = serializer;
+            _persistance = serializer;
             _userInput = userInput;
             _gameBoard = gameBoard;
             _music = music;
         }
 
         public void StartupView() {
+            _music.PlayMenuMuisc();
+
             UserInputFormatter formatter = new();
             _renderer.CursorVisible = true;
             
@@ -50,6 +72,7 @@ namespace View
             MenuView();
         }
 
+        // Skip the greeting for faster statrup when debugging 
         [Conditional("RELEASE")]
         private void GreetPlayer() {
             _renderer.ClearScreen();
@@ -59,12 +82,13 @@ namespace View
 
         public void MenuView() {
             _renderer.ClearScreen();
-            _music.PlayMenuMuisc();
 			bool quit = false;
+            const string asciiArtLogo = "\r\n   _____                           _____                         _                  \r\n  / ____|                         |_   _|                       | |                 \r\n | (___   _ __    __ _   ___  ___   | |   _ __ __   __ __ _   __| |  ___  _ __  ___ \r\n  \\___ \\ | '_ \\  / _` | / __|/ _ \\  | |  | '_ \\\\ \\ / // _` | / _` | / _ \\| '__|/ __|\r\n  ____) || |_) || (_| || (__|  __/ _| |_ | | | |\\ V /| (_| || (_| ||  __/| |   \\__ \\\r\n |_____/ | .__/  \\__,_| \\___|\\___||_____||_| |_| \\_/  \\__,_| \\__,_| \\___||_|   |___/\r\n         | |                                                                        \r\n         |_|                                                                        \r\n\n\n";
+            
             while (!quit) {
+                _music.PlayMenuMuisc();
                 _renderer.DrawString(0, 0,
-					"\r\n   _____                           _____                         _                  \r\n  / ____|                         |_   _|                       | |                 \r\n | (___   _ __    __ _   ___  ___   | |   _ __ __   __ __ _   __| |  ___  _ __  ___ \r\n  \\___ \\ | '_ \\  / _` | / __|/ _ \\  | |  | '_ \\\\ \\ / // _` | / _` | / _ \\| '__|/ __|\r\n  ____) || |_) || (_| || (__|  __/ _| |_ | | | |\\ V /| (_| || (_| ||  __/| |   \\__ \\\r\n |_____/ | .__/  \\__,_| \\___|\\___||_____||_| |_| \\_/  \\__,_| \\__,_| \\___||_|   |___/\r\n         | |                                                                        \r\n         |_|                                                                        \r\n\n\n" +
-
+                     asciiArtLogo +
 					"Select option\n\n\n" +
 					"1: View scores\n\n" +
 					"2: Play game\n\n" +
@@ -84,9 +108,11 @@ namespace View
         }
 
         public void GameView() {
+            _music.PlayGameLoopMusic();
+
             _renderer.ClearScreen();
             _gameBoard.Start();
-            _music.PlayGameLoopMusic();
+
             Point center = new Point(Console.WindowWidth / 2, Console.WindowHeight / 2);
             Point moveDir = new Point(0, 0);
 
@@ -122,24 +148,26 @@ namespace View
         }
 
         public void GameOverView() {
-            var scores = _serializer.LoadHighScores();
+            _music.PlayGameOverSound();
+
+            var scores = _persistance.LoadHighScores();
             scores.Add(new Score(_userName, _gameBoard.Score));
-            _serializer.SaveHighScores(scores);
+            _persistance.SaveHighScores(scores);
 
             _renderer.ClearScreen();
             _renderer.DrawString(0, 0, $"Game over. Score {_gameBoard.Score}");
             _renderer.DrawString(0, 2, "Press enter to return to the menu");
 
-            _music.PlayGameOverSound();
 
 			while (!_userInput.IsKeyDown(ConsoleKey.Enter)) ;
 
             _renderer.ClearScreen();
-            _music.PlayMenuMuisc();
 		}
 
         public void HighScoreView() {
-            HighScores scores = _serializer.LoadHighScores();
+            _music.PlayMenuMuisc();
+
+            HighScores scores = _persistance.LoadHighScores();
             _renderer.ClearScreen();
             _renderer.DrawString(0, 0, "HighScores:");
 
