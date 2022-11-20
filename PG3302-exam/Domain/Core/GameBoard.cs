@@ -3,9 +3,25 @@ using Domain.Data;
 
 namespace Domain.Core
 {
+    /// <summary>
+    /// The heart of the game. Where all the game logic happens
+    /// 
+    /// Check the interface for an overview of the usage of the public methods
+    /// 
+    /// Brefly about the struture of types in this class:
+    ///     The player, enemies and bullets are all considered to be entities (having a position and size).
+    ///     Movement and collision logic is the same for all entities so it can be made generic for all entities (the IMovable and IHittable interfaces).
+    ///     On top of that, certain aspects could be modified by decorators (Movementspeed, Health). This makes it so that these aspects have to be updated from outside the classes themselves.
+    ///     This is where the EntityMover and EnemyDamage classes come into play. The EntityMover works on all IMovable objects which means you could pass a basic enemy to it, 
+    ///     or an enemy wrapped in one (or mutiple) speedy decorators and they would behave as expected.
+    ///     
+    ///     The same is true for the EnemyDamage class. Where a basic enemy, and a really tough enemy wrapped in multiple healthboost decorators, will both take the required amout of hits before the die.
+    /// 
+    /// </summary>
     public class GameBoard : IGameBoard
     {
         private readonly Dimension _boardDimensions;
+
         private readonly EntityMover _entityMover;
         private readonly EnemyDamage _enemyDamage;
         private readonly EnemySpawner _enemySpawner;
@@ -13,9 +29,8 @@ namespace Domain.Core
 		private Player _player;
 
         private readonly List<Bullet> _bullets;
-        private List<Enemy> _enemies;
 		
-	private bool _fire;
+	    private bool _fire;
         
         public GameBoard(Dimension boardDimensions) {
             _boardDimensions = boardDimensions;
@@ -24,7 +39,6 @@ namespace Domain.Core
             _enemyDamage = new();
             _enemySpawner = new();
 
-            _enemies = new();
             _bullets = new();
         }
 
@@ -35,8 +49,8 @@ namespace Domain.Core
         public bool IsGameActive { get; set; }
 
         public void Start() {
-            _enemies.Clear();
             _bullets.Clear();
+            _enemySpawner.Enemies.Clear();
             _fire = false;
 
             _player = new Player();
@@ -48,9 +62,10 @@ namespace Domain.Core
         }
 
         public List<Sprite> GetSprites() {
-            var sprites = new List<Sprite>();
-            sprites.Add(_player.ActiveSprite);
-            _enemies.ForEach(enemy => sprites.Add(enemy.ActiveSprite));
+            List<Sprite> sprites = new() {
+                _player.ActiveSprite
+            };
+            _enemySpawner.Enemies.ForEach(enemy => sprites.Add(enemy.ActiveSprite));
             _bullets.ForEach(bullet => sprites.Add(bullet.ActiveSprite));
             return sprites;
         }
@@ -72,7 +87,7 @@ namespace Domain.Core
 
         public void Update() {
             // Cleanup dead entities
-            _enemies.RemoveAll(enemy => enemy.IsDead);
+            _enemySpawner.Enemies.RemoveAll(enemy => enemy.IsDead);
             _bullets.RemoveAll(bullet =>
                 bullet.IsDestroyed ||
                 !_boardDimensions.IsPointInside(bullet.Pos)
@@ -84,7 +99,7 @@ namespace Domain.Core
                 _bullets.Add(_player.Attack());
 
             // Enemies updates
-            if (_enemies.Count == 0) {
+            if (_enemySpawner.Enemies.Count == 0) {
                 if(Score > 0) {
                     _enemySpawner.AddTypeToSpawnPool(EnemyType.Fast);
                 }
@@ -97,10 +112,9 @@ namespace Domain.Core
                 }
                 
                 _enemySpawner.EnemySpawnChecker();
-                _enemies = _enemySpawner.Enemies;
             }
 
-            _enemies.ForEach(enemy => {
+            _enemySpawner.Enemies.ForEach(enemy => {
                 EnemyMovement.UpdateMoveDir(enemy, _boardDimensions);
                 _entityMover.Move(enemy, clamp: true);
 
@@ -116,7 +130,8 @@ namespace Domain.Core
                     
                 _entityMover.Move(bullet);
 
-                _enemies.ForEach(enemy => {
+                // Bullet hit detection
+                _enemySpawner.Enemies.ForEach(enemy => {
                     if (bullet.Hit(enemy)) {
                         if (!enemy.IsDead) {
                             _enemyDamage.Damage(enemy);
@@ -131,7 +146,7 @@ namespace Domain.Core
             });
                         
             // Gamestate update
-            if (_enemies.Any(enemy => (enemy.Pos.Y + enemy.Size.Height) > _boardDimensions.Height - _player.Size.Height )) {
+            if (_enemySpawner.Enemies.Any(enemy => (enemy.Pos.Y + enemy.Size.Height) > _boardDimensions.Height - _player.Size.Height )) {
                 IsGameActive = false;
             }
 

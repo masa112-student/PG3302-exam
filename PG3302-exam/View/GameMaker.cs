@@ -9,6 +9,9 @@ using View.Ui;
 
 namespace View
 {
+    /// <summary>
+    /// A factory class responsible for creating and injecting the relevant implementations for the users OS
+    /// </summary>
     internal class GameMaker
     {
         public static GameManager MakeGame() {
@@ -32,7 +35,7 @@ namespace View
                 new SimpleConsoleUserInput(),
                 new GameBoard(gameDimension),
                 new JsonPersistance(scoreFileName),
-				new MusicManager() 
+				new NoMusicManager() 
                 );                
             }
             return manager; 

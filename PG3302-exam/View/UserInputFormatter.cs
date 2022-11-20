@@ -1,5 +1,10 @@
 ﻿using System.Text;
 
+/// <summary>
+/// A helper class for reading input from the user one char at a time.
+/// It will only add letters, digits and space to the string, and supports backspace for deleting chars.
+/// GetInputString acts as an extension point for subclasses should additional processing of the string be required.
+/// </summary>
 class UserInputFormatter
 {
     private StringBuilder _input = new StringBuilder();
@@ -18,11 +23,7 @@ class UserInputFormatter
         UserHitEnter = (c == (char)ConsoleKey.Enter);
     }
 
-    public string GetInputString() {
-        _input.Replace("\r", string.Empty);
-        _input.Replace("\n'", string.Empty);
-        _input.Replace("\b", string.Empty);
-
+    public virtual string GetInputString() {
         return _input.ToString();
     }
 }

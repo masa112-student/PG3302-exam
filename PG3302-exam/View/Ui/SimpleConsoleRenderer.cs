@@ -60,6 +60,7 @@ namespace View.Ui
 
             string[] lines = sprite.Data.Split("\n");
 
+            // Blank out the sprites previous position
             Point spritePos;
             if (sprite.PrevPos != null)
             {
@@ -80,6 +81,7 @@ namespace View.Ui
                 }
             }
 
+            // Draw the sprite if it is visible
             if (sprite.Visible && sprite.Pos != null)
             {
                 spritePos = (Point)sprite.Pos;
@@ -95,6 +97,7 @@ namespace View.Ui
                     i++;
                 }
             }
+
             Console.ForegroundColor = currentColor;
         }
     }
