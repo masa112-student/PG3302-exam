@@ -10,8 +10,10 @@ namespace Domain.Core
             _boardDimensions = boardDimensions;
         }
 
-        public void Move(IMovable entity, bool clamp = false)
+        public void Move(IMovable? entity, bool clamp = false)
         {
+            if (entity == null) return;
+
             Point newMove = entity.MoveDir * entity.Speed;
 
             bool moveIsInBoundry = 

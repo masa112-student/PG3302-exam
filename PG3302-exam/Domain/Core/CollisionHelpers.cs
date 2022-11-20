@@ -3,7 +3,9 @@
     internal class CollisionHelpers
     {
 
-        public static bool AABBHit(IHittable a, IHittable b) {
+        public static bool AABBHit(IHittable a, IHittable? b) {
+            if (b == null) return false;
+
             if(a.Mask != b.Mask)
                 return false;
 
