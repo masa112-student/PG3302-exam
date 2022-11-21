@@ -44,6 +44,23 @@ namespace Domain.Enemies
             //DebugSpawnEnemyTypes();
         }
 
+        public void Update(int currentScore) {
+            if (Enemies.Count == 0) {
+                if (currentScore > 0) {
+                    AddTypeToSpawnPool(EnemyType.Fast);
+                }
+                if (currentScore > 500) {
+                    AddTypeToSpawnPool(EnemyType.FastAttack);
+                }
+                if (currentScore > 1000) {
+                    AddTypeToSpawnPool(EnemyType.Strong);
+                }
+
+                EnemySpawnChecker();
+            }
+
+        }
+
         public List<Enemy> Enemies 
         {
             get { return _enemies; }

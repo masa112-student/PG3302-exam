@@ -100,20 +100,8 @@ namespace Domain.Core
                 _bullets.Add(_player.Attack());
 
             // Enemies updates
-            if (_enemySpawner.Enemies.Count == 0) {
-                if(Score > 0) {
-                    _enemySpawner.AddTypeToSpawnPool(EnemyType.Fast);
-                }
-                if (Score > 500) {
-                    _enemySpawner.AddTypeToSpawnPool(EnemyType.FastAttack);
-                }
-                if (Score > 1000)
-                {
-                    _enemySpawner.AddTypeToSpawnPool(EnemyType.Strong);
-                }
-                
-                _enemySpawner.EnemySpawnChecker();
-            }
+
+            _enemySpawner.Update(Score);
 
             _enemySpawner.Enemies.ForEach(enemy => {
                 _enemyMovement.UpdateMoveDir(enemy);
