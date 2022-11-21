@@ -10,18 +10,16 @@ namespace Domain.Enemies
         private Sprite _activeSprite;
 
         private Point _pos;
-        private Point _movementDir;
 
-        private bool _isDead;
-        private const int _value = 100;
+        private const int VALUE = 100;
 
         private Random _attackRandom;
         private Stopwatch _attackTimer;
-        private const int _attackDelayMs = 10000;
+        private const int ATTACK_DELAY_MS = 10000;
 
         public BasicEnemy() {
             _activeSprite = new();
-            _movementDir = new(1, 0);
+            MoveDir = new(1, 0);
         
             _attackRandom = new();
             _attackTimer = Stopwatch.StartNew();
@@ -29,6 +27,7 @@ namespace Domain.Enemies
             Health = 1;
             Speed = 1;
             Mask = IHittable.HitMask.Enemy;
+            Value = VALUE;
         }
 
         public override Point Pos {
@@ -47,10 +46,6 @@ namespace Domain.Enemies
             }
         }
 
-        public override bool IsDead { get => _isDead; }
-        public override int Speed { get; set; }
-        public override int Value { get => _value; }
-        public override Point MoveDir { get => _movementDir; set => _movementDir = value; }
         public override Dimension Size { get => ActiveSprite.Size; }
         public override bool ShouldAttack { get {
                 if (!CanAttack)
@@ -59,9 +54,7 @@ namespace Domain.Enemies
                 _attackTimer.Restart();
                 return _attackRandom.Next(100) > 20;
             } }
-        public override bool CanAttack { get => _attackTimer.ElapsedMilliseconds > _attackDelayMs; }
-        public override IHittable.HitMask Mask { get; set; }
-        public override int Health { get; set; }
+        public override bool CanAttack { get => _attackTimer.ElapsedMilliseconds > ATTACK_DELAY_MS; }
 
         public override Bullet Attack() {
             Point bulleSpawnPoint = Pos + new Point(Size.Width / 2, Size.Height);
@@ -84,7 +77,7 @@ namespace Domain.Enemies
         }
 
         public override void Kill() {
-            _isDead = true;
+            IsDead = true;
             ActiveSprite.Visible = false;
         }
     }
