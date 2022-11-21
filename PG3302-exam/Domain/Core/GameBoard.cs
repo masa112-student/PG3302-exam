@@ -24,7 +24,7 @@ namespace Domain.Core
         private readonly Dimension _boardDimensions;
 
         private readonly EntityMover _entityMover;
-        private readonly EntityDamager _enemyDamage;
+        private readonly EntityDamager _entityDamager;
         private readonly EnemySpawner _enemySpawner;
 
 		private Player _player;
@@ -37,7 +37,7 @@ namespace Domain.Core
             _boardDimensions = boardDimensions;
 
             _entityMover = new(boardDimensions);
-            _enemyDamage = new();
+            _entityDamager = new();
             _enemySpawner = new();
 
             _bullets = new();
@@ -88,7 +88,7 @@ namespace Domain.Core
 
         public void Update() {
             // Cleanup dead entities
-            _enemySpawner.Enemies.RemoveAll(enemy => enemy.IsDead);
+            _enemySpawner.Enemies.RemoveAll(enemy => enemy.IsDestroyed);
             _bullets.RemoveAll(bullet =>
                 bullet.IsDestroyed ||
                 !_boardDimensions.IsPointInside(bullet.Pos)
@@ -134,20 +134,24 @@ namespace Domain.Core
                 // Bullet hit detection
                 _enemySpawner.Enemies.ForEach(enemy => {
                     if (bullet.Hit(enemy)) {
-                        if (!enemy.IsDead) {
-                            _enemyDamage.Damage(enemy);
+                        if (!enemy.IsDestroyed) {
+                            _entityDamager.Damage(enemy);
                             bullet.Destroy();
 
                             Score += enemy.Value;
                         }
-                    } else if (bullet.Hit(_player)) {
-                        IsGameActive = false;
-                    }
+                    } 
                 });
+
+                if (!_player.IsDestroyed && bullet.Hit(_player)) {
+                    _entityDamager.Damage(_player);
+                    bullet.Destroy();
+                }
             });
-                        
+
             // Gamestate update
-            if (_enemySpawner.Enemies.Any(enemy => (enemy.Pos.Y + enemy.Size.Height) > _boardDimensions.Height - _player.Size.Height )) {
+            bool enemyHasReachedBottomOfScreen = _enemySpawner.Enemies.Any(enemy => (enemy.Pos.Y + enemy.Size.Height) > _boardDimensions.Height - _player.Size.Height);
+            if (enemyHasReachedBottomOfScreen || _player.IsDestroyed) {
                 IsGameActive = false;
             }
 

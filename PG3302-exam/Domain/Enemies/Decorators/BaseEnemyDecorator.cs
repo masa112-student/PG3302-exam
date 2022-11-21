@@ -18,7 +18,7 @@ namespace Domain.Enemies.Decorators
 
         public override Point Pos { get => _enemy.Pos; set => _enemy.Pos = value; }
         public override Sprite ActiveSprite { get => _enemy.ActiveSprite; set => _enemy.ActiveSprite = value; }
-        public override bool IsDead { get => _enemy.IsDead; }
+        public override bool IsDestroyed { get => _enemy.IsDestroyed; }
         public override int Speed { get => _enemy.Speed; set => _enemy.Speed = value; }
         public override int Value { get => _enemy.Value; }
         public override Point MoveDir { get => _enemy.MoveDir; set => _enemy.MoveDir = value; }

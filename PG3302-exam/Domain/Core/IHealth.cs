@@ -8,6 +8,7 @@ namespace Domain.Core
 {
     public interface IHealth
     {
+        bool IsDestroyed { get; }
         int Health { get; set; }
 
         void Destroy();

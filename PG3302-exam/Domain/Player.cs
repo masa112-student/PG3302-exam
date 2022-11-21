@@ -5,7 +5,7 @@ using Domain.Core;
 
 namespace Domain
 {
-    public class Player : IMovable, IHittable
+    public class Player : IMovable, IHittable, IHealth
     {
         private Sprite _activeSprite;
         private Point _pos;
@@ -18,6 +18,7 @@ namespace Domain
             _attackTimer = Stopwatch.StartNew();
 
             Speed = 1;
+            Health = 1;
             MoveDir = new Point(0, 0);
             Mask = IHittable.HitMask.Player;
         }
@@ -47,6 +48,10 @@ namespace Domain
 
         public IHittable.HitMask Mask { get; set; }
 
+        public bool IsDestroyed => Health <= 0;
+
+        public int Health { get; set; }
+
         public Bullet Attack() {
             Point startPos = new Point(Pos.X + (ActiveSprite.Size.Width / 2), Pos.Y - 1);
             Bullet b = new Bullet(startPos, 1);
@@ -61,6 +66,11 @@ namespace Domain
 
         public bool Hit(IHittable other) {
             return CollisionHelpers.AABBHit(this, other);
+        }
+
+        public void Destroy() {
+            _activeSprite.Visible = false;
+
         }
     }
 }

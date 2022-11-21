@@ -13,7 +13,7 @@ namespace Domain.Enemies
         public virtual Point MoveDir { get; set; }
         public virtual int Speed { get; set; }
         public virtual int Health { get; set; }
-        public virtual bool IsDead { get; protected set; }
+        public virtual bool IsDestroyed { get; }
         public virtual int Value { get; protected set; }
         public virtual IHittable.HitMask Mask { get; set; }
         

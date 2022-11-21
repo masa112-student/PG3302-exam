@@ -65,6 +65,8 @@ namespace Domain.Enemies
             } }
         public override bool CanAttack { get => _attackTimer.ElapsedMilliseconds > ATTACK_DELAY_MS; }
 
+        public override bool IsDestroyed => Health <= 0;
+
         public override Bullet Attack() {
             Point bulleSpawnPoint = Pos + new Point(Size.Width / 2, Size.Height);
             Bullet b = new Bullet(bulleSpawnPoint, 1);
@@ -80,14 +82,13 @@ namespace Domain.Enemies
         }
 
         public override bool Hit(IHittable other) {
-            if (IsDead)
+            if (IsDestroyed)
                 return false;
 
             return CollisionHelpers.AABBHit(this, other);
         }
 
         public override void Destroy() {
-            IsDead = true;
             ActiveSprite.Visible = false;
         }
     }
