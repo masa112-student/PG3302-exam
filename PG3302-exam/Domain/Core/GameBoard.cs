@@ -25,7 +25,9 @@ namespace Domain.Core
 
         private readonly EntityMover _entityMover;
         private readonly EntityDamager _entityDamager;
+        
         private readonly EnemySpawner _enemySpawner;
+        private readonly EnemyMovement _enemyMovement;
 
 		private Player _player;
 
@@ -39,6 +41,7 @@ namespace Domain.Core
             _entityMover = new(boardDimensions);
             _entityDamager = new();
             _enemySpawner = new();
+            _enemyMovement = new(boardDimensions);
 
             _bullets = new();
         }
@@ -116,7 +119,7 @@ namespace Domain.Core
             }
 
             _enemySpawner.Enemies.ForEach(enemy => {
-                EnemyMovement.UpdateMoveDir(enemy, _boardDimensions);
+                _enemyMovement.UpdateMoveDir(enemy);
                 _entityMover.Move(enemy, clamp: true);
 
                 if(enemy.CanAttack && enemy.ShouldAttack) {
