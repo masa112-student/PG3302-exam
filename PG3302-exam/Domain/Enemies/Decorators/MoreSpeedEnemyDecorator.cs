@@ -2,6 +2,9 @@
 
 namespace Domain.Enemies.Decorators
 {
+    /// <summary>
+    /// Makes enemies faster, changes color to yellow
+    /// </summary>
     public class MoreSpeedEnemyDecorator : BaseEnemyDecorator
     {
         public MoreSpeedEnemyDecorator(Enemy moreSpeedEnemy) : base(moreSpeedEnemy) { }

@@ -4,6 +4,9 @@ using Domain.Core;
 
 namespace Domain.Enemies.Decorators
 {
+    /// <summary>
+    /// Makes enemies fire faster, changes color to green
+    /// </summary>
     internal class IncreasedAttackSpeedEnemyDecorator : BaseEnemyDecorator
     {
         private Stopwatch _attackTimer;

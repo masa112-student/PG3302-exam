@@ -2,6 +2,9 @@
 
 namespace Domain.Enemies.Decorators
 {
+    /// <summary>
+    /// Makes enemies tougher, changes color to red
+    /// </summary>
     public class MoreHealthEnemyDecorator : BaseEnemyDecorator
     {
         private int health;

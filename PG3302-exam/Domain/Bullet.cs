@@ -3,17 +3,17 @@ using Domain.Core;
 
 namespace Domain
 {
+
     public class Bullet : IHittable, IMovable
     {
         private Sprite _activeSprite;
         private Point _pos;
-        private int _moveSpeed;
         private bool _isDestroyed;
 
         public Bullet(Point startPos, int speed) {
-            _moveSpeed = speed;
             _activeSprite = new();
 
+            Speed = speed;
             Pos = startPos;
             MoveDir = new Point(0, -1);
         }
@@ -36,7 +36,7 @@ namespace Domain
 
         public Dimension Size => ActiveSprite.Size;
 
-        public int Speed { get => _moveSpeed; set => _moveSpeed = value; }
+        public int Speed { get; set; }
         public Point MoveDir { get; set; }
         public IHittable.HitMask Mask { get; set; }
 
@@ -53,7 +53,6 @@ namespace Domain
 
             return CollisionHelpers.AABBHit(this, other);
         }
-
     }
 }
 

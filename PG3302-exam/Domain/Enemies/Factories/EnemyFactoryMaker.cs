@@ -1,5 +1,8 @@
 ﻿namespace Domain.Enemies.Factories
 {
+    /// <summary>
+    /// The abstract factory creator, uses a enum to select the factory type
+    /// </summary>
     public enum EnemyType
     {
         Basic,
