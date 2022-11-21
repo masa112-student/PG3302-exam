@@ -1,6 +1,7 @@
-﻿using Domain.EnemyDecorators;
+﻿using Domain.Enemies.Decorators;
 
-namespace Domain.Enemies
+
+namespace Domain.Enemies.Factories
 {
     public class StrongEnemyFactory : EnemyFactory
     {

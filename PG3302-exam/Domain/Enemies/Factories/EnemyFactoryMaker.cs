@@ -1,4 +1,4 @@
-﻿namespace Domain.Enemies
+﻿namespace Domain.Enemies.Factories
 {
     public enum EnemyType
     {
@@ -10,8 +10,10 @@
 
     public class EnemyFactoryMaker
     {
-        public EnemyFactory MakeFactory(EnemyType type) {
-            switch(type) {
+        public EnemyFactory MakeFactory(EnemyType type)
+        {
+            switch (type)
+            {
                 case EnemyType.Basic:
                     return new BasicEnemyFactory();
                 case EnemyType.Fast:

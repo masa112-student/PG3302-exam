@@ -1,7 +1,6 @@
 ﻿using Domain.Core;
-using Domain.Enemies;
 
-namespace Domain.EnemyDecorators
+namespace Domain.Enemies.Decorators
 {
     public class MoreHealthEnemyDecorator : BaseEnemyDecorator
     {
@@ -25,7 +24,8 @@ namespace Domain.EnemyDecorators
             }
         }
 
-        public override Bullet Attack(){
+        public override Bullet Attack()
+        {
             Bullet b = base.Attack();
             Array.Fill(b.ActiveSprite.ColorData, ConsoleColor.Red);
             return b;

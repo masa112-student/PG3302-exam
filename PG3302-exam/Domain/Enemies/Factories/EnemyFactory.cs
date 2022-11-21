@@ -1,4 +1,4 @@
-﻿namespace Domain.Enemies
+﻿namespace Domain.Enemies.Factories
 {
     public abstract class EnemyFactory
     {
