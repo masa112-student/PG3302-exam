@@ -6,7 +6,7 @@ namespace Domain.Enemies
     /// <summary>
     /// Abstract blueprint class for enemies. This is used by both the basic enemy implemntation, and also the decorators
     /// </summary>
-    public abstract class Enemy : IHittable, IMovable
+    public abstract class Enemy : IHittable, IMovable, IHealth
     {
         // Normal properties made virtual for subclasses to extend
         public virtual Point Pos { get; set; }
@@ -25,7 +25,7 @@ namespace Domain.Enemies
         public abstract bool ShouldAttack { get; } // Should it (ex only attack if certain conditions are met, or random chance to attack)
 
         public abstract Bullet Attack();
-        public abstract void Kill();
+        public abstract void Destroy();
         public abstract bool Hit(IHittable hittable);
     }
 }

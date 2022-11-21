@@ -86,7 +86,7 @@ namespace Domain.Enemies
             return CollisionHelpers.AABBHit(this, other);
         }
 
-        public override void Kill() {
+        public override void Destroy() {
             IsDead = true;
             ActiveSprite.Visible = false;
         }

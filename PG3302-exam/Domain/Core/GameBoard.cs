@@ -24,7 +24,7 @@ namespace Domain.Core
         private readonly Dimension _boardDimensions;
 
         private readonly EntityMover _entityMover;
-        private readonly EnemyDamage _enemyDamage;
+        private readonly EntityDamager _enemyDamage;
         private readonly EnemySpawner _enemySpawner;
 
 		private Player _player;

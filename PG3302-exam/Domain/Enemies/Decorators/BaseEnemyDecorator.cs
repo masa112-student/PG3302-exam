@@ -43,9 +43,9 @@ namespace Domain.Enemies.Decorators
             return _enemy.Hit(other);
         }
 
-        public override void Kill()
+        public override void Destroy()
         {
-            _enemy.Kill();
+            _enemy.Destroy();
         }
     }
 }
