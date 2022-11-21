@@ -2,6 +2,7 @@
 
 using Domain.Core;
 using Domain.Data;
+using Domain.Enemies.Factories;
 
 namespace Domain.Enemies
 {

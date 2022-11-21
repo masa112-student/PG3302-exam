@@ -1,5 +1,6 @@
 ﻿using Domain.Enemies;
 using Domain.Data;
+using Domain.Enemies.Factories;
 
 namespace Domain.Core
 {

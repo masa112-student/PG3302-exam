@@ -5,6 +5,15 @@ using Domain.Core;
 
 namespace Domain.Enemies
 {
+    /// <summary>
+    /// Basic enemy class. Containing core logic.
+    /// 
+    /// This basic version has a movespeed of 1, health of 1, and a 20% chance of attacking every 10 seconds.
+    /// 
+    /// Attack() spawns a bullet on the lower middle of the sprite, that can hit only the player
+    /// Hit() returns false if the enemy is dead, otherwise it outsources hitdetection to CollisionHelpers
+    /// 
+    /// </summary>
     public class BasicEnemy : Enemy
     {
         private Sprite _activeSprite;
@@ -13,17 +22,17 @@ namespace Domain.Enemies
 
         private const int VALUE = 100;
 
-        private Random _attackRandom;
-        private Stopwatch _attackTimer;
+        private readonly Random _attackRandom;
+        private readonly Stopwatch _attackTimer;
         private const int ATTACK_DELAY_MS = 10000;
 
         public BasicEnemy() {
             _activeSprite = new();
-            MoveDir = new(1, 0);
         
             _attackRandom = new();
             _attackTimer = Stopwatch.StartNew();
 
+            MoveDir = new(1, 0);
             Health = 1;
             Speed = 1;
             Mask = IHittable.HitMask.Enemy;
@@ -52,13 +61,14 @@ namespace Domain.Enemies
                     return false;
                 
                 _attackTimer.Restart();
-                return _attackRandom.Next(100) > 20;
+                return _attackRandom.Next(100) < 20;
             } }
         public override bool CanAttack { get => _attackTimer.ElapsedMilliseconds > ATTACK_DELAY_MS; }
 
         public override Bullet Attack() {
             Point bulleSpawnPoint = Pos + new Point(Size.Width / 2, Size.Height);
             Bullet b = new Bullet(bulleSpawnPoint, 1);
+
             b.MoveDir = new(0, 1);
             b.ActiveSprite = SpriteConfig.EnemyBulletSprite;
 

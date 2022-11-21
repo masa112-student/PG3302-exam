@@ -1,5 +1,8 @@
 ﻿namespace Domain.Data
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class Dimension
     {
         public Dimension(int width, int height) {

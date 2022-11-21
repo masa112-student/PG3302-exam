@@ -2,6 +2,13 @@
 
 namespace Domain.Core
 {
+    /// <summary>
+    /// A Util class for moing all IMovable instances
+    /// 
+    /// Moves the entity along its MoveDir axis and adds the speed to it.
+    /// If clamp is set to true the it will not allow the entity to move out of bounds
+    /// 
+    /// </summary>
     public class EntityMover
     {
         private Dimension _boardDimensions;

@@ -4,6 +4,15 @@ using Domain.Data;
 
 namespace Domain.Core
 {
+    /// <summary>
+    /// Class containing all info relevant to storing and drawing a sprite to the screen
+    /// 
+    /// Data is a (potentially mulitline) string containing the characters of the sprite. From the characters the size of the sprite is calculated. 
+    /// The sprite is assument to be rectangular and the dimensions are calculated based on the nr of lines, and the length of the first line.
+    /// 
+    /// ColorData contains a color for all (non newline) chars in the string. Allowing vast color customization. 
+    /// The choice was made to use the ConsoleColor enum as it contains more than enough colors for what the app requires.
+    /// </summary>
     public class Sprite
     {
 
@@ -64,14 +73,14 @@ namespace Domain.Core
 
             for (int i = 0; i < height; i++)
             {
-                if (i > 0)
+                if (i > 0) {
                     stringBuilder.Append("\n");
+                }
                 for (int j = 0; j < width; j++)
                 {
                     stringBuilder.Append(" ");
                 }
             }
-
 
             return new Sprite(stringBuilder.ToString(), s.Pos);
         }

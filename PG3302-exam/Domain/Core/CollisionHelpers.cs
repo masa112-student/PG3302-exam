@@ -1,8 +1,10 @@
 ﻿namespace Domain.Core
 {
+    /// <summary>
+    /// A util class for containing collision logic
+    /// </summary>
     internal class CollisionHelpers
     {
-
         public static bool AABBHit(IHittable a, IHittable? b) {
             if (b == null) return false;
 
