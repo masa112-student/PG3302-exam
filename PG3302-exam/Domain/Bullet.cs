@@ -3,16 +3,15 @@ using Domain.Core;
 
 namespace Domain
 {
-
-    public class Bullet : IHittable, IMovable
+    public class Bullet : IHittable, IMovable, IHealth
     {
         private Sprite _activeSprite;
         private Point _pos;
-        private bool _isDestroyed;
 
         public Bullet(Point startPos, int speed) {
             _activeSprite = new();
 
+            Health = 1;
             Speed = speed;
             Pos = startPos;
             MoveDir = new Point(0, -1);
@@ -40,11 +39,13 @@ namespace Domain
         public Point MoveDir { get; set; }
         public IHittable.HitMask Mask { get; set; }
 
-        public bool IsDestroyed => _isDestroyed;
+        public bool IsDestroyed => Health <= 0;
+
+        public int Health { get; set; }
+
         public void Destroy() {
             ActiveSprite.Visible = false;
             Speed = 0;
-            _isDestroyed = true;
         }
 
         public bool Hit(IHittable other) {

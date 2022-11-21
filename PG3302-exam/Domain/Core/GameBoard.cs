@@ -136,7 +136,7 @@ namespace Domain.Core
                     if (bullet.Hit(enemy)) {
                         if (!enemy.IsDestroyed) {
                             _entityDamager.Damage(enemy);
-                            bullet.Destroy();
+                            _entityDamager.Damage(bullet);
 
                             Score += enemy.Value;
                         }
@@ -145,7 +145,7 @@ namespace Domain.Core
 
                 if (!_player.IsDestroyed && bullet.Hit(_player)) {
                     _entityDamager.Damage(_player);
-                    bullet.Destroy();
+                    _entityDamager.Damage(bullet);
                 }
             });
 
