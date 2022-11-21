@@ -16,7 +16,7 @@ namespace View
     {
         public static GameManager MakeGame() {
             GameManager manager;
-            Dimension gameDimension = new(Console.WindowWidth, Console.WindowHeight);
+            Dimension gameDimension = new(Console.WindowWidth, Console.WindowHeight-1);
             Dimension renderDimension = new(Console.WindowWidth, Console.WindowHeight);
             string scoreFileName = "highscores.json";
 

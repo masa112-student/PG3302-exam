@@ -59,7 +59,7 @@ namespace Domain.Core
 
             _player = new Player();
             _player.ActiveSprite = SpriteConfig.PlayerSprite;
-            _player.Pos = new Point(_boardDimensions.Width / 2, _boardDimensions.Height - _player.Size.Height - 1);
+            _player.Pos = new Point(_boardDimensions.Width / 2, _boardDimensions.Height - _player.Size.Height);
 
             IsGameActive = true;
             Score = 0;
@@ -92,10 +92,7 @@ namespace Domain.Core
         public void Update() {
             // Cleanup dead entities
             _enemySpawner.Enemies.RemoveAll(enemy => enemy.IsDestroyed);
-            _bullets.RemoveAll(bullet =>
-                bullet.IsDestroyed ||
-                !_boardDimensions.IsPointInside(bullet.Pos)
-            );
+            _bullets.RemoveAll(bullet => bullet.IsDestroyed);
 
             // Player updates
             _entityMover.Move(_player, clamp: true);
@@ -133,6 +130,11 @@ namespace Domain.Core
                     return;
                     
                 _entityMover.Move(bullet);
+                if (!_boardDimensions.IsPointInside(bullet.Pos)) {
+                    bullet.Destroy();
+                    return;
+                }
+                
 
                 // Bullet hit detection
                 _enemySpawner.Enemies.ForEach(enemy => {
