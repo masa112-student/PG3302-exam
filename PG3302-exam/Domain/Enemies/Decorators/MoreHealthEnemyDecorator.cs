@@ -7,23 +7,33 @@ namespace Domain.Enemies.Decorators
     /// </summary>
     public class MoreHealthEnemyDecorator : BaseEnemyDecorator
     {
-        private int health;
+        private int _health;
+        private readonly ConsoleColor[] _colors;
 
         public MoreHealthEnemyDecorator(Enemy moreHealthEnemy) : base(moreHealthEnemy)
         {
-            health = moreHealthEnemy.Health + 1;
+            _health = moreHealthEnemy.Health + 1;
+            _colors = new ConsoleColor[] {
+                ConsoleColor.White,
+                //ConsoleColor.DarkGray,
+                ConsoleColor.Red,
+            };
         }
 
         public override int Value => base.Value + 100;
 
-        public override int Health { get => health; set => health = value; }
+        public override int Health { get => _health; set { 
+                _health = value; 
+                Array.Fill(base.ActiveSprite.ColorData, _colors[Math.Clamp(_health - 1, 0, _colors.Length -1)]);
+            }
+        }
         public override Sprite ActiveSprite
         {
             get => base.ActiveSprite;
             set
             {
                 base.ActiveSprite = value;
-                Array.Fill(base.ActiveSprite.ColorData, ConsoleColor.Red);
+                Array.Fill(base.ActiveSprite.ColorData, _colors[Math.Clamp(_health - 1, 0, _colors.Length - 1)]);
             }
         }
 
