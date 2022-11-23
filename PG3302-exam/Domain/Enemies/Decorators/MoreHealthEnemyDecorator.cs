@@ -23,10 +23,12 @@ namespace Domain.Enemies.Decorators
         public override int Value => base.Value + 100;
 
         public override int Health { get => _health; set { 
-                _health = value; 
+                _health = value;
                 Array.Fill(base.ActiveSprite.ColorData, _colors[Math.Clamp(_health - 1, 0, _colors.Length -1)]);
             }
         }
+
+        public override bool IsDestroyed => _health <= 0;
         public override Sprite ActiveSprite
         {
             get => base.ActiveSprite;
