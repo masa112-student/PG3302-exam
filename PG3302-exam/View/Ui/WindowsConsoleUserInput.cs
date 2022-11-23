@@ -15,6 +15,15 @@ namespace View.Ui
 
         public bool IsKeyDown(ConsoleKey key)
         {
+            /* From the docs: "If the high-order bit is 1, the key is down; otherwise, it is up."
+             * 
+             * So the process to check for a key down is to and it with the most significant bit in order to remove irrelevant data. Then check it the most significant bit is set.
+             * ex (with smaller vals):
+             *  result = 1001
+             *  MSB = 1000
+             *  result & MSB = 1000
+             *  return result == MSB 
+             */
             short result = GetKeyState((int)key);
             return (result & MOST_SIGNIFICANT_BIT) == MOST_SIGNIFICANT_BIT;
         }
