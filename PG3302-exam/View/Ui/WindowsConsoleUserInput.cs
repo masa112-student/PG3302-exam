@@ -7,8 +7,7 @@ namespace View.Ui
     /// </summary>
     public class WindowsConsoleUserInput : IUserInput
     {
-
-
+        // Reference: https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-getkeystate
         [DllImport("User32.dll")]
         public static extern short GetKeyState(int vKey);
 
