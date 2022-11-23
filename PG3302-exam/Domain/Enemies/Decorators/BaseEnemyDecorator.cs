@@ -4,7 +4,7 @@ using Domain.Core;
 namespace Domain.Enemies.Decorators
 {
     /// <summary>
-    /// This class just servers as a base for decorators to inherit from. All that it does is accepting an enemy to wrap and forwad it's methods/values
+    /// This class just servers as a base for decorators to inherit from. All it does is accepting an enemy to wrap and forwad it's methods/values
     /// </summary>
     public class BaseEnemyDecorator : Enemy
     {

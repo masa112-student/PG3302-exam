@@ -100,7 +100,6 @@ namespace Domain.Core
                 _bullets.Add(_player.Attack());
 
             // Enemies updates
-
             _enemySpawner.Update(Score);
 
             _enemySpawner.Enemies.ForEach(enemy => {

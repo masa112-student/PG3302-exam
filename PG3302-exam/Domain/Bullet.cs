@@ -46,6 +46,7 @@ namespace Domain
         public void Destroy() {
             ActiveSprite.Visible = false;
             Speed = 0;
+            Health = 0;
         }
 
         public bool Hit(IHittable other) {
