@@ -3,7 +3,7 @@
 
 namespace Domain.Enemies.Factories
 {
-    public class StrongEnemyFactory : EnemyFactory
+    public class MoreHealthEnemyFactory : EnemyFactory
     {
         public override Enemy getEnemy()
         {

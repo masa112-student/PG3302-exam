@@ -2,7 +2,7 @@
 
 namespace Domain.Enemies.Factories
 {
-    public class FastEnemyFactory : EnemyFactory
+    public class MoreSpeedEnemyFactory : EnemyFactory
     {
         public override Enemy getEnemy()
         {
