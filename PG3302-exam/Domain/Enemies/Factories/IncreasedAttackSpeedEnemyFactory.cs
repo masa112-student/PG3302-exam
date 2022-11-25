@@ -1,4 +1,5 @@
 ﻿using Domain.Enemies.Decorators;
+using System;
 
 namespace Domain.Enemies.Factories
 {
@@ -6,9 +7,10 @@ namespace Domain.Enemies.Factories
     {
         public override Enemy getEnemy()
         {
-            Enemy b = new BasicEnemy();
-            b = new IncreasedAttackSpeedEnemyDecorator(b);
-            return b;
+            Enemy enemy = new BasicEnemy();
+            enemy = new IncreasedAttackSpeedEnemyDecorator(enemy);
+            enemy.ActiveSprite = SpriteConfig.EnemySprite;
+            return enemy;
         }
     }
 }
