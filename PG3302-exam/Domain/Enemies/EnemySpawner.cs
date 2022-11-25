@@ -26,21 +26,21 @@ namespace Domain.Enemies
             _enemies = new();
             int enemyCount = random.Next(1, 10);
 
-            //EnemyType typeToSpawn;
-            //int typeToSpawnIndex;
-            //for (int i = 0; i < enemyCount; i++) {
-            //    typeToSpawnIndex = random.Next(_enemyTypes.Count);
-            //    typeToSpawn = _enemyTypes[typeToSpawnIndex];
+            EnemyType typeToSpawn;
+            int typeToSpawnIndex;
+            for (int i = 0; i < enemyCount; i++) {
+                typeToSpawnIndex = random.Next(_enemyTypes.Count);
+                typeToSpawn = _enemyTypes[typeToSpawnIndex];
 
-            //    // Create a new enemy from the factory. The position of each enemy is derived from the width of the sprite and also the speed at which they move.
-            //    // (Faster sprites needs a bigger gap, otherwise they will overlap)
-            //    Enemy enemy = EnemyFactoryMaker.MakeFactory(typeToSpawn).getEnemy();
-            //    enemy.ActiveSprite = SpriteConfig.EnemySprite;
-            //    enemy.Pos = enemyStartPos + new Point(i * (enemy.ActiveSprite.Size.Width + enemy.Speed), 0);
-            //    _enemies.Add(enemy);
-            //}
+                // Create a new enemy from the factory. The position of each enemy is derived from the width of the sprite and also the speed at which they move.
+                // (Faster sprites needs a bigger gap, otherwise they will overlap)
+                Enemy enemy = EnemyFactoryMaker.MakeFactory(typeToSpawn).getEnemy();
+                enemy.ActiveSprite = SpriteConfig.EnemySprite;
+                enemy.Pos = enemyStartPos + new Point(i * (enemy.ActiveSprite.Size.Width + enemy.Speed), 0);
+                _enemies.Add(enemy);
+            }
 
-            DebugSpawnEnemyTypes();
+            //DebugSpawnEnemyTypes();
         }
 
         public void Update(int currentScore) {
@@ -53,6 +53,9 @@ namespace Domain.Enemies
                 }
                 if (currentScore > 1000) {
                     AddTypeToSpawnPool(EnemyType.Strong);
+                }
+                if (currentScore > 10000) {
+                    AddTypeToSpawnPool(EnemyType.Boss);
                 }
 
                 EnemySpawnChecker();
@@ -68,28 +71,29 @@ namespace Domain.Enemies
 
         [Conditional("DEBUG")]
         private void DebugSpawnEnemyTypes() {
-            int y = 0;
-            int fastY = 0; // In case the fast one is too fast to spawn as far down as the others during testing
+            int y = 4;
+            int fastY = 4; // In case the fast one is too fast to spawn as far down as the others during testing
+            Enemy enemy;
 
-            Enemy enemy = EnemyFactoryMaker.MakeFactory(EnemyType.Boss).getEnemy();
+            enemy = EnemyFactoryMaker.MakeFactory(EnemyType.Boss).getEnemy();
+            enemy.Pos = enemyStartPos + new Point(0 * (enemy.ActiveSprite.Size.Width + enemy.Speed), 0);
+            _enemies.Add(enemy);
+
+            enemy = EnemyFactoryMaker.MakeFactory(EnemyType.Basic).getEnemy();
             enemy.Pos = enemyStartPos + new Point(0 * (enemy.ActiveSprite.Size.Width + enemy.Speed), y);
             _enemies.Add(enemy);
-            
-            //enemy = EnemyFactoryMaker.MakeFactory(EnemyType.Basic).getEnemy();
-            //enemy.Pos = enemyStartPos + new Point(0 * (enemy.ActiveSprite.Size.Width + enemy.Speed), y);
-            //_enemies.Add(enemy);
 
-            //enemy = EnemyFactoryMaker.MakeFactory(EnemyType.Strong).getEnemy();
-            //enemy.Pos = enemyStartPos + new Point(1 * (enemy.ActiveSprite.Size.Width + enemy.Speed), y);
-            //_enemies.Add(enemy);
+            enemy = EnemyFactoryMaker.MakeFactory(EnemyType.Strong).getEnemy();
+            enemy.Pos = enemyStartPos + new Point(1 * (enemy.ActiveSprite.Size.Width + enemy.Speed), y);
+            _enemies.Add(enemy);
 
-            //enemy = EnemyFactoryMaker.MakeFactory(EnemyType.FastAttack).getEnemy();
-            //enemy.Pos = enemyStartPos + new Point(2 * (enemy.ActiveSprite.Size.Width + enemy.Speed), y);
-            //_enemies.Add(enemy);
+            enemy = EnemyFactoryMaker.MakeFactory(EnemyType.FastAttack).getEnemy();
+            enemy.Pos = enemyStartPos + new Point(2 * (enemy.ActiveSprite.Size.Width + enemy.Speed), y);
+            _enemies.Add(enemy);
 
-            //enemy = EnemyFactoryMaker.MakeFactory(EnemyType.Fast).getEnemy();
-            //enemy.Pos = enemyStartPos + new Point(3 * (enemy.ActiveSprite.Size.Width + enemy.Speed), fastY);
-            //_enemies.Add(enemy);
+            enemy = EnemyFactoryMaker.MakeFactory(EnemyType.Fast).getEnemy();
+            enemy.Pos = enemyStartPos + new Point(3 * (enemy.ActiveSprite.Size.Width + enemy.Speed), fastY);
+            _enemies.Add(enemy);
         }
 
     }
