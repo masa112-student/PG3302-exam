@@ -13,8 +13,6 @@ namespace Domain.Enemies.Decorators
         private const int ATTACK_SPEED_MS = 3000;
         private readonly Random _attackRandom;
 
-        private Sprite _sprite;
-
         public IncreasedAttackSpeedEnemyDecorator(Enemy enemy) : base(enemy)
         {
             _attackTimer = Stopwatch.StartNew();
