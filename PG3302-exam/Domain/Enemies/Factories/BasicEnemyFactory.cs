@@ -4,7 +4,9 @@
     {
         public override Enemy getEnemy()
         {
-            return new BasicEnemy();
+            Enemy enemy = new BasicEnemy();
+            enemy.ActiveSprite = SpriteConfig.EnemySprite;
+            return enemy;
         }
     }
 }

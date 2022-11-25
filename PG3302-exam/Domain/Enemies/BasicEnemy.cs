@@ -24,7 +24,6 @@ namespace Domain.Enemies
 
         private readonly Random _attackRandom;
         private readonly Stopwatch _attackTimer;
-        private const int ATTACK_DELAY_MS = 10000;
 
         public BasicEnemy() {
             _activeSprite = new();
@@ -63,9 +62,11 @@ namespace Domain.Enemies
                 _attackTimer.Restart();
                 return _attackRandom.Next(100) < 20;
             } }
-        public override bool CanAttack { get => _attackTimer.ElapsedMilliseconds > ATTACK_DELAY_MS; }
+        public override bool CanAttack { get => _attackTimer.ElapsedMilliseconds > AttackSpeedMs; }
 
         public override bool IsDestroyed => Health <= 0;
+
+        public override int AttackSpeedMs => 10000;
 
         public override Bullet Attack() {
             Point bulleSpawnPoint = Pos + new Point(Size.Width / 2, Size.Height);

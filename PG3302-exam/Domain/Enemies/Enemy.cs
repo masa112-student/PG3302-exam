@@ -24,9 +24,12 @@ namespace Domain.Enemies
         public abstract bool CanAttack { get; } // Is it allowed to attack (ex weapon cooldown)
         public abstract bool ShouldAttack { get; } // Should it (ex only attack if certain conditions are met, or random chance to attack)
 
+        public abstract int AttackSpeedMs { get; }
+
         public abstract Bullet Attack();
         public abstract void Destroy();
         public abstract bool Hit(IHittable hittable);
+
     }
 }
 

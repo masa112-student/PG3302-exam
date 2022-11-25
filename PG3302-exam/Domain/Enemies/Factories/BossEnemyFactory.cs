@@ -12,6 +12,7 @@ namespace Domain.Enemies.Factories
             enemy = new MoreHealthEnemyDecorator(enemy);
             enemy = new MoreHealthEnemyDecorator(enemy);
             enemy = new IncreasedAttackSpeedEnemyDecorator(enemy);
+            enemy = new IncreasedAttackSpeedEnemyDecorator(enemy);
             enemy.ActiveSprite = SpriteConfig.BossEnemySprite;
 
             Array.Fill(enemy.ActiveSprite.ColorData, ConsoleColor.Magenta);

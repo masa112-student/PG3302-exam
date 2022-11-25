@@ -32,6 +32,7 @@ namespace Domain.Enemies.Decorators
 
         public override IHittable.HitMask Mask { get => _enemy.Mask; set => _enemy.Mask = value; }
 
+        public override int AttackSpeedMs => _enemy.AttackSpeedMs;
 
         public override Bullet Attack()
         {

@@ -10,7 +10,6 @@ namespace Domain.Enemies.Decorators
     internal class IncreasedAttackSpeedEnemyDecorator : BaseEnemyDecorator
     {
         private Stopwatch _attackTimer;
-        private const int ATTACK_SPEED_MS = 3000;
         private readonly Random _attackRandom;
 
         public IncreasedAttackSpeedEnemyDecorator(Enemy enemy) : base(enemy)
@@ -33,7 +32,10 @@ namespace Domain.Enemies.Decorators
                 return _attackRandom.Next(100) > 50;
             }
         }
-        public override bool CanAttack => _attackTimer.ElapsedMilliseconds > ATTACK_SPEED_MS;
+
+        public override int AttackSpeedMs => base.AttackSpeedMs / 3;
+
+        public override bool CanAttack => _attackTimer.ElapsedMilliseconds > AttackSpeedMs;
         public override Sprite ActiveSprite
         {
             get => base.ActiveSprite;
