@@ -1,4 +1,5 @@
 ﻿using Domain.Enemies.Decorators;
+using System;
 
 
 namespace Domain.Enemies.Factories
@@ -7,9 +8,10 @@ namespace Domain.Enemies.Factories
     {
         public override Enemy getEnemy()
         {
-            Enemy b = new BasicEnemy();
-            b = new MoreHealthEnemyDecorator(b);
-            return b;
+            Enemy enemy = new BasicEnemy();
+            enemy = new MoreHealthEnemyDecorator(enemy);
+            enemy.ActiveSprite = SpriteConfig.EnemySprite;
+            return enemy;
         }
     }
 }

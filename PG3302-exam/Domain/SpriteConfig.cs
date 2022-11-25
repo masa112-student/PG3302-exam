@@ -15,6 +15,7 @@ namespace Domain
     {
         public static Sprite PlayerSprite => new(" ^ \n^^^");
         public static Sprite EnemySprite => new("xxx\n\\v/");
+        public static Sprite BossEnemySprite => new(">xxx<\n-\\v/-");
         public static Sprite BulletSprite => new("o");
         public static Sprite EnemyBulletSprite => new("|");
     }
