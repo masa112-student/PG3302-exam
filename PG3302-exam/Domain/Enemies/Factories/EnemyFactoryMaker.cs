@@ -9,25 +9,21 @@
         Fast,
         Strong,
         FastAttack,
+        Boss
     }
 
-    public class EnemyFactoryMaker
+    public static class EnemyFactoryMaker
     {
-        public EnemyFactory MakeFactory(EnemyType type)
+        public static EnemyFactory MakeFactory(EnemyType type)
         {
-            switch (type)
-            {
-                case EnemyType.Basic:
-                    return new BasicEnemyFactory();
-                case EnemyType.Fast:
-                    return new MoreSpeedEnemyFactory();
-                case EnemyType.FastAttack:
-                    return new IncreasedAttackSpeedEnemyFactory();
-                case EnemyType.Strong:
-                    return new MoreHealthEnemyFactory();
-                default:
-                    throw new ArgumentException($"Invalid type supplied to enemy factory {type}");
-            }
+            return type switch {
+                EnemyType.Basic => new BasicEnemyFactory(),
+                EnemyType.Fast => new MoreSpeedEnemyFactory(),
+                EnemyType.FastAttack => new IncreasedAttackSpeedEnemyFactory(),
+                EnemyType.Strong => new MoreHealthEnemyFactory(),
+                EnemyType.Boss => new BossEnemyFactory(),
+                _ => throw new ArgumentException($"Invalid type supplied to enemy factory {type}"),
+            };
         }
     }
 }
