@@ -10,7 +10,7 @@ namespace Domain
         private Sprite _activeSprite;
         private Point _pos;
         private Stopwatch _attackTimer;
-        private readonly int _attackDelayMs = 100;
+        private readonly int _attackDelayMs = 250;
 
         public Player() {
             _activeSprite = new();
