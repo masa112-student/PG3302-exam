@@ -42,7 +42,7 @@ namespace Domain.Enemies
             }
         }
 
-        public void EnemySpawnChecker()
+        public void SpawnWave()
         {
             _enemies.Clear();
 
@@ -92,7 +92,7 @@ namespace Domain.Enemies
                     AddTypeToSpawnPool(EnemyType.Boss);
                 }
 
-                EnemySpawnChecker();
+                SpawnWave();
             }
 
         }
