@@ -130,7 +130,9 @@ namespace Domain.Core
                             _entityDamager.Damage(enemy);
                             _entityDamager.Damage(bullet);
 
-                            Score += enemy.Value;
+                            if(enemy.IsDestroyed)
+                                Score += enemy.Value;
+
                         }
                     } 
                 });
