@@ -40,7 +40,7 @@ namespace Domain.Core
 
             _entityMover = new(boardDimensions);
             _entityDamager = new();
-            _enemySpawner = new();
+            _enemySpawner = new(boardDimensions);
             _enemyMovement = new(boardDimensions);
 
             _bullets = new();
