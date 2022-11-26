@@ -15,7 +15,6 @@ namespace Domain.Enemies.Decorators
             _health = moreHealthEnemy.Health + 1;
             _colors = new ConsoleColor[] {
                 ConsoleColor.White,
-                //ConsoleColor.DarkGray,
                 ConsoleColor.Red,
             };
         }
